@@ -4,6 +4,9 @@ export const StyledProjectDetailsContainer = styled.div`
   .project-details-container-box {
     text-align: left;
   }
+  .project-details-container-box > h1 {
+    margin-top: 0px;
+  }
   .project-info-box {
     display: flex;
     flex-direction: row;

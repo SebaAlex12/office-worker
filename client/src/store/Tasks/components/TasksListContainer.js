@@ -16,16 +16,16 @@ class TasksListContainer extends Component {
       filteredTasks: tasks,
     };
   }
-  componentDidUpdate(nextProps, nextState) {
-    // if (this.state.tasks !== this.props.tasks) {
-    //   this.setState({
-    //     tasks: this.props.tasks,
-    //   });
-    // }
-    // console.log("this.props", this.props);
-    // console.log("this.state", this.state);
-    // console.log("next props", nextProps);
-    // console.log("next state", nextState);
+  componentWillReceiveProps(nextProps) {
+    console.log("component will resive props");
+    console.log("next props", nextProps);
+    if (nextProps.tasks != this.state.tasks) {
+      this.setState({
+        ...this.state,
+        tasks: nextProps.tasks,
+        filteredTasks: nextProps.tasks,
+      });
+    }
   }
   sortItems = (column, direction) => {
     let { tasks } = this.state;
@@ -45,16 +45,16 @@ class TasksListContainer extends Component {
     const { tasks, filteredTasks } = this.state;
     const { removeTask } = this.props;
 
-    const result = window.confirm("Czy na pewno chcesz usunąć taska!");
+    const result = window.confirm("Czy na pewno chcesz usunąć zadanie!");
 
     if (result) {
       const response = await removeTask(id);
-      if (response) {
-        this.setState({
-          tasks: tasks.filter((item) => item._id !== id),
-          filteredTasks: filteredTasks.filter((item) => item._id !== id),
-        });
-      }
+      // if (response) {
+      //   this.setState({
+      //     tasks: tasks.filter((item) => item._id !== id),
+      //     filteredTasks: filteredTasks.filter((item) => item._id !== id),
+      //   });
+      // }
     }
   };
   updateTasksHandler = async (element) => {

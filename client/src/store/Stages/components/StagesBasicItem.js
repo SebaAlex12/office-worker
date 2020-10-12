@@ -52,7 +52,7 @@ class StagesBasicItem extends Component {
         <td className="createdAt">
           {" "}
           <TextFieldGroup
-            type="date"
+            type="datetime-local"
             title={item.createdAt}
             onChange={this.onChangeHandler}
             name="createdAt"
@@ -70,7 +70,7 @@ class StagesBasicItem extends Component {
         </td>
         <td className="termAt">
           <TextFieldGroup
-            type="date"
+            type="datetime-local"
             title={item.termAt}
             onChange={this.onChangeHandler}
             name="termAt"

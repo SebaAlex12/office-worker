@@ -75,6 +75,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="status"
             value={item.status}
+            disabled="true"
           />
         </td>
         <td className="priority">
@@ -84,6 +85,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="priority"
             value={item.priority}
+            disabled="true"
           />
         </td>
         <td className="createdBy">
@@ -93,6 +95,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdBy"
             value={item.createdBy}
+            disabled="true"
           />
         </td>
         <td className="responsiblePerson">
@@ -102,6 +105,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="responsiblePerson"
             value={item.responsiblePerson}
+            disabled="true"
           />
         </td>
         <td className="termAt">
@@ -120,6 +124,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
+            disabled="true"
           />
         </td>
       </Aux>

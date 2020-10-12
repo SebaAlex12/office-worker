@@ -126,13 +126,13 @@ const TasksBasicList = (props) => {
               <th className="termAt">
                 Termin{sortItemsContent("termAt")}
                 <div className="search-item">
-                  {searchItemsContent("termAt", "datetime-local")}
+                  {searchItemsContent("termAt", "date")}
                 </div>
               </th>
               <th className="createdAt">
                 Utworzono{sortItemsContent("createdAt")}
                 <div className="search-item">
-                  {searchItemsContent("createdAt", "datetime-local")}
+                  {searchItemsContent("createdAt", "date")}
                 </div>
               </th>
               <th className="actions">Akcje</th>

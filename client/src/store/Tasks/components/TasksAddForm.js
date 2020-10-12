@@ -188,7 +188,7 @@ class TasksAddForm extends Component {
                 name="projectName"
                 required
               >
-                <option value="">Wybierz projekt</option>
+                <option value="">Wybierz sprawę</option>
                 {projects
                   ? projects.map((project) => {
                       let option = "";

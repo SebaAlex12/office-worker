@@ -14,6 +14,15 @@ class StagesListContainer extends Component {
       filteredStages: stages ? stages : [],
     };
   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.stages != this.state.stages) {
+      this.setState({
+        ...this.state,
+        stages: nextProps.stages,
+        filteredStages: nextProps.stages,
+      });
+    }
+  }
   sortItems = (column, direction) => {
     let { stages } = this.state;
 
@@ -36,12 +45,12 @@ class StagesListContainer extends Component {
 
     if (result) {
       const response = await removeStage(id);
-      if (response) {
-        this.setState({
-          stages: stages.filter((item) => item._id !== id),
-          filteredStages: filteredStages.filter((item) => item._id !== id),
-        });
-      }
+      // if (response) {
+      //   this.setState({
+      //     stages: stages.filter((item) => item._id !== id),
+      //     filteredStages: filteredStages.filter((item) => item._id !== id),
+      //   });
+      // }
     }
   };
   updateStagesHandler = async (element) => {
@@ -77,19 +86,17 @@ class StagesListContainer extends Component {
   };
   render() {
     const { filteredStages } = this.state;
-
-    const stageListContent =
-      filteredStages.length > 0 ? (
-        <StagesBasicList
-          items={filteredStages}
-          sortItems={this.sortItems}
-          removeItem={this.removeStagesHandler}
-          updateItem={this.updateStagesHandler}
-          searchItem={this.onChangeStagesSearcherHandler}
-        />
-      ) : (
-        "brak rekordow"
-      );
+    console.log("filteredStages", filteredStages);
+    console.log("render");
+    const stageListContent = (
+      <StagesBasicList
+        items={filteredStages}
+        sortItems={this.sortItems}
+        removeItem={this.removeStagesHandler}
+        updateItem={this.updateStagesHandler}
+        searchItem={this.onChangeStagesSearcherHandler}
+      />
+    );
     return (
       <div>
         <h1>Etapy</h1>
@@ -99,4 +106,12 @@ class StagesListContainer extends Component {
   }
 }
 
-export default connect(null, { removeStage, updateStage })(StagesListContainer);
+const mapStateToProps = (state) => {
+  return {
+    stages: state.stages.stages,
+  };
+};
+
+export default connect(mapStateToProps, { removeStage, updateStage })(
+  StagesListContainer
+);

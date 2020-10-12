@@ -16,16 +16,14 @@ class IncomingMailsListContainer extends Component {
       filteredIncomingMails: incomingMails,
     };
   }
-  componentDidUpdate(nextProps, nextState) {
-    // if (this.state.incomingMails !== this.props.incomingMails) {
-    //   this.setState({
-    //     incomingMails: this.props.incomingMails,
-    //   });
-    // }
-    // console.log("this.props", this.props);
-    // console.log("this.state", this.state);
-    // console.log("next props", nextProps);
-    // console.log("next state", nextState);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.incomingMails != this.state.incomingMails) {
+      this.setState({
+        ...this.state,
+        incomingMails: nextProps.incomingMails,
+        filteredIncomingMails: nextProps.incomingMails,
+      });
+    }
   }
   sortItems = (column, direction) => {
     let { incomingMails } = this.state;
@@ -42,7 +40,6 @@ class IncomingMailsListContainer extends Component {
     });
   };
   removeIncomingMailsHandler = async (id) => {
-    const { incomingMails, filteredIncomingMails } = this.state;
     const { removeIncomingMail } = this.props;
 
     const result = window.confirm(
@@ -51,14 +48,14 @@ class IncomingMailsListContainer extends Component {
 
     if (result) {
       const response = await removeIncomingMail(id);
-      if (response) {
-        this.setState({
-          incomingMails: incomingMails.filter((item) => item._id !== id),
-          filteredIncomingMails: filteredIncomingMails.filter(
-            (item) => item._id !== id
-          ),
-        });
-      }
+      // if (response) {
+      //   this.setState({
+      //     incomingMails: incomingMails.filter((item) => item._id !== id),
+      //     filteredIncomingMails: filteredIncomingMails.filter(
+      //       (item) => item._id !== id
+      //     ),
+      //   });
+      // }
     }
   };
   updateIncomingMailsHandler = async (element) => {

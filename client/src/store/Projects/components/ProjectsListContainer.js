@@ -16,16 +16,16 @@ class ProjectsListContainer extends Component {
       filteredProjects: projects,
     };
   }
-  componentDidUpdate(nextProps, nextState) {
-    // if (this.state.projects !== this.props.projects) {
-    //   this.setState({
-    //     projects: this.props.projects,
-    //   });
-    // }
-    // console.log("this.props", this.props);
-    // console.log("this.state", this.state);
-    // console.log("next props", nextProps);
-    // console.log("next state", nextState);
+  componentWillReceiveProps(nextProps) {
+    console.log("component will resive props");
+    console.log("next props", nextProps);
+    if (nextProps.projects != this.state.projects) {
+      this.setState({
+        ...this.state,
+        projects: nextProps.projects,
+        filteredProjects: nextProps.projects,
+      });
+    }
   }
   sortItems = (column, direction) => {
     let { projects } = this.state;
@@ -42,7 +42,7 @@ class ProjectsListContainer extends Component {
     });
   };
   removeProjectsHandler = async (id) => {
-    const { projects, filteredProjects } = this.state;
+    // const { projects, filteredProjects } = this.state;
     const { removeProject } = this.props;
 
     const result = window.confirm(
@@ -51,12 +51,12 @@ class ProjectsListContainer extends Component {
 
     if (result) {
       const response = await removeProject(id);
-      if (response) {
-        this.setState({
-          projects: projects.filter((item) => item._id !== id),
-          filteredProjects: filteredProjects.filter((item) => item._id !== id),
-        });
-      }
+      // if (response) {
+      //   this.setState({
+      //     projects: projects.filter((item) => item._id !== id),
+      //     filteredProjects: filteredProjects.filter((item) => item._id !== id),
+      //   });
+      // }
     }
   };
   updateProjectsHandler = async (element) => {

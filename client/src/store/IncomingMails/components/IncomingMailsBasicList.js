@@ -92,7 +92,7 @@ const IncomingMailsBasicList = (props) => {
               <th className="deliveryDate">
                 Data doręczenia{sortItemsContent("deliveryDate")}
                 <div className="search-item">
-                  {searchItemsContent("deliveryDate", "datetime-local")}
+                  {searchItemsContent("deliveryDate", "date")}
                 </div>
               </th>
               <th className="sender">

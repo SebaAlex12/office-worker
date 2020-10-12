@@ -43,8 +43,8 @@ class ProjectsDetailsContainer extends Component {
     const { toggleStageAddForm, projectUsers } = this.state;
     const { item, stages } = this.props;
 
-    const stageListContent =
-      stages.length > 0 ? <StagesListContainer stages={stages} /> : null;
+    const stageListContent = <StagesListContainer />;
+
     const stageAddFormContent = toggleStageAddForm ? (
       <StagesAddForm projectId={item._id} />
     ) : null;
@@ -82,18 +82,18 @@ class ProjectsDetailsContainer extends Component {
     const userInfoData =
       projectUsers.length > 0
         ? projectUsers.map((user) => (
-            <div className="user">
+            <div className="user" key={user._id}>
               <div className="name">
                 <span>Imię i nazwisko/Nazwa:</span>
                 <span>{user.name}</span>
               </div>
               <div className="address">
                 <span>Adres:</span>
-                <span>brak</span>
+                <span>{user.address}</span>
               </div>
               <div className="phone">
                 <span>Telefon:</span>
-                <span>brak</span>
+                <span>{user.phone}</span>
               </div>
               <div className="email">
                 <span>Mail:</span>
@@ -114,7 +114,9 @@ class ProjectsDetailsContainer extends Component {
           <h1>
             {projectUsers.length > 0
               ? projectUsers.map((user) => (
-                  <span style={{ paddingRight: "5px" }}>{user.name}</span>
+                  <span key={user._id} style={{ paddingRight: "5px" }}>
+                    {user.name}
+                  </span>
                 ))
               : "Brak przypisanej osoby !"}
           </h1>
@@ -140,7 +142,6 @@ class ProjectsDetailsContainer extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    stages: state.stages.stages,
     users: state.users.users,
   };
 };

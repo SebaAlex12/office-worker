@@ -70,6 +70,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
+            disabled="true"
           />
         </td>
         <td className="type">
@@ -79,6 +80,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="type"
             value={item.type}
+            disabled="true"
           />
         </td>
         <td className="signature">
@@ -88,6 +90,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="signature"
             value={item.signature}
+            disabled="true"
           />
         </td>
         <td className="lastComment">

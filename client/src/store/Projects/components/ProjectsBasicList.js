@@ -92,7 +92,7 @@ const ProjectsBasicList = (props) => {
               <th className="createdAt">
                 Data rejestracji{sortItemsContent("createdAt")}
                 <div className="search-item">
-                  {searchItemsContent("createdAt", "datetime-local")}
+                  {searchItemsContent("createdAt", "date")}
                 </div>
               </th>
               <th className="type">
@@ -116,7 +116,7 @@ const ProjectsBasicList = (props) => {
               <th className="termAt">
                 Termin{sortItemsContent("termAt")}
                 <div className="search-item">
-                  {searchItemsContent("termAt", "datetime-local")}
+                  {searchItemsContent("termAt", "date")}
                 </div>
               </th>
               <th className="actions">Akcje</th>
