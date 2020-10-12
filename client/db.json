@@ -1,0 +1,48 @@
+{
+  "tasks": [
+    {
+      "id": "dvasdvasvs",
+      "userId": 1,
+      "userNickname": "Spider-man",
+      "title": "Task 1",
+      "description": "1Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym.",
+      "status": "done",
+      "createdAt": "Tuesday, September 24, 2019 6:57 PM",
+      "finishedAt": "Tuesday, September 24, 2019 6:57 PM"
+    },
+    {
+      "id": "dvasdvbgfdasvs",
+      "userId": 1,
+      "userNickname": "Spider-man",
+      "title": "Task 2",
+      "description": "2Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym.",
+      "status": "active",
+      "createdAt": "Tuesday, September 24, 2019 6:57 PM",
+      "finishedAt": null
+    },
+    {
+      "id": "hrerethers",
+      "userId": 1,
+      "userNickname": "Spider-man",
+      "title": "Task 3",
+      "description": "3Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym.",
+      "status": "active",
+      "createdAt": "Tuesday, September 24, 2019 6:57 PM",
+      "finishedAt": null
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "nickname": "Spider-man",
+      "mail": "spider@nest.com",
+      "logged": false
+    },
+    {
+      "id": 2,
+      "nickname": "Batman",
+      "mail": "batman@cave.com",
+      "logged": true
+    }
+  ]
+}
