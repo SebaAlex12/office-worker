@@ -24,11 +24,12 @@ class UsersEditFrom extends Component {
     const { item } = this.props;
     console.log(item);
     this.setState({
-      _id: item ? item._id : "",
-      name: item ? item.name : "",
-      email: item ? item.email : "",
-      address: item ? item.address : "",
-      phone: item ? item.phone : "",
+      _id: item._id ? item._id : "",
+      name: item.name ? item.name : "",
+      email: item.email ? item.email : "",
+      address: item.address ? item.address : "",
+      phone: item.phone ? item.phone : "",
+      password: item.password ? item.password : "",
       status: item ? item.status : "",
       selectedProjects: item.projects ? item.projects.split(",") : [],
       selectedUsers: item.users ? item.users.split(",") : [],
@@ -99,7 +100,7 @@ class UsersEditFrom extends Component {
       projects: selectedProjects,
       users: selectedUsers,
     };
-
+    console.log("data user", data);
     const response = updateUser(data);
     if (response) {
       updateMessages([

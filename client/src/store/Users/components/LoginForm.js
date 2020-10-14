@@ -41,7 +41,7 @@ class LoginForm extends Component {
       <div
         className="login-form-box mb-3 mt-3"
         style={{
-          marginTop: "150px",
+          marginTop: "50px",
           width: "300px",
           marginLeft: "auto",
           marginRight: "auto",

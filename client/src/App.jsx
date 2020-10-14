@@ -9,6 +9,8 @@ import { ThemeProvider } from "styled-components";
 
 import jwt_decode from "jwt-decode";
 
+import logo from "./adwokaci-lodz.png";
+
 import {
   loginUser,
   fetchLoggedUser,
@@ -79,7 +81,8 @@ function App() {
     try {
       const response = await store.dispatch(loginUser(data));
       if (response) {
-        setTimeout(() => (window.location.href = "/"), 3000);
+        console.log("response", response);
+        setTimeout(() => (window.location.href = "/"), 5000);
       }
     } catch (error) {
       console.log(error);
@@ -95,6 +98,15 @@ function App() {
               {!localStorage.jwtTokenAuthorization ||
               localStorage.jwtTokenAuthorization === undefined ? (
                 <div className="login-box">
+                  <img
+                    style={{
+                      backgroundColor: "#000",
+                      padding: "10px",
+                      marginTop: "50px",
+                    }}
+                    src={logo}
+                    alt=""
+                  />
                   <LoginForm loginUserHandler={loginUserHandler} />
                 </div>
               ) : (
