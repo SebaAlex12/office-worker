@@ -17,6 +17,7 @@ import {
   fetchUsers,
   fetchUsersByLoggedUserProjects,
 } from "./store/Users/actions";
+import { fetchProjects } from "./store/Projects/actions";
 import LoginForm from "./store/Users/components/LoginForm";
 import { fetchSettings } from "./store/Settings/actions";
 
@@ -67,8 +68,10 @@ if (localStorage.jwtTokenAuthorization) {
     );
     if (status === "Administrator") {
       store.dispatch(fetchUsers());
+      store.dispatch(fetchProjects());
     } else {
       store.dispatch(fetchUsers());
+      store.dispatch(fetchProjects());
     }
     store.dispatch(fetchSettings());
   } else {

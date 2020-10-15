@@ -17,8 +17,8 @@ class ProjectsListContainer extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    console.log("component will resive props");
-    console.log("next props", nextProps);
+    // console.log("component will resive props");
+    // console.log("next props", nextProps);
     if (nextProps.projects != this.state.projects) {
       this.setState({
         ...this.state,

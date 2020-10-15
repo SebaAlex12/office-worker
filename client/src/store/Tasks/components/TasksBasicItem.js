@@ -9,9 +9,11 @@ import {
 import moment from "moment/min/moment-with-locales";
 
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
+import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
+import { priorities, statuses } from "../../ini";
 
 class TasksBasicItem extends Component {
   constructor(props) {
@@ -56,6 +58,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="title"
             value={item.title}
+            disabled="true"
           />
         </td>
         <td className="projectName">
@@ -66,26 +69,23 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="projectName"
             value={item.projectName}
+            disabled="true"
           />
         </td>
         <td className="status">
-          <TextFieldGroup
-            type="text"
-            title={item.status}
-            onChange={this.onChangeHandler}
+          <SelectFieldGroup
             name="status"
-            value={item.status}
-            disabled="true"
+            items={statuses}
+            selectedItem={item.status}
+            onChange={this.onChangeHandler}
           />
         </td>
         <td className="priority">
-          <TextFieldGroup
-            type="text"
-            title={item.priority}
-            onChange={this.onChangeHandler}
+          <SelectFieldGroup
             name="priority"
-            value={item.priority}
-            disabled="true"
+            items={priorities}
+            selectedItem={item.priority}
+            onChange={this.onChangeHandler}
           />
         </td>
         <td className="createdBy">

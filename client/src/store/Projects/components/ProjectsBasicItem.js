@@ -9,8 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/min/moment-with-locales";
 
+import { projectTypes } from "../../ini";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
+import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
 import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
@@ -60,6 +62,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="name"
             value={item.name}
+            disabled="true"
           />
         </td>
         <td className="createdAt">
@@ -74,13 +77,11 @@ class ProjectsBasicItem extends Component {
           />
         </td>
         <td className="type">
-          <TextFieldGroup
-            type="text"
-            title={item.type}
-            onChange={this.onChangeHandler}
+          <SelectFieldGroup
             name="type"
-            value={item.type}
-            disabled="true"
+            items={projectTypes}
+            selectedItem={item.type}
+            onChange={this.onChangeHandler}
           />
         </td>
         <td className="signature">
@@ -100,6 +101,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="lastComment"
             value={item.lastComment}
+            disabled="true"
           />
         </td>
         <td className="termAt">

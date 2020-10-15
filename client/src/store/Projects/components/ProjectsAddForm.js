@@ -5,6 +5,7 @@ import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
 import { addProject } from "../actions";
+import { updateUser } from "../../Users/actions";
 import { StyledProjectForm } from "../styles/StyledProjectForm";
 import { projectTypes } from "../../ini";
 
@@ -19,6 +20,7 @@ class ProjectsAddForm extends Component {
       description: "",
       createdAt: "",
       termAt: "",
+      userName: "",
     };
   }
   onChangeInput = (event) => {
@@ -34,7 +36,7 @@ class ProjectsAddForm extends Component {
     });
   };
   addHandler = (event) => {
-    const { addProject, loggedUser } = this.props;
+    const { addProject, updateUser, users } = this.props;
     const {
       name,
       signature,
@@ -43,9 +45,10 @@ class ProjectsAddForm extends Component {
       description,
       createdAt,
       termAt,
+      userName,
     } = this.state;
 
-    const data = {
+    const projectData = {
       name,
       signature,
       type,
@@ -56,10 +59,22 @@ class ProjectsAddForm extends Component {
     };
 
     event.preventDefault();
-    addProject(data);
+
+    addProject(projectData);
+
+    const userData = users.filter((user) => {
+      if (user.name === userName) {
+        let projects = user.projects ? user.projects.split(",") : [];
+        projects.push(projectData.name);
+        user.projects = projects;
+        return user;
+      }
+    });
+    updateUser(userData[0]);
   };
   render() {
     const { name, signature, organ, description, termAt } = this.state;
+    const { users } = this.props;
 
     return (
       <StyledProjectForm>
@@ -84,6 +99,12 @@ class ProjectsAddForm extends Component {
               items={projectTypes}
               onChange={this.onChangeSelect}
               defaultName="Wybierz rodzaj"
+            />
+            <SelectFieldGroup
+              name="userName"
+              items={users}
+              onChange={this.onChangeSelect}
+              defaultName="Wybierz użytkownika"
             />
             <TextFieldGroup
               title="organ"
@@ -126,8 +147,10 @@ class ProjectsAddForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    loggedUser: state.users.logged_user,
+    users: state.users.users,
   };
 };
 
-export default connect(mapStateToProps, { addProject })(ProjectsAddForm);
+export default connect(mapStateToProps, { addProject, updateUser })(
+  ProjectsAddForm
+);

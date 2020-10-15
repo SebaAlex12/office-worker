@@ -4,14 +4,18 @@ export default function TextFieldGroup({
   defaultName,
   name,
   items,
+  selectedItemId,
   onChange,
   disabled,
 }) {
   let counter = 1;
-  console.log("items", items);
   const selectOptionsContent = items
     ? items.map((item) => (
-        <option key={counter++} value={item.name}>
+        <option
+          key={counter++}
+          value={item.name}
+          selected={item.name === selectedItemId ? "selected" : null}
+        >
           {item.name}
         </option>
       ))
