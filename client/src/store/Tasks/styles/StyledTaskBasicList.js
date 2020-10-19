@@ -32,6 +32,9 @@ export const StyledTaskBasicList = styled.div`
   .tasks-basic-list-box table .title {
     width: 160px;
   }
+  .tasks-basic-list-box table tr > th.ordinalNumber {
+    width: 30px;
+  }
   .tasks-basic-list-box table .projectName {
     width: 130px;
   }

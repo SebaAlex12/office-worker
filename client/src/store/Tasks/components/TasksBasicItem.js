@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
   faPencilAlt,
   faPlusSquare,
   faEdit,
+  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/min/moment-with-locales";
 
@@ -14,6 +16,9 @@ import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGr
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
 import { priorities, statuses } from "../../ini";
+import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
+import CalendarContainer from "../../Calendar/components/CalendarContainer";
+import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
 
 class TasksBasicItem extends Component {
   constructor(props) {
@@ -23,6 +28,7 @@ class TasksBasicItem extends Component {
       editItem: false,
       moreItem: false,
       item: item,
+      showCalendar: false,
     };
   }
   onChangeHandler = (event) => {
@@ -46,11 +52,12 @@ class TasksBasicItem extends Component {
     // }
   };
   render() {
-    const { item, editItem, moreItem } = this.state;
-    const { removeItem } = this.props;
+    const { item, editItem, moreItem, showCalendar } = this.state;
+    const { removeItem, ordinalNumber, loggedUser } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="title">
           <TextFieldGroup
             type="text"
@@ -60,6 +67,25 @@ class TasksBasicItem extends Component {
             value={item.title}
             disabled="true"
           />
+          <div className="quick-actions">
+            <Button
+              title="Wyświetl kalendarz"
+              onClick={() =>
+                this.setState({ ...this.state, showCalendar: true })
+              }
+            >
+              <FontAwesomeIcon icon={faCalendarAlt} />
+            </Button>
+            <CalendarQuickAddButton
+              userId={loggedUser._id}
+              eventId={item._id}
+              selectedDate={item.termAt}
+              eventType="Zadanie"
+              btnTitle="Dodaj do kalendarza"
+              title="Szybkie zadanie"
+              status="enabled"
+            />
+          </div>
         </td>
         <td className="projectName">
           {" "}
@@ -130,7 +156,29 @@ class TasksBasicItem extends Component {
       </Aux>
     ) : (
       <Aux>
-        <td className="title">{item.title}</td>
+        <td className="ordinalNumber">{ordinalNumber}</td>
+        <td className="title">
+          {item.title}
+          <div className="quick-actions">
+            <Button
+              title="Wyświetl kalendarz"
+              onClick={() =>
+                this.setState({ ...this.state, showCalendar: true })
+              }
+            >
+              <FontAwesomeIcon icon={faCalendarAlt} />
+            </Button>
+            <CalendarQuickAddButton
+              userId={loggedUser._id}
+              eventId={item._id}
+              selectedDate={item.termAt}
+              eventType="Zadanie"
+              btnTitle="Dodaj do kalendarza"
+              title="Szybkie zadanie"
+              status="enabled"
+            />
+          </div>
+        </td>
         <td className="projectName">{item.projectName}</td>
         <td className="status">{item.status}</td>
         <td className="priority">{item.priority}</td>
@@ -151,22 +199,27 @@ class TasksBasicItem extends Component {
           {itemContent}
           <td className="actions">
             {editItem ? (
-              <Button onClick={this.updateItemHandler}>
+              <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
                 <FontAwesomeIcon icon={faPlusSquare} />
               </Button>
             ) : (
-              <Button onClick={() => this.setState({ moreItem: !moreItem })}>
+              <Button
+                title="Rozwiń rekord"
+                onClick={() => this.setState({ moreItem: !moreItem })}
+              >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             )}
             <Button
               // className="edit"
+              title="edytuj rekord"
               onClick={() => this.setState({ editItem: !editItem })}
               title="edytuj rekord"
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>
             <WarningButton
+              title="Usuń rekord"
               onClick={() => removeItem(item._id)}
               className="remove"
             >
@@ -194,9 +247,23 @@ class TasksBasicItem extends Component {
             <td colSpan="5"></td>
           </tr>
         ) : null}
+        {showCalendar ? (
+          <ModalDialog
+            width="1400px"
+            showModal={() => this.setState({ showCalendar: false })}
+          >
+            <CalendarContainer />
+          </ModalDialog>
+        ) : null}
       </Aux>
     );
   }
 }
 
-export default TasksBasicItem;
+const mapStateToProps = (state) => {
+  return {
+    loggedUser: state.users.logged_user,
+  };
+};
+
+export default connect(mapStateToProps)(TasksBasicItem);

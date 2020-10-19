@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function TextFieldGroup({
+  label,
   type,
   title,
   onChange,
@@ -11,6 +12,7 @@ export default function TextFieldGroup({
 }) {
   return (
     <div className="form-group">
+      {label ? <label htmlFor="">{label}</label> : null}
       <input
         className="form-control"
         type={type}

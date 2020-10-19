@@ -30,8 +30,10 @@ const StagesBasicList = (props) => {
     }
     setInput(newInput);
   };
+  let ordinalNumber = 1;
   const list = items.map((item) => (
     <StagesBasicItem
+      ordinalNumber={ordinalNumber++}
       key={item._id}
       item={item}
       removeItem={removeItem}
@@ -77,6 +79,10 @@ const StagesBasicList = (props) => {
         <table className="table table-striped">
           <thead>
             <tr scope="col">
+              <th className="ordinalNumber">
+                Lp.
+                <div className="search-item"></div>
+              </th>
               <th className="createdAt">
                 Data wpisu{sortItemsContent("createdAt")}
                 <div className="search-item">

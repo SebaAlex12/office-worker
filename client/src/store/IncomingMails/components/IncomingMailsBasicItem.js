@@ -45,10 +45,11 @@ class IncomingMailsBasicItem extends Component {
   };
   render() {
     const { item, editItem, moreItem } = this.state;
-    const { removeItem } = this.props;
+    const { removeItem, ordinalNumber } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="number">
           <TextFieldGroup
             type="text"
@@ -107,6 +108,7 @@ class IncomingMailsBasicItem extends Component {
       </Aux>
     ) : (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="number">{item.number}</td>
         <td className="deliveryDate">
           {moment(new Date(item.deliveryDate)).locale("pl").format("LLLL")}
@@ -124,22 +126,26 @@ class IncomingMailsBasicItem extends Component {
           {itemContent}
           <td className="actions">
             {editItem ? (
-              <Button onClick={this.updateItemHandler}>
+              <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
                 <FontAwesomeIcon icon={faPlusSquare} />
               </Button>
             ) : (
-              <Button onClick={() => this.setState({ moreItem: !moreItem })}>
+              <Button
+                title="Rozwiń rekord"
+                onClick={() => this.setState({ moreItem: !moreItem })}
+              >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             )}
             <Button
               // className="edit"
               onClick={() => this.setState({ editItem: !editItem })}
-              title="edytuj rekord"
+              title="Edytuj rekord"
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>
             <WarningButton
+              title="Usuń rekord"
               onClick={() => removeItem(item._id)}
               className="remove"
             >

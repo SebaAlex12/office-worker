@@ -40,8 +40,10 @@ const TasksBasicList = (props) => {
     }
     setInput(newInput);
   };
+  let ordinalNumber = 1;
   const list = items.map((item) => (
     <TasksBasicItem
+      ordinalNumber={ordinalNumber++}
       key={item._id}
       item={item}
       removeItem={removeItem}
@@ -87,6 +89,10 @@ const TasksBasicList = (props) => {
         <table className="table table-striped">
           <thead>
             <tr scope="col">
+              <th className="ordinalNumber">
+                Lp.
+                <div className="search-item"></div>
+              </th>
               <th className="title">
                 Tytuł{sortItemsContent("title")}
                 <div className="search-item">

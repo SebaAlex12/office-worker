@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
@@ -6,6 +7,7 @@ import {
   faPlusSquare,
   faEdit,
   faExpandArrowsAlt,
+  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/min/moment-with-locales";
 
@@ -17,6 +19,8 @@ import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
 import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
 import ProjectsDetailsContainer from "./details/ProjectsDetailsContainer";
+import CalendarContainer from "../../Calendar/components/CalendarContainer";
+import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
 
 class ProjectsBasicItem extends Component {
   constructor(props) {
@@ -27,6 +31,7 @@ class ProjectsBasicItem extends Component {
       moreItem: false,
       item: item,
       showItemDetails: false,
+      showCalendar: false,
     };
   }
   onChangeHandler = (event) => {
@@ -50,11 +55,18 @@ class ProjectsBasicItem extends Component {
     // }
   };
   render() {
-    const { item, editItem, moreItem, showItemDetails } = this.state;
-    const { removeItem } = this.props;
+    const {
+      item,
+      editItem,
+      moreItem,
+      showItemDetails,
+      showCalendar,
+    } = this.state;
+    const { removeItem, ordinalNumber, loggedUser } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="name">
           <TextFieldGroup
             type="text"
@@ -64,6 +76,25 @@ class ProjectsBasicItem extends Component {
             value={item.name}
             disabled="true"
           />
+          <div className="quick-actions">
+            <Button
+              title="Wyświetl kalendarz"
+              onClick={() =>
+                this.setState({ ...this.state, showCalendar: true })
+              }
+            >
+              <FontAwesomeIcon icon={faCalendarAlt} />
+            </Button>
+            <CalendarQuickAddButton
+              userId={loggedUser._id}
+              eventId={item._id}
+              selectedDate={item.termAt}
+              eventType="Projekt"
+              btnTitle="Dodaj do kalendarza"
+              title="Szybkie dodanie"
+              status="enabled"
+            />
+          </div>
         </td>
         <td className="createdAt">
           {" "}
@@ -116,14 +147,68 @@ class ProjectsBasicItem extends Component {
       </Aux>
     ) : (
       <Aux>
-        <td className="name">{item.name}</td>
-        <td className="createdAt">
+        <td
+          className="ordinalNumber"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
+          {ordinalNumber}
+        </td>
+        <td className="name">
+          {item.name}
+          <div className="quick-actions">
+            <Button
+              title="Wyświetl kalendarz"
+              onClick={() =>
+                this.setState({ ...this.state, showCalendar: true })
+              }
+            >
+              <FontAwesomeIcon icon={faCalendarAlt} />
+            </Button>
+            <CalendarQuickAddButton
+              userId={loggedUser._id}
+              eventId={item._id}
+              selectedDate={item.termAt}
+              eventType="Projekt"
+              btnTitle="Dodaj do kalendarza"
+              title="Szybkie dodanie"
+              status="enabled"
+            />
+          </div>
+        </td>
+        <td
+          className="createdAt"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
           {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
         </td>
-        <td className="type">{item.type}</td>
-        <td className="signature">{item.signature}</td>
-        <td className="lastComment">{item.lastComment}</td>
-        <td className="termAt">
+        <td
+          className="type"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
+          {item.type}
+        </td>
+        <td
+          className="signature"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
+          {item.signature}
+        </td>
+        <td
+          className="lastComment"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
+          {item.lastComment}
+        </td>
+        <td
+          className="termAt"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
           {moment(new Date(item.termAt)).locale("pl").format("LLLL")}
         </td>
       </Aux>
@@ -136,6 +221,7 @@ class ProjectsBasicItem extends Component {
           <td className="actions">
             <Button
               className="show-item-details"
+              title="Pokaż szczegóły"
               onClick={() =>
                 this.setState({ showItemDetails: !showItemDetails })
               }
@@ -143,22 +229,26 @@ class ProjectsBasicItem extends Component {
               <FontAwesomeIcon icon={faExpandArrowsAlt} />
             </Button>
             {editItem ? (
-              <Button onClick={this.updateItemHandler}>
+              <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
                 <FontAwesomeIcon icon={faPlusSquare} />
               </Button>
             ) : (
-              <Button onClick={() => this.setState({ moreItem: !moreItem })}>
+              <Button
+                title="Rozwiń rekord"
+                onClick={() => this.setState({ moreItem: !moreItem })}
+              >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             )}
             <Button
               // className="edit"
               onClick={() => this.setState({ editItem: !editItem })}
-              title="edytuj rekord"
+              title="Edytuj rekord"
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>
             <WarningButton
+              title="Usuń rekord"
               onClick={() => removeItem(item._id)}
               className="remove"
             >
@@ -188,10 +278,18 @@ class ProjectsBasicItem extends Component {
         ) : null}
         {showItemDetails ? (
           <ModalDialog
-            width="1200px"
+            width="1400px"
             showModal={() => this.setState({ showItemDetails: false })}
           >
             <ProjectsDetailsContainer item={item} />
+          </ModalDialog>
+        ) : null}
+        {showCalendar ? (
+          <ModalDialog
+            width="1400px"
+            showModal={() => this.setState({ showCalendar: false })}
+          >
+            <CalendarContainer />
           </ModalDialog>
         ) : null}
       </Aux>
@@ -199,4 +297,10 @@ class ProjectsBasicItem extends Component {
   }
 }
 
-export default ProjectsBasicItem;
+const mapStateToProps = (state) => {
+  return {
+    loggedUser: state.users.logged_user,
+  };
+};
+
+export default connect(mapStateToProps)(ProjectsBasicItem);

@@ -7,10 +7,10 @@ export const StyledStageAddForm = styled.div`
     align-items: flex-end;
   }
   .stage-add-form-box form .form-group:first-child {
-    width: 30%;
+    width: 70%;
   }
   .stage-add-form-box form .form-group:nth-child(2) {
-    width: 60%;
+    width: 20%;
   }
   .stage-add-form-box form .form-group:flast-child {
     width: 10%;

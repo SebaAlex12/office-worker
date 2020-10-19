@@ -4,13 +4,10 @@ import {
   faMinusSquare,
   faPencilAlt,
   faPlusSquare,
-  faEdit,
-  faExpandArrowsAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/min/moment-with-locales";
 
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
-import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
 
@@ -45,10 +42,11 @@ class StagesBasicItem extends Component {
   };
   render() {
     const { item, editItem } = this.state;
-    const { removeItem } = this.props;
+    const { removeItem, ordinalNumber } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="createdAt">
           {" "}
           <TextFieldGroup
@@ -80,6 +78,7 @@ class StagesBasicItem extends Component {
       </Aux>
     ) : (
       <Aux>
+        <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="createdAt">
           {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
         </td>

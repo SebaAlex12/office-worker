@@ -36,8 +36,10 @@ const IncomingMailsBasicList = (props) => {
     }
     setInput(newInput);
   };
+  let ordinalNumber = 1;
   const list = items.map((item) => (
     <IncomingMailsBasicItem
+      ordinalNumber={ordinalNumber++}
       key={item._id}
       item={item}
       removeItem={removeItem}
@@ -83,6 +85,10 @@ const IncomingMailsBasicList = (props) => {
         <table className="table table-striped">
           <thead>
             <tr scope="col">
+              <th className="ordinalNumber">
+                Lp.
+                <div className="search-item"></div>
+              </th>
               <th className="number">
                 Nr wpisu{sortItemsContent("number")}
                 <div className="search-item">

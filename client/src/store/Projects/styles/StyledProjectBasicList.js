@@ -29,6 +29,9 @@ export const StyledProjectBasicList = styled.div`
   .projects-basic-list-box table tr:hover {
     background-color: #f1f1f1;
   }
+  .projects-basic-list-box table tr > th.ordinalNumber {
+    width: 30px;
+  }
   .projects-basic-list-box table tr > th.name {
     width: 160px;
   }

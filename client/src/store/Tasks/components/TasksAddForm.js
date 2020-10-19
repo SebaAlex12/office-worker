@@ -172,6 +172,7 @@ class TasksAddForm extends Component {
               </select>
             </div>
             <div className="form-group">
+              <label htmlFor="">Termin wykonania</label>
               <input
                 onChange={this.onChangeInput}
                 type="datetime-local"

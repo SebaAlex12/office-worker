@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment/min/moment-with-locales";
 
-import CheckFieldGroup from "../../../common/Forms/components/CheckFieldGroup";
+// import CheckFieldGroup from "../../../common/Forms/components/CheckFieldGroup";
 
 import { addCalendar } from "../actions";
 import { StyledCalendarAddForm } from "../styles/StyledCalendarAddForm";
@@ -124,8 +124,6 @@ class CalendarAddForm extends Component {
   render() {
     const {
       eventType,
-      title,
-      description,
       selectedDate,
       calendarTypes,
       taskEventBlocked,
@@ -134,8 +132,6 @@ class CalendarAddForm extends Component {
     const alertMessage = taskEventBlocked
       ? "Zadanie zostało już przypisane do wybranego dnia"
       : null;
-
-    console.log("state", this.state);
 
     return (
       <StyledCalendarAddForm>
@@ -149,17 +145,17 @@ class CalendarAddForm extends Component {
                     if (type.name === "Zadanie" && taskEventBlocked) {
                       return null;
                     } else {
-                      return (
-                        <CheckFieldGroup
-                          key={type._id}
-                          // name="eventType"
-                          text={type.name}
-                          onChangeHandler={this.onChangeCheckboxHandler}
-                          value={type._id}
-                          isChecked={type.active}
-                          // isDisabled={true}
-                        />
-                      );
+                      return null;
+                      // (
+                      // hide temporary
+                      // <CheckFieldGroup
+                      //   key={type._id}
+                      //   text={type.name}
+                      //   onChangeHandler={this.onChangeCheckboxHandler}
+                      //   value={type._id}
+                      //   isChecked={type.active}
+                      // />
+                      // );
                     }
                   })
                 : null}

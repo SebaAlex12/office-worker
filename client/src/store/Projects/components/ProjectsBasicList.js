@@ -36,14 +36,18 @@ const ProjectsBasicList = (props) => {
     }
     setInput(newInput);
   };
-  const list = items.map((item) => (
-    <ProjectsBasicItem
-      key={item._id}
-      item={item}
-      removeItem={removeItem}
-      updateItem={updateItem}
-    />
-  ));
+  let ordinalNumber = 1;
+  const list = items.map((item) => {
+    return (
+      <ProjectsBasicItem
+        ordinalNumber={ordinalNumber++}
+        key={item._id}
+        item={item}
+        removeItem={removeItem}
+        updateItem={updateItem}
+      />
+    );
+  });
   const sortItemsContent = (column) => {
     return (
       <Aux>
@@ -83,6 +87,10 @@ const ProjectsBasicList = (props) => {
         <table className="table table-striped">
           <thead>
             <tr scope="col">
+              <th className="ordinalNumber">
+                Lp.
+                <div className="search-item"></div>
+              </th>
               <th className="name">
                 Nazwa{sortItemsContent("name")}
                 <div className="search-item">

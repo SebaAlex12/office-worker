@@ -82,6 +82,7 @@ class IncomingMailsAddForm extends Component {
               placeholder="Wprowadź nr wpisu"
             />
             <TextFieldGroup
+              label="Data doręczenia"
               type="datetime-local"
               title="Data doręczenia"
               onChange={this.onChangeInput}

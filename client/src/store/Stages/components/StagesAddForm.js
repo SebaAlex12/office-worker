@@ -26,7 +26,7 @@ class StagesAddForm extends Component {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  addHandler = (event) => {
+  addHandler = async (event) => {
     const { addStage, projectId } = this.props;
     const { description, termAt } = this.state;
 
@@ -36,7 +36,12 @@ class StagesAddForm extends Component {
       termAt,
     };
     event.preventDefault();
-    addStage(data);
+    const response = await addStage(data);
+    this.setState({
+      ...this.state,
+      description: "",
+      termAt: "",
+    });
   };
   render() {
     const { description, termAt } = this.state;
@@ -45,14 +50,6 @@ class StagesAddForm extends Component {
       <StyledStageAddForm>
         <div className="stage-add-form-box">
           <form action="">
-            <TextFieldGroup
-              type="datetime-local"
-              title="Termin czynności"
-              onChange={this.onChangeInput}
-              name="termAt"
-              value={termAt}
-              placeholder="Wprowadź termin czynności"
-            />
             <TextareaFieldGroup
               title="Treść wpisu"
               onChange={this.onChangeInput}
@@ -61,6 +58,15 @@ class StagesAddForm extends Component {
               cols="4"
               rows="6"
               placeholder="Treść wpisu"
+            />
+            <TextFieldGroup
+              label="Termin czynności"
+              type="datetime-local"
+              title="Termin czynności"
+              onChange={this.onChangeInput}
+              name="termAt"
+              value={termAt}
+              placeholder="Wprowadź termin czynności"
             />
             <div className="form-group">
               <input

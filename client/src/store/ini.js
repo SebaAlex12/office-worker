@@ -155,6 +155,10 @@ export const calendarTypes = [
     _id: 2,
     name: "Zadanie",
   },
+  {
+    _id: 3,
+    name: "Projekt",
+  },
 ];
 export const projectTypes = [
   {

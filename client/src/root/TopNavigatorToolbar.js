@@ -21,6 +21,12 @@ class TopNavigatorToolbar extends Component {
       toggleComingMailsAddForm: false,
     };
   }
+  closeAddForm = (toggle) => {
+    this.setState({
+      ...this.state,
+      toggle: false,
+    });
+  };
   render() {
     const {
       toggleTasksAddForm,
@@ -83,7 +89,9 @@ class TopNavigatorToolbar extends Component {
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
           <span>Dodaj sprawę</span>
         </BiggerButton>
-        {toggleProjectsAddForm ? <ProjectsAddForm /> : null}
+        {toggleProjectsAddForm ? (
+          <ProjectsAddForm closeAddForm="toggleProjectsAddForm" />
+        ) : null}
       </div>
     );
     const userRegistryFormContent = (

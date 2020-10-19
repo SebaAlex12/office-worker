@@ -86,8 +86,8 @@ class StagesListContainer extends Component {
   };
   render() {
     const { filteredStages } = this.state;
-    console.log("filteredStages", filteredStages);
-    console.log("render");
+    // console.log("filteredStages", filteredStages);
+    // console.log("render");
     const stageListContent = (
       <StagesBasicList
         items={filteredStages}

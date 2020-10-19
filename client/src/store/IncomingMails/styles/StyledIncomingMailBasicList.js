@@ -29,6 +29,9 @@ export const StyledIncomingMailBasicList = styled.div`
     right: 5px;
     top: 5px;
   }
+  .incoming-mails-basic-list-box table tr > th.ordinalNumber {
+    width: 30px;
+  }
   .incoming-mails-basic-list-box table .number {
     width: 160px;
   }

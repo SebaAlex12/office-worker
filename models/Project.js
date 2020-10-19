@@ -8,7 +8,6 @@ const ProjectSchema = new Schema({
   },
   signature: {
     type: String,
-    required: [true, "Sygnatura jest wymagana"],
   },
   type: {
     type: String,
@@ -16,7 +15,6 @@ const ProjectSchema = new Schema({
   },
   organ: {
     type: String,
-    required: [true, "Organ jest wymagany"],
   },
   description: {
     type: String,

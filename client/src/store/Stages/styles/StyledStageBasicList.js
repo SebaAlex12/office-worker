@@ -26,6 +26,9 @@ export const StyledStageBasicList = styled.div`
     right: 5px;
     top: 5px;
   }
+  .stages-basic-list-box table tr > th.ordinalNumber {
+    width: 30px;
+  }
   .stages-basic-list-box table .createdAt {
     width: 130px;
   }

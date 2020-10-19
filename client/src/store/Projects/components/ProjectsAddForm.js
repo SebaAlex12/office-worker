@@ -35,8 +35,8 @@ class ProjectsAddForm extends Component {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  addHandler = (event) => {
-    const { addProject, updateUser, users } = this.props;
+  addHandler = async (event) => {
+    const { addProject, updateUser, users, closeAddForm } = this.props;
     const {
       name,
       signature,
@@ -60,7 +60,11 @@ class ProjectsAddForm extends Component {
 
     event.preventDefault();
 
-    addProject(projectData);
+    const response = await addProject(projectData);
+
+    // if(response){
+    //   closeAddForm()
+    // }
 
     const userData = users.filter((user) => {
       if (user.name === userName) {
@@ -73,8 +77,8 @@ class ProjectsAddForm extends Component {
     updateUser(userData[0]);
   };
   render() {
-    const { name, signature, organ, description, termAt } = this.state;
-    const { users } = this.props;
+    const { name, signature, organ, description } = this.state;
+    // const { users } = this.props;
 
     return (
       <StyledProjectForm>
@@ -100,12 +104,12 @@ class ProjectsAddForm extends Component {
               onChange={this.onChangeSelect}
               defaultName="Wybierz rodzaj"
             />
-            <SelectFieldGroup
+            {/* <SelectFieldGroup
               name="userName"
               items={users}
               onChange={this.onChangeSelect}
               defaultName="Wybierz użytkownika"
-            />
+            /> */}
             <TextFieldGroup
               title="organ"
               onChange={this.onChangeInput}
@@ -122,14 +126,14 @@ class ProjectsAddForm extends Component {
               rows="6"
               placeholder="Dodaj opis"
             />
-            <TextFieldGroup
+            {/* <TextFieldGroup
               type="datetime-local"
               title="Najbliższy termin rozprawy"
               onChange={this.onChangeInput}
               name="termAt"
               value={termAt}
               placeholder="Wybierz najbliższy termin rozprawy"
-            />
+            /> */}
             <div className="form-group">
               <input
                 onClick={this.addHandler}
