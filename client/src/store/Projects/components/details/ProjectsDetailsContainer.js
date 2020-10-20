@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment/min/moment-with-locales";
 
 import StagesListContainer from "../../../Stages/components/StagesListContainer";
 import StagesAddForm from "../../../Stages/components/StagesAddForm";
 import { fetchStages } from "../../../Stages/actions";
+import ProjectsDetailsInfo from "./ProjectsDetailsInfo";
 import { Button } from "../../../../themes/basic";
 import { faToggleOn, faToggleOff } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -48,36 +48,7 @@ class ProjectsDetailsContainer extends Component {
     const stageAddFormContent = toggleStageAddForm ? (
       <StagesAddForm projectId={item._id} />
     ) : null;
-    const projectInfoContent = (
-      <div className="project-info-box">
-        <div className="left-box">
-          <div className="createdAt">
-            <span>Data zarejestrowania:</span>
-            <span>
-              {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
-            </span>
-          </div>
-          <div className="name">
-            <span>Nazwa sprawy:</span>
-            <span>{item.name}</span>
-          </div>
-          <div className="type">
-            <span>Rodzaj:</span>
-            <span>{item.type}</span>
-          </div>
-        </div>
-        <div className="right-box">
-          <div className="signature">
-            <span>Sygnatura:</span>
-            <span>{item.signature}</span>
-          </div>
-          <div className="organ">
-            <span>Organ:</span>
-            <span>{item.organ}</span>
-          </div>
-        </div>
-      </div>
-    );
+    const projectInfoContent = <ProjectsDetailsInfo item={item} />;
 
     const userInfoData =
       projectUsers.length > 0
