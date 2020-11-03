@@ -10,6 +10,10 @@ const StageSchema = new Schema({
     type: String,
     required: [true, "Opis jest wymagany"],
   },
+  createdBy: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: String,
     required: true,

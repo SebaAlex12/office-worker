@@ -9,9 +9,10 @@ export default function TextFieldGroup({
   value,
   disabled,
   placeholder,
+  style,
 }) {
   return (
-    <div className="form-group">
+    <div className="form-group" style={style}>
       {label ? <label htmlFor="">{label}</label> : null}
       <input
         className="form-control"

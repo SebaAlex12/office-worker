@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
   faPencilAlt,
   faPlusSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment/min/moment-with-locales";
 
+import DateTimeFormat from "../../../common/DateTimeFormat";
+import { addTask } from "../../Tasks/actions";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
@@ -40,6 +42,26 @@ class StagesBasicItem extends Component {
     //   }
     // }
   };
+  addTaskHandler = () => {
+    const { item } = this.state;
+    const { addTask, loggedUser } = this.props;
+
+    const data = {
+      userId: loggedUser._id,
+      createdBy: loggedUser.name,
+      projectId: item.projectId,
+      // projectName,
+      responsiblePerson: loggedUser.name,
+      title: item.description,
+      description: item.description,
+      // responsiblePersonLastComment,
+      priority: "Normalny",
+      status: "Do wykonania",
+      termAt: item.termAt,
+    };
+
+    const response = addTask(data);
+  };
   render() {
     const { item, editItem } = this.state;
     const { removeItem, ordinalNumber } = this.props;
@@ -66,6 +88,16 @@ class StagesBasicItem extends Component {
             value={item.description}
           />
         </td>
+        <td className="createdBy">
+          <TextFieldGroup
+            type="text"
+            title={item.createdBy}
+            onChange={this.onChangeHandler}
+            name="createdBy"
+            value={item.createdBy}
+            disabled={true}
+          />
+        </td>
         <td className="termAt">
           <TextFieldGroup
             type="datetime-local"
@@ -80,11 +112,12 @@ class StagesBasicItem extends Component {
       <Aux>
         <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="createdAt">
-          {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.createdAt} short={true} />
         </td>
         <td className="description">{item.description}</td>
+        <td className="createdBy">{item.createdBy}</td>
         <td className="termAt">
-          {moment(new Date(item.termAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.termAt} short={true} />
         </td>
       </Aux>
     );
@@ -94,18 +127,30 @@ class StagesBasicItem extends Component {
         <tr>
           {itemContent}
           <td className="actions">
-            <Button onClick={this.updateItemHandler}>
+            <Button onClick={this.addTaskHandler} title="Dodaj etap do zadania">
               <FontAwesomeIcon icon={faPlusSquare} />
             </Button>
-            <Button
-              onClick={() => this.setState({ editItem: !editItem })}
-              title="edytuj rekord"
-            >
-              <FontAwesomeIcon icon={faPencilAlt} />
-            </Button>
+            {editItem ? (
+              <Button
+                onClick={this.updateItemHandler}
+                title="zapisz etap"
+                className="active"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+            ) : (
+              <Button
+                onClick={() => this.setState({ editItem: !editItem })}
+                title="edytuj etap"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+            )}
+
             <WarningButton
               onClick={() => removeItem(item._id)}
               className="remove"
+              title="Usuń etap z listy"
             >
               <FontAwesomeIcon icon={faMinusSquare} />
             </WarningButton>
@@ -116,4 +161,10 @@ class StagesBasicItem extends Component {
   }
 }
 
-export default StagesBasicItem;
+const mapStateToProps = (state) => {
+  return {
+    loggedUser: state.users.logged_user,
+  };
+};
+
+export default connect(mapStateToProps, { addTask })(StagesBasicItem);

@@ -92,6 +92,7 @@ class ProjectsDetailsContainer extends Component {
               : "Brak przypisanej osoby !"}
           </h1>
           {projectInfoContent}
+          {projectUsers.length > 0 ? usersInfoContent : null}
           <Button
             onClick={() =>
               this.setState({ toggleStageAddForm: !toggleStageAddForm })
@@ -105,7 +106,6 @@ class ProjectsDetailsContainer extends Component {
           </Button>
           {stageAddFormContent}
           {stageListContent}
-          {projectUsers.length > 0 ? usersInfoContent : null}
         </div>
       </StyledProjectDetailsContainer>
     );

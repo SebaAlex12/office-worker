@@ -55,25 +55,48 @@ export const statuses = [
     name: "Do wykonania",
     active: true,
   },
-  {
-    _id: 1,
-    name: "W trakcie",
-    active: true,
-  },
-  {
-    _id: 2,
-    name: "Do akceptacji",
-    active: true,
-  },
+  // {
+  //   _id: 1,
+  //   name: "W trakcie",
+  //   active: true,
+  // },
+  // {
+  //   _id: 2,
+  //   name: "Do akceptacji",
+  //   active: true,
+  // },
   {
     _id: 3,
     name: "Wykonane",
     active: false,
   },
+  // {
+  //   _id: 4,
+  //   name: "Zawieszone",
+  //   active: false,
+  // },
+];
+
+export const status_clasess = [
   {
-    _id: 4,
-    name: "Zawieszone",
-    active: false,
+    status_name: "Do wykonania",
+    classes_name: "to-complete",
+  },
+  {
+    status_name: "W trakcie",
+    classes_name: "in-progress",
+  },
+  {
+    status_name: "Do akceptacji",
+    classes_name: "to-accept",
+  },
+  {
+    status_name: "Wykonane",
+    classes_name: "complete",
+  },
+  {
+    status_name: "Zawieszone",
+    classes_name: "suspended",
   },
 ];
 

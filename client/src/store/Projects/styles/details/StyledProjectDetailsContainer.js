@@ -11,10 +11,12 @@ export const StyledProjectDetailsContainer = styled.div`
     display: flex;
     flex-direction: row;
   }
-  .project-info-box .left-box,
-  .project-info-box .right-box {
-    width: 50%;
+  .project-info-box .left-box{
+    width:40%
     text-align: left;
+  }
+  .project-info-box .right-box {
+    width: 60%;
   }
   .project-info-box .left-box > div,
   .project-info-box .right-box > div {
@@ -25,6 +27,35 @@ export const StyledProjectDetailsContainer = styled.div`
     font-weight: bold;
     width: 180px;
     display: inline-block;
+  }
+  .project-info-box .signature-organ-box tr:hover {
+    background-color: transparent;
+  }
+  .project-info-box .signature-organ-box {
+    width: 100%;
+  }
+  .project-info-box .signature-organ-box .signature {
+    width: 32%;
+  }
+  .project-info-box .signature-organ-box .signature .desc,
+  .project-info-box .signature-organ-box .organ .desc {
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+  }
+  .project-info-box .signature-organ-box .organ .desc .form-group,
+  .project-info-box .signature-organ-box .organ .addons .form-group{
+    width:450px;
+  }
+  .project-info-box .signature-organ-box .organ {
+    width: 68%;
+  }
+  .project-info-box .signature-organ-box .actions {
+    float: right;
+  }
+  .project-info-box .signature-organ-box .addons {
+    clear: both;
+    float: right;
   }
   .users-info-box .users-box {
     display: flex;

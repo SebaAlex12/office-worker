@@ -12,6 +12,7 @@ import {
 import moment from "moment/min/moment-with-locales";
 
 import { projectTypes } from "../../ini";
+import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
@@ -19,8 +20,8 @@ import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
 import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
 import ProjectsDetailsContainer from "./details/ProjectsDetailsContainer";
-import CalendarContainer from "../../Calendar/components/CalendarContainer";
-import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
+// import CalendarContainer from "../../Calendar/components/CalendarContainer";
+// import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
 
 class ProjectsBasicItem extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ class ProjectsBasicItem extends Component {
       moreItem: false,
       item: item,
       showItemDetails: false,
-      showCalendar: false,
+      // showCalendar: false,
     };
   }
   onChangeHandler = (event) => {
@@ -60,7 +61,7 @@ class ProjectsBasicItem extends Component {
       editItem,
       moreItem,
       showItemDetails,
-      showCalendar,
+      // showCalendar,
     } = this.state;
     const { removeItem, ordinalNumber, loggedUser } = this.props;
 
@@ -76,7 +77,7 @@ class ProjectsBasicItem extends Component {
             value={item.name}
             disabled="true"
           />
-          <div className="quick-actions">
+          {/* <div className="quick-actions">
             <Button
               title="Wyświetl kalendarz"
               onClick={() =>
@@ -94,7 +95,7 @@ class ProjectsBasicItem extends Component {
               title="Szybkie dodanie"
               status="enabled"
             />
-          </div>
+          </div> */}
         </td>
         <td className="createdAt">
           {" "}
@@ -125,13 +126,23 @@ class ProjectsBasicItem extends Component {
             disabled="true"
           />
         </td>
-        <td className="lastComment">
+        <td className="lastStageDescription">
           <TextFieldGroup
             type="text"
-            title={item.lastComment}
+            title={item.lastStageDescription}
             onChange={this.onChangeHandler}
-            name="lastComment"
-            value={item.lastComment}
+            name="lastStageDescription"
+            value={item.lastStageDescription}
+            disabled="true"
+          />
+        </td>
+        <td className="lastStageCreatedAt">
+          <TextFieldGroup
+            type="text"
+            title={item.lastStageCreatedAt}
+            onChange={this.onChangeHandler}
+            name="lastStageCreatedAt"
+            value={item.lastStageCreatedAt}
             disabled="true"
           />
         </td>
@@ -156,7 +167,7 @@ class ProjectsBasicItem extends Component {
         </td>
         <td className="name">
           {item.name}
-          <div className="quick-actions">
+          {/* <div className="quick-actions">
             <Button
               title="Wyświetl kalendarz"
               onClick={() =>
@@ -174,14 +185,14 @@ class ProjectsBasicItem extends Component {
               title="Szybkie dodanie"
               status="enabled"
             />
-          </div>
+          </div> */}
         </td>
         <td
           className="createdAt"
           style={{ cursor: "pointer" }}
           onClick={() => this.setState({ showItemDetails: !showItemDetails })}
         >
-          {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.createdAt} short={true} />
         </td>
         <td
           className="type"
@@ -198,18 +209,25 @@ class ProjectsBasicItem extends Component {
           {item.signature}
         </td>
         <td
-          className="lastComment"
+          className="lastStageDescription"
           style={{ cursor: "pointer" }}
           onClick={() => this.setState({ showItemDetails: !showItemDetails })}
         >
-          {item.lastComment}
+          {item.lastStageDescription}
+        </td>
+        <td
+          className="lastStageCreatedAt"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
+          <DateTimeFormat date={item.lastStageCreatedAt} short={true} />
         </td>
         <td
           className="termAt"
           style={{ cursor: "pointer" }}
           onClick={() => this.setState({ showItemDetails: !showItemDetails })}
         >
-          {moment(new Date(item.termAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.termAt} short={true} />
         </td>
       </Aux>
     );
@@ -219,7 +237,7 @@ class ProjectsBasicItem extends Component {
         <tr>
           {itemContent}
           <td className="actions">
-            <Button
+            {/* <Button
               className="show-item-details"
               title="Pokaż szczegóły"
               onClick={() =>
@@ -227,7 +245,7 @@ class ProjectsBasicItem extends Component {
               }
             >
               <FontAwesomeIcon icon={faExpandArrowsAlt} />
-            </Button>
+            </Button> */}
             {editItem ? (
               <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
                 <FontAwesomeIcon icon={faPlusSquare} />
@@ -241,7 +259,6 @@ class ProjectsBasicItem extends Component {
               </Button>
             )}
             <Button
-              // className="edit"
               onClick={() => this.setState({ editItem: !editItem })}
               title="Edytuj rekord"
             >
@@ -273,25 +290,29 @@ class ProjectsBasicItem extends Component {
                 </Button>
               </div>
             </td>
-            <td colSpan="5"></td>
+            <td colSpan="10"></td>
           </tr>
         ) : null}
-        {showItemDetails ? (
-          <ModalDialog
-            width="1400px"
-            showModal={() => this.setState({ showItemDetails: false })}
-          >
-            <ProjectsDetailsContainer item={item} />
-          </ModalDialog>
-        ) : null}
-        {showCalendar ? (
+        <tr>
+          <td>
+            {showItemDetails ? (
+              <ModalDialog
+                width="1400px"
+                showModal={() => this.setState({ showItemDetails: false })}
+              >
+                <ProjectsDetailsContainer item={item} />
+              </ModalDialog>
+            ) : null}
+          </td>
+        </tr>
+        {/* {showCalendar ? (
           <ModalDialog
             width="1400px"
             showModal={() => this.setState({ showCalendar: false })}
           >
             <CalendarContainer />
           </ModalDialog>
-        ) : null}
+        ) : null} */}
       </Aux>
     );
   }

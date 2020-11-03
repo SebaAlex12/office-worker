@@ -75,7 +75,7 @@ class Dashboard extends Component {
           <Route exact path="/projects" component={Projects} />
           <Route exact path="/incoming-mails" component={IncomingMails} />
           <Route exact path="/tasks" component={Tasks} />
-          <Route exact path="/" component={Projects} />
+          <Route exact path="/" component={Tasks} />
           <Route exact path="/mails" component={MailsListContainer} />
           <Route exact path="/calendar" component={Calendar} />
         </div>

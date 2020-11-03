@@ -16,7 +16,7 @@ const TaskSchema = new Schema({
   },
   projectName: {
     type: String,
-    required: [true, "Nazwa projektu jest wymagana"],
+    // required: [true, "Nazwa projektu jest wymagana"],
   },
   status: {
     type: String,
@@ -44,7 +44,7 @@ const TaskSchema = new Schema({
     type: String,
   },
   responsiblePersonLastComment: {
-    type: Boolean,
+    type: String,
   },
   finishedAt: {
     type: String,

@@ -70,7 +70,7 @@ class TopNavigatorToolbar extends Component {
           }
         >
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
-          <span>Poczta przychodząca</span>
+          <span>Dodaj wpis</span>
         </BiggerButton>
         {toggleComingMailsAddForm ? <IncomingMailsAddForm /> : null}
       </div>

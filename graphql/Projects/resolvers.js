@@ -71,6 +71,14 @@ module.exports = {
         projectInput.description !== ""
           ? projectInput.description
           : project.description,
+      lastStageDescription:
+        projectInput.lastStageDescription !== ""
+          ? projectInput.lastStageDescription
+          : project.lastStageDescription,
+      lastStageCreatedAt:
+        projectInput.lastStageCreatedAt !== ""
+          ? projectInput.lastStageCreatedAt
+          : project.lastStageCreatedAt,
       createdAt:
         projectInput.createdAt !== ""
           ? projectInput.createdAt

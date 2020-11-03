@@ -16,6 +16,7 @@ module.exports = {
     const data = {
       projectId: stageInput.projectId,
       description: stageInput.description,
+      createdBy: stageInput.createdBy,
       createdAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
       termAt: stageInput.termAt,
     };
@@ -43,6 +44,8 @@ module.exports = {
         stageInput.description !== ""
           ? stageInput.description
           : stage.description,
+      createdBy:
+        stageInput.createdBy !== "" ? stageInput.createdBy : stage.createdBy,
       createdAt:
         stageInput.createdAt !== "" ? stageInput.createdAt : stage.createdAt,
       termAt: stageInput.termAt !== "" ? stageInput.termAt : stage.termAt,

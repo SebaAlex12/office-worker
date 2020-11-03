@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment/min/moment-with-locales";
 
+import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
@@ -111,7 +112,7 @@ class IncomingMailsBasicItem extends Component {
         <td className="ordinalNumber">{ordinalNumber}</td>
         <td className="number">{item.number}</td>
         <td className="deliveryDate">
-          {moment(new Date(item.deliveryDate)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.deliveryDate} short={true} />
         </td>
         <td className="sender">{item.sender}</td>
         <td className="deliveryCase">{item.deliveryCase}</td>

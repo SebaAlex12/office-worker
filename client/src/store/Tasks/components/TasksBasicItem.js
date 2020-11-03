@@ -8,8 +8,9 @@ import {
   faEdit,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment/min/moment-with-locales";
 
+import { status_clasess } from "../../ini";
+import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
@@ -106,14 +107,14 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
           />
         </td>
-        <td className="priority">
+        {/* <td className="priority">
           <SelectFieldGroup
             name="priority"
             items={priorities}
             selectedItem={item.priority}
             onChange={this.onChangeHandler}
           />
-        </td>
+        </td> */}
         <td className="createdBy">
           <TextFieldGroup
             type="text"
@@ -181,21 +182,25 @@ class TasksBasicItem extends Component {
         </td>
         <td className="projectName">{item.projectName}</td>
         <td className="status">{item.status}</td>
-        <td className="priority">{item.priority}</td>
+        {/* <td className="priority">{item.priority}</td> */}
         <td className="createdBy">{item.createdBy}</td>
         <td className="responsiblePerson">{item.responsiblePerson}</td>
         <td className="termAt">
-          {moment(new Date(item.termAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.termAt} short={true} />
         </td>
         <td className="createdAt">
-          {moment(new Date(item.createdAt)).locale("pl").format("LLLL")}
+          <DateTimeFormat date={item.createdAt} short={true} />
         </td>
       </Aux>
     );
 
+    const $clazz = status_clasess.filter(
+      (element) => element.status_name == item.status
+    );
+
     return (
       <Aux>
-        <tr>
+        <tr className={$clazz.length > 0 ? $clazz[0].classes_name : null}>
           {itemContent}
           <td className="actions">
             {editItem ? (

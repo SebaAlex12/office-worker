@@ -33,13 +33,16 @@ export const StyledStageBasicList = styled.div`
     width: 130px;
   }
   .stages-basic-list-box table .description {
-    width: 160px;
+    width: 280px;
+  }
+  .stages-basic-list-box table .createdBy {
+    width: 150px;
   }
   .stages-basic-list-box table .termAt {
     width: 80px;
   }
   .stages-basic-list-box table .actions {
-    width: 95px;
+    width: 110px;
   }
   .stages-basic-list-box table thead .actions {
     text-align: center;

@@ -6,17 +6,23 @@ const ProjectSchema = new Schema({
     type: String,
     required: [true, "Nazwa sprawy jest wymagana"],
   },
-  signature: {
-    type: String,
-  },
   type: {
     type: String,
     required: [true, "Typ jest wymagany"],
+  },
+  signature: {
+    type: String,
   },
   organ: {
     type: String,
   },
   description: {
+    type: String,
+  },
+  lastStageDescription: {
+    type: String,
+  },
+  lastStageCreatedAt: {
     type: String,
   },
   createdAt: {

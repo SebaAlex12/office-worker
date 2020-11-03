@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
@@ -7,42 +7,48 @@ import {
   faPlusSquare,
   faPencilAlt,
   faMinusSquare,
-  faCaretSquareDown,
+  // faCaretSquareDown,
 } from "@fortawesome/free-solid-svg-icons";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 
 const ProjectsToggleEditItem = ({
   items,
-  title,
   clazz,
   addItem,
   removeItem,
-  editItem,
+  updateItem,
+  onChangeInputUpdateItem,
+  onChangeInputItem,
+  onChangeInputNameItem,
+  itemValue,
 }) => {
-  const [toggleAddForm, setToggleAddForm] = useState(false);
   return (
     <div className={clazz}>
-      <span>{title}</span>
       {items.map((item) => (
         <Aux key={item.id}>
-          <span>{item.name}</span>
-          <WarningButton className="remove" onClick={removeItem}>
-            <FontAwesomeIcon icon={faMinusSquare} />
-          </WarningButton>
+          <div className="desc">
+            <div>
+              <TextFieldGroup
+                type="text"
+                onChange={(event) => onChangeInputUpdateItem(event, item.id)}
+                value={item.name}
+              />
+            </div>
+            <div className="actions">
+              <Button className="edit" onClick={updateItem}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+              <WarningButton
+                className="remove"
+                onClick={() => removeItem(item.id)}
+              >
+                <FontAwesomeIcon icon={faMinusSquare} />
+              </WarningButton>
+            </div>
+          </div>
         </Aux>
       ))}
-      <div className="actions" style={{ float: "right" }}>
-        <Button className="edit" onClick={editItem}>
-          <FontAwesomeIcon icon={faPencilAlt} />
-        </Button>
-        <Button
-          className="toggle-add"
-          onClick={() => setToggleAddForm(!toggleAddForm)}
-        >
-          <FontAwesomeIcon icon={faCaretSquareDown} />
-        </Button>
-      </div>
-      {toggleAddForm ? (
+      <div className="addons">
         <div
           className="add-form"
           style={{
@@ -51,12 +57,19 @@ const ProjectsToggleEditItem = ({
             alignItems: "baseline",
           }}
         >
-          <TextFieldGroup />
+          <TextFieldGroup
+            type="text"
+            title="Wpisz wartość"
+            onChange={onChangeInputItem}
+            name={onChangeInputNameItem}
+            value={itemValue}
+            placeholder="wpisz wartość"
+          />
           <Button className="add" onClick={addItem}>
             <FontAwesomeIcon icon={faPlusSquare} />
           </Button>
         </div>
-      ) : null}
+      </div>
     </div>
   );
 };

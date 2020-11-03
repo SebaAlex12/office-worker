@@ -111,12 +111,12 @@ const TasksBasicList = (props) => {
                   {searchItemsContent("status", "text")}
                 </div>
               </th>
-              <th className="priority">
+              {/* <th className="priority">
                 Priorytet{sortItemsContent("priority")}
                 <div className="search-item">
                   {searchItemsContent("priority", "text")}
                 </div>
-              </th>
+              </th> */}
               <th className="createdBy">
                 Zlecający{sortItemsContent("createdBy")}
                 <div className="search-item">

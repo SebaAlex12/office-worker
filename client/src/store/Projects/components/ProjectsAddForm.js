@@ -78,7 +78,7 @@ class ProjectsAddForm extends Component {
   };
   render() {
     const { name, signature, organ, description } = this.state;
-    // const { users } = this.props;
+    const { users } = this.props;
 
     return (
       <StyledProjectForm>
@@ -104,12 +104,12 @@ class ProjectsAddForm extends Component {
               onChange={this.onChangeSelect}
               defaultName="Wybierz rodzaj"
             />
-            {/* <SelectFieldGroup
+            <SelectFieldGroup
               name="userName"
               items={users}
               onChange={this.onChangeSelect}
               defaultName="Wybierz użytkownika"
-            /> */}
+            />
             <TextFieldGroup
               title="organ"
               onChange={this.onChangeInput}

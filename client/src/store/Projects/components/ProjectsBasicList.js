@@ -16,7 +16,8 @@ const ProjectsBasicList = (props) => {
     createdAt: "",
     type: "",
     signature: "",
-    lastComments: "",
+    lastStageDescription: "",
+    lastStageCreatedAt: "",
     termAt: "",
   });
   const handleInputChange = (event) => {
@@ -27,7 +28,8 @@ const ProjectsBasicList = (props) => {
       createdAt: "",
       type: "",
       signature: "",
-      lastComments: "",
+      lastStageDescription: "",
+      lastStageCreatedAt: "",
       termAt: "",
     };
     if (event.target.name !== undefined) {
@@ -115,10 +117,18 @@ const ProjectsBasicList = (props) => {
                   {searchItemsContent("signature", "text")}
                 </div>
               </th>
-              <th className="lastComments">
-                Ostatni komentarz{sortItemsContent("lastComments")}
+              <th className="lastStageDescription">
+                Ostatni komentarz
+                {sortItemsContent("lastStageDescription")}
                 <div className="search-item">
-                  {searchItemsContent("lastComments", "text")}
+                  {searchItemsContent("lastStageDescription", "text")}
+                </div>
+              </th>
+              <th className="lastStageCreatedAt">
+                Data ostatniego komentarza
+                {sortItemsContent("lastStageCreatedAt")}
+                <div className="search-item">
+                  {searchItemsContent("lastStageCreatedAt", "text")}
                 </div>
               </th>
               <th className="termAt">

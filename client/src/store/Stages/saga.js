@@ -1,5 +1,5 @@
 import axios from "axios";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery, select } from "redux-saga/effects";
 import {
   FETCHING_STAGES,
   FETCH_STAGES_SUCCESS,
@@ -11,8 +11,11 @@ import {
   UPDATE_STAGE_SUCCESS,
   STAGES_ERROR,
 } from "./types";
+import { addCalendar } from "../Calendar/actions";
 
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
+
+const getLoggedUser = (state) => state.users.logged_user;
 
 function* fetchStagesAsync(action) {
   const stageInput = action.data;
@@ -26,6 +29,7 @@ function* fetchStagesAsync(action) {
             _id
             projectId
             description
+            createdBy
             createdAt
             termAt
           }
@@ -54,9 +58,11 @@ export function* fetchStagesWatcher() {
 function* addStageAsync(action) {
   // try {
   const data = action.data;
+  const loggedUser = yield select(getLoggedUser);
   const stageInput = {
     projectId: data.projectId,
     description: data.description,
+    createdBy: loggedUser.name,
     createdAt: data.createdAt,
     termAt: data.termAt,
   };
@@ -66,11 +72,13 @@ function* addStageAsync(action) {
       addStage(stageInput: {
         projectId: "${stageInput.projectId}",
       description: "${stageInput.description}",
+      createdBy: "${stageInput.createdBy}",
       createdAt: "${stageInput.createdAt}",
       termAt: "${stageInput.termAt}",}){
         _id
         projectId
         description
+        createdBy
         createdAt
         termAt
         errors{
@@ -89,7 +97,6 @@ function* addStageAsync(action) {
   );
 
   const response = stageData.data.data.addStage;
-  // console.log("saga resolver ", response);
   if (response.errors) {
     yield put({ type: STAGES_ERROR, payload: response.errors });
     yield put({
@@ -101,6 +108,18 @@ function* addStageAsync(action) {
       type: ADD_STAGE_SUCCESS,
       payload: response,
     });
+    if (response.termAt.length > 0) {
+      const calendarData = {
+        eventId: response._id,
+        userId: loggedUser._id,
+        eventType: "Projekt",
+        title: response.description,
+        description: response.description,
+        selectedDate: response.termAt,
+        status: "enabled",
+      };
+      yield put(addCalendar(calendarData));
+    }
     yield put({
       type: UPDATE_MESSAGES_SUCCESS,
       payload: { success: [{ message: "Etap został dodany" }] },
@@ -120,6 +139,7 @@ function* updateStageAsync(action) {
     _id: data._id,
     projectId: data.projectId ? data.projectId : "",
     description: data.description ? data.description : "",
+    createdBy: data.createdBy ? data.createdBy : "",
     createdAt: data.createdAt ? data.createdAt : "",
     termAt: data.termAt ? data.termAt : "",
   };
@@ -130,11 +150,13 @@ function* updateStageAsync(action) {
       _id: "${stageInput._id}",
       projectId: "${stageInput.projectId}",
       description: "${stageInput.description}",
+      createdBy: "${stageInput.createdBy}",
       createdAt: "${stageInput.createdAt}",
       termAt: "${stageInput.termAt}",}){
         _id
         projectId
         description
+        createdBy
         createdAt
         termAt
         errors{

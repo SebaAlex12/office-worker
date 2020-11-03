@@ -103,7 +103,6 @@ function App() {
                 <div className="login-box">
                   <img
                     style={{
-                      backgroundColor: "#000",
                       padding: "10px",
                       marginTop: "50px",
                     }}

@@ -44,7 +44,10 @@ export const StyledProjectBasicList = styled.div`
   .projects-basic-list-box table tr > th.signature {
     width: 30px;
   }
-  .projects-basic-list-box table tr > th.lastComments {
+  .projects-basic-list-box table tr > th.lastStageDescription {
+    width: 110px;
+  }
+  .projects-basic-list-box table tr > th.lastStageCreatedAt {
     width: 110px;
   }
   .projects-basic-list-box table tr > th.termAt {
@@ -55,8 +58,10 @@ export const StyledProjectBasicList = styled.div`
   }
   .projects-basic-list-box table thead .actions {
     text-align: center;
+    width: 130px;
   }
   .projects-basic-list-box table tbody .actions {
+    width: 130px;
   }
   .catalog-item-desc-box {
     position: relative;

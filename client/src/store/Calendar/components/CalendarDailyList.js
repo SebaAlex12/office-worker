@@ -64,7 +64,7 @@ class CalendarDailyList extends Component {
               showModalProjectDailyEvents: !showModalProjectDailyEvents,
             })
           }
-          title="lista przypisanych spraw"
+          title="lista etapów"
         >
           <FontAwesomeIcon icon={faBalanceScale} />
           <span>{projectDailyEvents.length}</span>

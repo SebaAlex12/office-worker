@@ -41,6 +41,7 @@ module.exports = buildSchema(`
         projectId: String
         description: String,
         createdAt: String
+        createdBy: String
         termAt: String
         errors: [Error] 
     }
@@ -112,6 +113,8 @@ module.exports = buildSchema(`
         type: String
         organ: String
         description: String
+        lastStageDescription: String
+        lastStageCreatedAt: String
         createdAt: String
         termAt: String
         errors: [Error]
@@ -158,7 +161,8 @@ module.exports = buildSchema(`
     input StageInputData {
         _id: String
         projectId: String
-        description: String,
+        description: String
+        createdBy: String
         createdAt: String
         termAt: String
     }
@@ -226,6 +230,8 @@ module.exports = buildSchema(`
         organ: String
         description: String
         createdAt: String
+        lastStageDescription: String
+        lastStageCreatedAt: String
         termAt: String
     }
 

@@ -14,6 +14,7 @@ const StagesBasicList = (props) => {
   const [input, setInput] = useState({
     description: "",
     createdAt: "",
+    createdBy: "",
     termAt: "",
   });
   const handleInputChange = (event) => {
@@ -22,6 +23,7 @@ const StagesBasicList = (props) => {
     let newInput = {
       description: "",
       createdAt: "",
+      createdBy: "",
       termAt: "",
     };
     if (event.target.name !== undefined) {
@@ -93,6 +95,12 @@ const StagesBasicList = (props) => {
                 Treść wpisu{sortItemsContent("description")}
                 <div className="search-item">
                   {searchItemsContent("description", "text")}
+                </div>
+              </th>
+              <th className="createdBy">
+                Autor{sortItemsContent("createdBy")}
+                <div className="search-item">
+                  {searchItemsContent("createdBy", "text")}
                 </div>
               </th>
               <th className="termAt">

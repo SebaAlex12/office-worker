@@ -29,6 +29,8 @@ function* fetchProjectsAsync(action) {
             type
             organ
             description
+            lastStageDescription
+            lastStageCreatedAt
             createdAt
             termAt
           }
@@ -67,6 +69,8 @@ function* fetchProjectsByLoggedUserProjectsAsync(action) {
             type
             organ
             description
+            lastStageDescription
+            lastStageCreatedAt
             createdAt
             termAt
           }
@@ -101,9 +105,9 @@ function* addProjectAsync(action) {
   const data = action.data;
   const projectInput = {
     name: data.name,
-    signature: data.signature,
+    signature: JSON.stringify(data.signature),
     type: data.type,
-    organ: data.organ,
+    organ: JSON.stringify(data.organ),
     description: data.description,
     createdAt: data.createdAt,
     termAt: data.termAt,
@@ -113,9 +117,9 @@ function* addProjectAsync(action) {
     query: `mutation {
       addProject(projectInput: {
       name: "${projectInput.name}",
-      signature: "${projectInput.signature}",
+      signature: """${projectInput.signature}""",
       type: "${projectInput.type}",
-      organ: "${projectInput.organ}",
+      organ: """${projectInput.organ}""",
       description: "${projectInput.description}",
       createdAt: "${projectInput.createdAt}",
       termAt: "${projectInput.termAt}",}){
@@ -169,14 +173,17 @@ export function* addProjectWatcher() {
 function* updateProjectAsync(action) {
   // try {
   const data = action.data;
-
   const projectInput = {
     _id: data._id,
     name: data.name ? data.name : "",
-    signature: data.signature ? data.signature : "",
+    signature: data.signature ? JSON.stringify(data.signature) : "",
     type: data.type ? data.type : "",
-    organ: data.organ ? data.organ : "",
+    organ: data.organ ? JSON.stringify(data.organ) : "",
     description: data.description ? data.description : "",
+    lastStageDescription: data.lastStageDescription
+      ? data.lastStageDescription
+      : "",
+    lastStageCreatedAt: data.lastStageCreatedAt ? data.lastStageCreatedAt : "",
     createdAt: data.createdAt ? data.createdAt : "",
     termAt: data.termAt ? data.termAt : "",
   };
@@ -186,10 +193,12 @@ function* updateProjectAsync(action) {
       updateProject(projectInput: {
       _id: "${projectInput._id}",
       name: "${projectInput.name}",
-      signature: "${projectInput.signature}",
+      signature: """${projectInput.signature}""",
       type: "${projectInput.type}",
-      organ: "${projectInput.organ}",
+      organ: """${projectInput.organ}""",
       description: "${projectInput.description}",
+      lastStageDescription: "${projectInput.lastStageDescription}",
+      lastStageCreatedAt: "${projectInput.lastStageCreatedAt}",
       createdAt: "${projectInput.createdAt}",
       termAt: "${projectInput.termAt}",}){
         _id
@@ -198,6 +207,8 @@ function* updateProjectAsync(action) {
         type
         organ
         description
+        lastStageDescription
+        lastStageCreatedAt
         createdAt
         termAt
         errors{
@@ -207,7 +218,7 @@ function* updateProjectAsync(action) {
       }
     }`,
   };
-  // console.log(graph);
+  console.log("graphql", graph);
   const projectData = yield call(
     [axios, axios.post],
     "/graphql",
