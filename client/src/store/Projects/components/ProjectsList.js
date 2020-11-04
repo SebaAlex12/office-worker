@@ -7,7 +7,6 @@ import { BiggerButton, SmallerButton, ListBox } from "../../../themes/basic";
 import { StyledProjectList } from "../styles/StyledProjectList";
 import {
   faTimes,
-  faFilter,
   faArrowAltCircleDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -69,7 +68,6 @@ class ProjectsList extends Component {
   };
   render() {
     const {
-      loggedUser,
       filters: { projectName },
     } = this.props;
     const {
@@ -94,7 +92,6 @@ class ProjectsList extends Component {
         ? "glyphicon glyphicon-filter active"
         : "glyphicon glyphicon-filter";
 
-    const btn_clazz = toggleProjectsAddForm ? "flow-box active" : "flow-box";
     const btn_list_clazz = toggleProjectsList
       ? "project-list-flow-box active"
       : "project-list-flow-box";

@@ -147,7 +147,7 @@ export function* fetchLoggedUserWatcher() {
 }
 
 function* fetchUsersAsync(action) {
-  const data = action.data;
+  // const data = action.data;
   try {
     const graph = {
       query: `

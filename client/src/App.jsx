@@ -11,12 +11,7 @@ import jwt_decode from "jwt-decode";
 
 import logo from "./adwokaci-lodz.png";
 
-import {
-  loginUser,
-  fetchLoggedUser,
-  fetchUsers,
-  fetchUsersByLoggedUserProjects,
-} from "./store/Users/actions";
+import { loginUser, fetchLoggedUser, fetchUsers } from "./store/Users/actions";
 import { fetchProjects } from "./store/Projects/actions";
 import LoginForm from "./store/Users/components/LoginForm";
 import { fetchSettings } from "./store/Settings/actions";

@@ -15,7 +15,7 @@ class StagesListContainer extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.stages != this.state.stages) {
+    if (nextProps.stages !== this.state.stages) {
       this.setState({
         ...this.state,
         stages: nextProps.stages,
@@ -37,14 +37,14 @@ class StagesListContainer extends Component {
       stages: stages,
     });
   };
-  removeStagesHandler = async (id) => {
-    const { stages, filteredStages } = this.state;
+  removeStagesHandler = (id) => {
+    // const { stages, filteredStages } = this.state;
     const { removeStage } = this.props;
 
     const result = window.confirm("Czy na pewno chcesz usunąć wybrany etap !");
 
     if (result) {
-      const response = await removeStage(id);
+      removeStage(id);
       // if (response) {
       //   this.setState({
       //     stages: stages.filter((item) => item._id !== id),
@@ -61,7 +61,7 @@ class StagesListContainer extends Component {
     if (response) {
       this.setState({
         stages: stages.map((item) =>
-          item._id == element._id ? element : item
+          item._id === element._id ? element : item
         ),
       });
     }

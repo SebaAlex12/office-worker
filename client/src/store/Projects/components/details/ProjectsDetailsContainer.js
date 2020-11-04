@@ -41,7 +41,7 @@ class ProjectsDetailsContainer extends Component {
   };
   render() {
     const { toggleStageAddForm, projectUsers } = this.state;
-    const { item, stages } = this.props;
+    const { item } = this.props;
 
     const stageListContent = <StagesListContainer />;
 

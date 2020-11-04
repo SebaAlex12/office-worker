@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { removeUser, updateUser } from "../actions";
 import UsersLastActiveList from "./UsersLastActiveList";
-import UsersHistoryQuickView from "../../UsersHistory/components/UsersHistoryQuickView";
 
 import { updateFilter } from "../../Filters/actions";
 import UsersItem from "./UsersItem";
@@ -70,7 +69,6 @@ class UsersList extends Component {
   };
   render() {
     const {
-      loggedUser,
       filters: { responsiblePerson },
     } = this.props;
     const { toggleUsersList, userFilterName } = this.state;

@@ -16,7 +16,7 @@ import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup"
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
 import { Button, WarningButton } from "../../../themes/basic";
-import { priorities, statuses } from "../../ini";
+import { statuses } from "../../ini";
 import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
 import CalendarContainer from "../../Calendar/components/CalendarContainer";
 import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
@@ -47,9 +47,9 @@ class TasksBasicItem extends Component {
     const { item } = this.state;
     // if (editItem) {
     const response = await updateItem(item);
-    //   if (response) {
+      if (response) {
     this.setState({ editItem: false });
-    //   }
+      }
     // }
   };
   render() {
@@ -195,7 +195,7 @@ class TasksBasicItem extends Component {
     );
 
     const $clazz = status_clasess.filter(
-      (element) => element.status_name == item.status
+      (element) => element.status_name === item.status
     );
 
     return (

@@ -14,9 +14,9 @@ class ProjectsAddForm extends Component {
     super(props);
     this.state = {
       name: "",
-      signature: "",
+      signature: [],
       type: "",
-      organ: "",
+      organ: [],
       description: "",
       createdAt: "",
       termAt: "",
@@ -36,7 +36,7 @@ class ProjectsAddForm extends Component {
     });
   };
   addHandler = async (event) => {
-    const { addProject, updateUser, users, closeAddForm } = this.props;
+    const { addProject, updateUser, users } = this.props;
     const {
       name,
       signature,
@@ -50,9 +50,25 @@ class ProjectsAddForm extends Component {
 
     const projectData = {
       name,
-      signature,
+      signature:
+        signature.length > 0
+          ? [
+              {
+                id: 1,
+                name: signature,
+              },
+            ]
+          : [],
+      organ:
+        organ.length > 0
+          ? [
+              {
+                id: 1,
+                name: organ,
+              },
+            ]
+          : [],
       type,
-      organ,
       description,
       createdAt,
       termAt,
@@ -62,19 +78,17 @@ class ProjectsAddForm extends Component {
 
     const response = await addProject(projectData);
 
-    // if(response){
-    //   closeAddForm()
-    // }
-
-    const userData = users.filter((user) => {
-      if (user.name === userName) {
-        let projects = user.projects ? user.projects.split(",") : [];
-        projects.push(projectData.name);
-        user.projects = projects;
-        return user;
-      }
-    });
-    updateUser(userData[0]);
+    if (userName.length > 0 && response) {
+      const userData = users.filter((user) => {
+        if (user.name === userName) {
+          let projects = user.projects ? user.projects.split(",") : [];
+          projects.push(projectData.name);
+          user.projects = projects;
+          return user;
+        }
+      });
+      updateUser(userData[0]);
+    }
   };
   render() {
     const { name, signature, organ, description } = this.state;

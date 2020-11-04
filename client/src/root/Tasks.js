@@ -11,7 +11,7 @@ class Tasks extends Component {
   constructor(props) {
     super(props);
     const {
-      loggedUser: { status, tasks },
+      loggedUser: { status },
       fetchTasks,
     } = this.props;
     switch (status) {

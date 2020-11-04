@@ -212,9 +212,9 @@ class CalendarContainer extends Component {
         .format("YYYY-MM-DD")
         .split("-");
       if (
-        selectedYear == stateYear &&
-        selectedMonth == stateMonth &&
-        selectedDay == day
+        selectedYear === stateYear &&
+        selectedMonth === stateMonth &&
+        selectedDay === day
       ) {
         return item;
       }
@@ -255,7 +255,7 @@ class CalendarContainer extends Component {
       );
     }
     for (let day = 1; day <= this.daysInMonth(); day++) {
-      let clazz = day == this.currentDay() ? "day current-day" : "day";
+      let clazz = day === this.currentDay() ? "day current-day" : "day";
       let dailyEvents = this.filterDailyEvents(day);
       daysInMonth.push(
         <td key={day} className={clazz}>
@@ -282,7 +282,7 @@ class CalendarContainer extends Component {
 
     const totalSlots = [...blanks, ...daysInMonth];
     totalSlots.forEach((row, i) => {
-      if (i % 7 != 0) {
+      if (i % 7 !== 0) {
         cells.push(row);
       } else {
         let insertRow = cells.slice();

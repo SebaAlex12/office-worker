@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Link } from "react-router-dom";
 // import io from "socket.io-client";
-import { socket } from "../../store/ini";
+// import { socket } from "../../store/ini";
 
 import { logoutUser } from "../../store/Users/actions";
 import Calendar from "../../root/Calendar";
@@ -20,19 +20,14 @@ class Dashboard extends Component {
     super(props);
     const { updateAlertMessages, loggedUser } = this.props;
 
-    // const port = process.env.PORT || 5000;
-    // console.log("port", port);
-    // if (!this.socket) {
-    // this.socket = io();
-    socket.on("chat", function (msg) {
-      let users = msg.to.split(",");
-      if (users.includes(loggedUser.name)) {
-        if (msg.from !== loggedUser.name) {
-          updateAlertMessages({ type: "messenger", data: msg });
-        }
-      }
-    });
-    // }
+    // socket.on("chat", function (msg) {
+    //   let users = msg.to.split(",");
+    //   if (users.includes(loggedUser.name)) {
+    //     if (msg.from !== loggedUser.name) {
+    //       updateAlertMessages({ type: "messenger", data: msg });
+    //     }
+    //   }
+    // });
   }
   logoutUserHandler = async () => {
     const { logoutUser } = this.props;

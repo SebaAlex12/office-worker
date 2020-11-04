@@ -19,7 +19,7 @@ class TasksListContainer extends Component {
   componentWillReceiveProps(nextProps) {
     console.log("component will resive props");
     console.log("next props", nextProps);
-    if (nextProps.tasks != this.state.tasks) {
+    if (nextProps.tasks !== this.state.tasks) {
       this.setState({
         ...this.state,
         tasks: nextProps.tasks,
@@ -41,14 +41,14 @@ class TasksListContainer extends Component {
       tasks: tasks,
     });
   };
-  removeTasksHandler = async (id) => {
-    const { tasks, filteredTasks } = this.state;
+  removeTasksHandler = (id) => {
+    // const { tasks, filteredTasks } = this.state;
     const { removeTask } = this.props;
 
     const result = window.confirm("Czy na pewno chcesz usunąć zadanie!");
 
     if (result) {
-      const response = await removeTask(id);
+      removeTask(id);
       // if (response) {
       //   this.setState({
       //     tasks: tasks.filter((item) => item._id !== id),
@@ -64,7 +64,7 @@ class TasksListContainer extends Component {
     const response = await updateTask(element);
     if (response) {
       this.setState({
-        tasks: tasks.map((item) => (item._id == element._id ? element : item)),
+        tasks: tasks.map((item) => (item._id === element._id ? element : item)),
       });
     }
   };

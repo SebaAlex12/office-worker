@@ -17,7 +17,7 @@ class IncomingMailsListContainer extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.incomingMails != this.state.incomingMails) {
+    if (nextProps.incomingMails !== this.state.incomingMails) {
       this.setState({
         ...this.state,
         incomingMails: nextProps.incomingMails,
@@ -39,7 +39,7 @@ class IncomingMailsListContainer extends Component {
       incomingMails: incomingMails,
     });
   };
-  removeIncomingMailsHandler = async (id) => {
+  removeIncomingMailsHandler = (id) => {
     const { removeIncomingMail } = this.props;
 
     const result = window.confirm(
@@ -47,7 +47,7 @@ class IncomingMailsListContainer extends Component {
     );
 
     if (result) {
-      const response = await removeIncomingMail(id);
+      removeIncomingMail(id);
       // if (response) {
       //   this.setState({
       //     incomingMails: incomingMails.filter((item) => item._id !== id),
@@ -66,7 +66,7 @@ class IncomingMailsListContainer extends Component {
     if (response) {
       this.setState({
         incomingMails: incomingMails.map((item) =>
-          item._id == element._id ? element : item
+          item._id === element._id ? element : item
         ),
       });
     }

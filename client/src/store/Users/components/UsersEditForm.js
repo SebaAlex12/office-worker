@@ -119,12 +119,10 @@ class UsersEditFrom extends Component {
       password,
       status,
       selectedProjects,
-      selectedUsers,
     } = this.state;
-    const { users, loggedUser } = this.props;
+    const { loggedUser } = this.props;
     let { projects } = this.props;
     let projectContent = "";
-    let userContent = "";
 
     if (projects && loggedUser) {
       if (loggedUser.status !== "Administrator") {

@@ -19,7 +19,7 @@ class ProjectsListContainer extends Component {
   componentWillReceiveProps(nextProps) {
     // console.log("component will resive props");
     // console.log("next props", nextProps);
-    if (nextProps.projects != this.state.projects) {
+    if (nextProps.projects !== this.state.projects) {
       this.setState({
         ...this.state,
         projects: nextProps.projects,
@@ -41,7 +41,7 @@ class ProjectsListContainer extends Component {
       projects: projects,
     });
   };
-  removeProjectsHandler = async (id) => {
+  removeProjectsHandler = (id) => {
     // const { projects, filteredProjects } = this.state;
     const { removeProject } = this.props;
 
@@ -50,7 +50,7 @@ class ProjectsListContainer extends Component {
     );
 
     if (result) {
-      const response = await removeProject(id);
+      removeProject(id);
       // if (response) {
       //   this.setState({
       //     projects: projects.filter((item) => item._id !== id),
@@ -67,7 +67,7 @@ class ProjectsListContainer extends Component {
     if (response) {
       this.setState({
         projects: projects.map((item) =>
-          item._id == element._id ? element : item
+          item._id === element._id ? element : item
         ),
       });
     }

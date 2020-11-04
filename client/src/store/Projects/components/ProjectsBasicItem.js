@@ -6,10 +6,7 @@ import {
   faPencilAlt,
   faPlusSquare,
   faEdit,
-  faExpandArrowsAlt,
-  faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment/min/moment-with-locales";
 
 import { projectTypes } from "../../ini";
 import DateTimeFormat from "../../../common/DateTimeFormat";
@@ -30,7 +27,11 @@ class ProjectsBasicItem extends Component {
     this.state = {
       editItem: false,
       moreItem: false,
-      item: item,
+      item: {
+        ...item,
+        signature: item.signature ? JSON.parse(item.signature) : [],
+        organ: item.organ ? JSON.parse(item.organ) : [],
+      },
       showItemDetails: false,
       // showCalendar: false,
     };
@@ -65,6 +66,22 @@ class ProjectsBasicItem extends Component {
     } = this.state;
     const { removeItem, ordinalNumber, loggedUser } = this.props;
 
+    const signatureContent = item.signature.map((element) => {
+      return (
+        <span
+          style={{
+            display: "inline-block",
+            backgroundColor: "#e6e6e6",
+            padding: "5px 10px",
+            margin: "4px",
+          }}
+          key={element.id}
+        >
+          {element.name}
+        </span>
+      );
+    });
+
     const itemContent = editItem ? (
       <Aux>
         <td className="ordinalNumber">{ordinalNumber}</td>
@@ -75,7 +92,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="name"
             value={item.name}
-            disabled="true"
+            disabled={true}
           />
           {/* <div className="quick-actions">
             <Button
@@ -105,7 +122,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="type">
@@ -123,7 +140,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="signature"
             value={item.signature}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="lastStageDescription">
@@ -133,7 +150,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="lastStageDescription"
             value={item.lastStageDescription}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="lastStageCreatedAt">
@@ -143,7 +160,7 @@ class ProjectsBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="lastStageCreatedAt"
             value={item.lastStageCreatedAt}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="termAt">
@@ -206,7 +223,7 @@ class ProjectsBasicItem extends Component {
           style={{ cursor: "pointer" }}
           onClick={() => this.setState({ showItemDetails: !showItemDetails })}
         >
-          {item.signature}
+          {signatureContent}
         </td>
         <td
           className="lastStageDescription"

@@ -16,7 +16,7 @@ import {
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
 
 function* fetchProjectsAsync(action) {
-  const data = action.data;
+  // const data = action.data;
   // console.log("saga", data);
   try {
     const graph = {
@@ -138,6 +138,8 @@ function* addProjectAsync(action) {
       }
     }`,
   };
+
+  console.log("graph", graph);
 
   const projectData = yield call(
     [axios, axios.post],

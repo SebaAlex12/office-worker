@@ -14,10 +14,8 @@ class ProjectsDetailsInfo extends Component {
     super(props);
     this.state = {
       name: this.props.item.name,
-      signatures: this.props.item.signature
-        ? JSON.parse(this.props.item.signature)
-        : [],
-      organs: this.props.item.organ ? JSON.parse(this.props.item.organ) : [],
+      signatures: this.props.item.signature ? this.props.item.signature : [],
+      organs: this.props.item.organ ? this.props.item.organ : [],
       signatureValue: "",
       organValue: "",
     };

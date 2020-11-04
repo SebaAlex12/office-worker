@@ -8,7 +8,7 @@ const ProjectSchema = new Schema({
   },
   type: {
     type: String,
-    required: [true, "Typ jest wymagany"],
+    required: [true, "Rodzaj sprawy jest wymagany"],
   },
   signature: {
     type: String,

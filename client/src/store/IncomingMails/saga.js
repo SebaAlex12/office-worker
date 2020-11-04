@@ -15,7 +15,7 @@ import {
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
 
 function* fetchIncomingMailsAsync(action) {
-  const data = action.data;
+  // const data = action.data;
   // console.log("saga", data);
   try {
     const graph = {

@@ -10,7 +10,7 @@ class IncomingMails extends Component {
   constructor(props) {
     super(props);
     const {
-      loggedUser: { status, incomingMails },
+      loggedUser: { status },
       fetchIncomingMails,
     } = this.props;
     switch (status) {
