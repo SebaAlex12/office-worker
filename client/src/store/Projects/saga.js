@@ -149,7 +149,6 @@ function* addProjectAsync(action) {
   );
 
   const response = projectData.data.data.addProject;
-  // console.log("saga resolver ", response);
   if (response.errors) {
     yield put({ type: PROJECTS_ERROR, payload: response.errors });
     yield put({

@@ -1,4 +1,5 @@
 const User = require("../../models/User");
+const tools = require("../../utils/tools");
 
 //user authorization
 // const bcrypt = require("bcrypt-nodejs");
@@ -76,14 +77,7 @@ module.exports = {
       const storedUser = await user.save();
       return { ...storedUser._doc, _id: storedUser._id.toString() };
     } catch (e) {
-      return {
-        errors: [
-          {
-            path: "dodawanie użytkownika",
-            message: e,
-          },
-        ],
-      };
+      return { errors: tools.formatErrors(e) };
     }
   },
   loginUser: async function ({ email, password }) {

@@ -212,9 +212,9 @@ class CalendarContainer extends Component {
         .format("YYYY-MM-DD")
         .split("-");
       if (
-        selectedYear === stateYear &&
-        selectedMonth === stateMonth &&
-        selectedDay === day
+        selectedYear == stateYear &&
+        selectedMonth == stateMonth &&
+        selectedDay == day
       ) {
         return item;
       }
@@ -255,8 +255,9 @@ class CalendarContainer extends Component {
       );
     }
     for (let day = 1; day <= this.daysInMonth(); day++) {
-      let clazz = day === this.currentDay() ? "day current-day" : "day";
+      let clazz = day == this.currentDay() ? "day current-day" : "day";
       let dailyEvents = this.filterDailyEvents(day);
+      console.log("dailyEvents", dailyEvents);
       daysInMonth.push(
         <td key={day} className={clazz}>
           <span className="number">{day}</span>

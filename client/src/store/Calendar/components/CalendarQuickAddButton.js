@@ -15,6 +15,7 @@ const CalendarQuickAddButton = ({
   selectedDate,
   status,
   btnTitle,
+  disabled,
 }) => {
   const dispatch = useDispatch();
   const data = {
@@ -32,7 +33,11 @@ const CalendarQuickAddButton = ({
   };
 
   return (
-    <Button title={btnTitle} onClick={() => addHandler(dispatch, data)}>
+    <Button
+      title={btnTitle}
+      onClick={() => addHandler(dispatch, data)}
+      disabled
+    >
       <FontAwesomeIcon icon={faCalendarCheck} />
     </Button>
   );

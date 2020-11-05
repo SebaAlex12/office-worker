@@ -51,6 +51,7 @@ class TopNavigatorToolbar extends Component {
               toggleTasksAddForm: !toggleTasksAddForm,
             })
           }
+          disabled={true}
         >
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
           <span>Dodaj zadanie</span>

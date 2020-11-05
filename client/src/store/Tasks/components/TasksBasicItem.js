@@ -47,9 +47,9 @@ class TasksBasicItem extends Component {
     const { item } = this.state;
     // if (editItem) {
     const response = await updateItem(item);
-      if (response) {
-    this.setState({ editItem: false });
-      }
+    if (response) {
+      this.setState({ editItem: false });
+    }
     // }
   };
   render() {
@@ -74,6 +74,7 @@ class TasksBasicItem extends Component {
               onClick={() =>
                 this.setState({ ...this.state, showCalendar: true })
               }
+              disabled={true}
             >
               <FontAwesomeIcon icon={faCalendarAlt} />
             </Button>
@@ -85,6 +86,7 @@ class TasksBasicItem extends Component {
               btnTitle="Dodaj do kalendarza"
               title="Szybkie zadanie"
               status="enabled"
+              disabled={true}
             />
           </div>
         </td>
@@ -166,6 +168,7 @@ class TasksBasicItem extends Component {
               onClick={() =>
                 this.setState({ ...this.state, showCalendar: true })
               }
+              disabled={true}
             >
               <FontAwesomeIcon icon={faCalendarAlt} />
             </Button>
@@ -177,6 +180,7 @@ class TasksBasicItem extends Component {
               btnTitle="Dodaj do kalendarza"
               title="Szybkie zadanie"
               status="enabled"
+              disabled={true}
             />
           </div>
         </td>
@@ -211,6 +215,7 @@ class TasksBasicItem extends Component {
               <Button
                 title="Rozwiń rekord"
                 onClick={() => this.setState({ moreItem: !moreItem })}
+                disabled={true}
               >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>

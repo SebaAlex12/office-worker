@@ -26,13 +26,15 @@ module.exports = {
   addProject: async function ({ projectInput }, req) {
     const result = await Project.findOne({ name: projectInput.name });
     if (result) {
-      throw {
+      return {
         errors: [
-          { path: "name", message: "Istnieje już sprawa o podanej nazwie" },
+          {
+            path: "name",
+            message: "Istnieje już sprawa o podanej nazwie",
+          },
         ],
       };
     }
-    // console.log("add project");
     const data = {
       name: projectInput.name,
       signature: projectInput.signature,

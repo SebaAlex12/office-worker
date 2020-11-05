@@ -37,7 +37,7 @@ class CalendarProjectsList extends Component {
           <tr key={event._id}>
             <td>{event.title}</td>
             <td>
-              <textarea cols="60" rows="6" disabled>
+              <textarea cols="60" rows="2" disabled>
                 {event.description}
               </textarea>
             </td>
@@ -64,7 +64,7 @@ class CalendarProjectsList extends Component {
     return (
       <div>
         <h2>
-          Lista przypisanych spraw na dzień: <br />
+          Lista etapów na dzień: <br />
           {DailyEvents.length > 0
             ? moment(new Date(DailyEvents[0].selectedDate))
                 .locale("pl")

@@ -112,6 +112,9 @@ function* registerUserAsync(action) {
   );
 
   const response = res.data.data.createUser;
+
+  console.log("response users add", response);
+
   if (response.errors) {
     yield put({ type: USER_ERROR, payload: response.errors });
     yield put({

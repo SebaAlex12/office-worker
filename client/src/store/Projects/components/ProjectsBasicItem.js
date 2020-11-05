@@ -88,8 +88,6 @@ class ProjectsBasicItem extends Component {
     } = this.state;
     const { removeItem, ordinalNumber, loggedUser } = this.props;
 
-    console.log("state item", this.state);
-
     const signatureContent = item.signature.map((element) => {
       return (
         <span
