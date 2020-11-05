@@ -16,19 +16,19 @@ import MailsListContainer from "../../store/Mails/components/MailsListContainer"
 import { updateAlertMessages } from "../../store/Messages/actions";
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    const { updateAlertMessages, loggedUser } = this.props;
+  // constructor(props) {
+  //   super(props);
+  // const { updateAlertMessages, loggedUser } = this.props;
 
-    // socket.on("chat", function (msg) {
-    //   let users = msg.to.split(",");
-    //   if (users.includes(loggedUser.name)) {
-    //     if (msg.from !== loggedUser.name) {
-    //       updateAlertMessages({ type: "messenger", data: msg });
-    //     }
-    //   }
-    // });
-  }
+  // socket.on("chat", function (msg) {
+  //   let users = msg.to.split(",");
+  //   if (users.includes(loggedUser.name)) {
+  //     if (msg.from !== loggedUser.name) {
+  //       updateAlertMessages({ type: "messenger", data: msg });
+  //     }
+  //   }
+  // });
+  // }
   logoutUserHandler = async () => {
     const { logoutUser } = this.props;
     const reload = () => {

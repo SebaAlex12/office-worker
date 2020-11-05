@@ -154,7 +154,7 @@ class TasksAddForm extends Component {
                 name="priority"
                 value={priority}
                 required
-                disabled="true"
+                disabled={true}
               >
                 <option value="">Wybierz priorytet</option>
                 {priorities
@@ -244,7 +244,7 @@ class TasksAddForm extends Component {
                 name="status"
                 value={status}
                 required
-                disabled="true"
+                disabled={true}
               >
                 <option value="">Wybierz stan</option>
                 {statuses

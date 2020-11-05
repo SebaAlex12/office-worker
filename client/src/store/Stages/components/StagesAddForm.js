@@ -44,7 +44,7 @@ class StagesAddForm extends Component {
       const projectResponse = await updateProject({
         _id: projectId,
         lastStageDescription: description,
-        lastStageCreatedAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
+        lastStageCreatedAt: termAt,
       });
     }
     this.setState({

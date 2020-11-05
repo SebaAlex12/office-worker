@@ -36,6 +36,28 @@ class ProjectsBasicItem extends Component {
       // showCalendar: false,
     };
   }
+  componentDidUpdate(prevProps, prevState) {
+    const { item } = this.props;
+    if (
+      prevProps.item.name !== item.name ||
+      prevProps.item.signature !== item.signature ||
+      prevProps.item.organ !== item.organ ||
+      prevProps.item.lastStageCreatedAt !== item.lastStageCreatedAt ||
+      prevProps.item.lastStageDescription !== item.lastStageDescription
+    ) {
+      this.setState({
+        ...this.state,
+        item: {
+          ...item,
+          name: item.name,
+          signature: item.signature ? JSON.parse(item.signature) : [],
+          organ: item.organ ? JSON.parse(item.organ) : [],
+          lastStageCreatedAt: item.lastStageCreatedAt,
+          lastStageDescription: item.lastStageDescription,
+        },
+      });
+    }
+  }
   onChangeHandler = (event) => {
     const { item } = this.state;
     const newItem = {
@@ -65,6 +87,8 @@ class ProjectsBasicItem extends Component {
       // showCalendar,
     } = this.state;
     const { removeItem, ordinalNumber, loggedUser } = this.props;
+
+    console.log("state item", this.state);
 
     const signatureContent = item.signature.map((element) => {
       return (
@@ -271,6 +295,7 @@ class ProjectsBasicItem extends Component {
               <Button
                 title="Rozwiń rekord"
                 onClick={() => this.setState({ moreItem: !moreItem })}
+                disabled={true}
               >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
@@ -278,6 +303,7 @@ class ProjectsBasicItem extends Component {
             <Button
               onClick={() => this.setState({ editItem: !editItem })}
               title="Edytuj rekord"
+              disabled={true}
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>

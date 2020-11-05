@@ -31,3 +31,7 @@
 .App input[type="datetime-local"] {
   width: 200px;
 }
+
+.App button[disabled] {
+  opacity: 0.1;
+}

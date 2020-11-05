@@ -142,6 +142,7 @@ class StagesBasicItem extends Component {
               <Button
                 onClick={() => this.setState({ editItem: !editItem })}
                 title="edytuj etap"
+                disabled={true}
               >
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
@@ -151,6 +152,7 @@ class StagesBasicItem extends Component {
               onClick={() => removeItem(item._id)}
               className="remove"
               title="Usuń etap z listy"
+              disabled={true}
             >
               <FontAwesomeIcon icon={faMinusSquare} />
             </WarningButton>
