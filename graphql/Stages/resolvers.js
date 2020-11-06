@@ -8,7 +8,7 @@ module.exports = {
       ...stageInput,
     };
     const stages = await Stage.find(data, null, {
-      sort: { name: 1 },
+      sort: { termAt: "asc" },
     });
     return stages;
   },

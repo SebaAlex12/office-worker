@@ -136,6 +136,7 @@ class StagesBasicItem extends Component {
                 onClick={this.updateItemHandler}
                 title="zapisz etap"
                 className="active"
+                style={{ backgroundColor: "red" }}
               >
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
