@@ -204,7 +204,11 @@ class ProjectsBasicItem extends Component {
         >
           {ordinalNumber}
         </td>
-        <td className="name">
+        <td
+          className="name"
+          style={{ cursor: "pointer" }}
+          onClick={() => this.setState({ showItemDetails: !showItemDetails })}
+        >
           {item.name}
           {/* <div className="quick-actions">
             <Button

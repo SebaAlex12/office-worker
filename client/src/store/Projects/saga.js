@@ -139,8 +139,6 @@ function* addProjectAsync(action) {
     }`,
   };
 
-  console.log("graph", graph);
-
   const projectData = yield call(
     [axios, axios.post],
     "/graphql",
@@ -176,6 +174,7 @@ function* updateProjectAsync(action) {
   const data = action.data;
   const projectInput = {
     _id: data._id,
+    lastStageId: data.lastStageId ? data.lastStageId : "",
     name: data.name ? data.name : "",
     signature: data.signature ? JSON.stringify(data.signature) : "",
     type: data.type ? data.type : "",
@@ -193,6 +192,7 @@ function* updateProjectAsync(action) {
     query: `mutation {
       updateProject(projectInput: {
       _id: "${projectInput._id}",
+      lastStageId: "${projectInput.lastStageId}",
       name: "${projectInput.name}",
       signature: """${projectInput.signature}""",
       type: "${projectInput.type}",
@@ -203,6 +203,7 @@ function* updateProjectAsync(action) {
       createdAt: "${projectInput.createdAt}",
       termAt: "${projectInput.termAt}",}){
         _id
+        lastStageId
         name
         signature
         type

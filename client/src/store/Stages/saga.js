@@ -12,6 +12,7 @@ import {
   STAGES_ERROR,
 } from "./types";
 import { addCalendar } from "../Calendar/actions";
+import { updateProject } from "../Projects/actions";
 
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
 
@@ -108,6 +109,19 @@ function* addStageAsync(action) {
       type: ADD_STAGE_SUCCESS,
       payload: response,
     });
+
+    /* update project set last stage */
+    yield put(
+      updateProject({
+        _id: response.projectId,
+        lastStageId: response._id,
+        lastStageDescription: response.description,
+        lastStageCreatedAt:
+          response.termAt.length > 0 ? response.termAt : "brak",
+      })
+    );
+
+    /*  add stage to calendar  */
     if (response.termAt.length > 0) {
       const calendarData = {
         eventId: response._id,
@@ -185,6 +199,16 @@ function* updateStageAsync(action) {
       type: UPDATE_STAGE_SUCCESS,
       payload: response,
     });
+    /* update project set stage */
+    yield put(
+      updateProject({
+        _id: response.projectId,
+        lastStageId: response._id,
+        lastStageDescription: response.description,
+        lastStageCreatedAt:
+          response.termAt.length > 0 ? response.termAt : "brak",
+      })
+    );
     yield put({
       type: UPDATE_MESSAGES_SUCCESS,
       payload: { success: [{ message: "Etap został zaktualizowany" }] },

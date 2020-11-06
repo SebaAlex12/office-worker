@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const ProjectSchema = new Schema({
+  lastStageId: {
+    type: String,
+  },
   name: {
     type: String,
     required: [true, "Nazwa sprawy jest wymagana"],

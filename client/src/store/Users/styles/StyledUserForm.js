@@ -12,7 +12,7 @@ export const StyledUserForm = styled.div`
   .registry-form-box .multi-checkboxes {
     height: 250px;
     overflow-y: scroll;
-    text-align: center;
+    text-align: left;
   }
   .registry-form-box .multi-checkboxes .checkbox-item {
     display: flex;

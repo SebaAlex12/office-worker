@@ -83,13 +83,16 @@ class ProjectsDetailsContainer extends Component {
       <StyledProjectDetailsContainer>
         <div className="project-details-container-box">
           <h1>
-            {projectUsers.length > 0
-              ? projectUsers.map((user) => (
-                  <span key={user._id} style={{ paddingRight: "5px" }}>
-                    {user.name}
-                  </span>
-                ))
-              : "Brak przypisanej osoby !"}
+            {item.name}:
+            <span style={{ fontSize: "20px", marginLeft: "15px" }}>
+              {projectUsers.length > 0
+                ? projectUsers.map((user) => (
+                    <span key={user._id} style={{ paddingRight: "5px" }}>
+                      {user.name}
+                    </span>
+                  ))
+                : "Brak przypisanej osoby !"}
+            </span>
           </h1>
           {projectInfoContent}
           {projectUsers.length > 0 ? usersInfoContent : null}

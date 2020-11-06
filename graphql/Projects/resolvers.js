@@ -36,6 +36,7 @@ module.exports = {
       };
     }
     const data = {
+      lastStageId: "",
       name: projectInput.name,
       signature: projectInput.signature,
       type: projectInput.type,
@@ -62,6 +63,10 @@ module.exports = {
 
     const data = {
       _id: projectInput._id,
+      lastStageId:
+        projectInput.lastStageId !== ""
+          ? projectInput.lastStageId
+          : project.lastStageId,
       name: projectInput.name !== "" ? projectInput.name : project.name,
       signature:
         projectInput.signature !== ""

@@ -225,6 +225,7 @@ class TasksBasicItem extends Component {
               title="edytuj rekord"
               onClick={() => this.setState({ editItem: !editItem })}
               title="edytuj rekord"
+              disabled={true}
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment";
 
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import { addStage } from "../actions";
 import { StyledStageAddForm } from "../styles/StyledStageAddForm";
-
-import { updateProject } from "../../Projects/actions";
 
 class StagesAddForm extends Component {
   constructor(props) {
@@ -30,7 +27,7 @@ class StagesAddForm extends Component {
     });
   };
   addHandler = async (event) => {
-    const { addStage, projectId, updateProject, stages } = this.props;
+    const { addStage, projectId } = this.props;
     const { description, termAt } = this.state;
 
     const data = {
@@ -39,14 +36,12 @@ class StagesAddForm extends Component {
       termAt,
     };
     event.preventDefault();
-    const stageResponse = await addStage(data);
-    if (stageResponse) {
-      const projectResponse = await updateProject({
-        _id: projectId,
-        lastStageDescription: description,
-        lastStageCreatedAt: termAt,
-      });
-    }
+    addStage(data);
+    // const projectResponse = await updateProject({
+    //   _id: projectId,
+    //   lastStageDescription: description,
+    //   lastStageCreatedAt: termAt,
+    // });
     this.setState({
       ...this.state,
       description: "",
@@ -93,12 +88,4 @@ class StagesAddForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    stages: state.stages.stages,
-  };
-};
-
-export default connect(mapStateToProps, { addStage, updateProject })(
-  StagesAddForm
-);
+export default connect(null, { addStage })(StagesAddForm);

@@ -77,6 +77,7 @@ class StagesBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
+            disabled={true}
           />
         </td>
         <td className="description">
@@ -142,7 +143,7 @@ class StagesBasicItem extends Component {
               <Button
                 onClick={() => this.setState({ editItem: !editItem })}
                 title="edytuj etap"
-                disabled={true}
+                // disabled={true}
               >
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
@@ -152,7 +153,7 @@ class StagesBasicItem extends Component {
               onClick={() => removeItem(item._id)}
               className="remove"
               title="Usuń etap z listy"
-              disabled={true}
+              // disabled={true}
             >
               <FontAwesomeIcon icon={faMinusSquare} />
             </WarningButton>

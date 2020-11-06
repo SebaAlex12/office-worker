@@ -108,6 +108,7 @@ module.exports = buildSchema(`
 
     type Project {
         _id: ID
+        lastStageId: String
         name: String
         signature: String
         type: String
@@ -224,6 +225,7 @@ module.exports = buildSchema(`
 
     input ProjectInputData {
         _id: String
+        lastStageId: String
         name: String
         signature: String
         type: String

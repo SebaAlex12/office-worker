@@ -134,6 +134,7 @@ class IncomingMailsBasicItem extends Component {
               <Button
                 title="Rozwiń rekord"
                 onClick={() => this.setState({ moreItem: !moreItem })}
+                disabled={true}
               >
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
@@ -142,6 +143,7 @@ class IncomingMailsBasicItem extends Component {
               // className="edit"
               onClick={() => this.setState({ editItem: !editItem })}
               title="Edytuj rekord"
+              disabled={true}
             >
               <FontAwesomeIcon icon={faPencilAlt} />
             </Button>
