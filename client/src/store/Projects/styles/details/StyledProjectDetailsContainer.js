@@ -34,6 +34,9 @@ export const StyledProjectDetailsContainer = styled.div`
   .project-info-box .signature-organ-box {
     width: 100%;
   }
+  .project-info-box .signature-organ-box tbody{
+    vertical-align: baseline;
+  }
   .project-info-box .signature-organ-box .signature {
     width: 32%;
   }
@@ -51,7 +54,7 @@ export const StyledProjectDetailsContainer = styled.div`
     width: 68%;
   }
   .project-info-box .signature-organ-box .actions {
-    float: right;
+    width: 90px;
   }
   .project-info-box .signature-organ-box .addons {
     clear: both;

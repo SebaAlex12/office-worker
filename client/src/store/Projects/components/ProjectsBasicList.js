@@ -118,14 +118,14 @@ const ProjectsBasicList = (props) => {
                 </div>
               </th>
               <th className="lastStageDescription">
-                Ostatni etap
+                Ostatni wpis
                 {sortItemsContent("lastStageDescription")}
                 <div className="search-item">
                   {searchItemsContent("lastStageDescription", "text")}
                 </div>
               </th>
               <th className="lastStageCreatedAt">
-                Ostatni etap
+                Data ostatniego wpisu
                 {sortItemsContent("lastStageCreatedAt")}
                 <div className="search-item">
                   {searchItemsContent("lastStageCreatedAt", "text")}

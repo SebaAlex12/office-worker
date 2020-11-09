@@ -10,7 +10,6 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    required: [true, "Email jest wymagany"],
   },
   address: {
     type: String,
@@ -20,7 +19,6 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: [true, "Hasło jest wymagane"],
   },
   status: {
     type: String,

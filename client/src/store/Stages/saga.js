@@ -116,8 +116,7 @@ function* addStageAsync(action) {
         _id: response.projectId,
         lastStageId: response._id,
         lastStageDescription: response.description,
-        lastStageCreatedAt:
-          response.termAt.length > 0 ? response.termAt : "brak",
+        lastStageCreatedAt: response.createdAt,
       })
     );
 
@@ -199,16 +198,6 @@ function* updateStageAsync(action) {
       type: UPDATE_STAGE_SUCCESS,
       payload: response,
     });
-    /* update project set stage */
-    yield put(
-      updateProject({
-        _id: response.projectId,
-        lastStageId: response._id,
-        lastStageDescription: response.description,
-        lastStageCreatedAt:
-          response.termAt.length > 0 ? response.termAt : "brak",
-      })
-    );
     yield put({
       type: UPDATE_MESSAGES_SUCCESS,
       payload: { success: [{ message: "Etap został zaktualizowany" }] },

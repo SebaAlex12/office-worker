@@ -94,6 +94,7 @@ class ProjectsDetailsInfo extends Component {
         this.setState({
           ...this.state,
           signatures: data,
+          signatureValue: "",
         });
       }
     }
@@ -119,6 +120,7 @@ class ProjectsDetailsInfo extends Component {
         this.setState({
           ...this.state,
           organs: data,
+          organValue: "",
         });
       }
     }

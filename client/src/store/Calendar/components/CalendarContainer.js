@@ -257,7 +257,7 @@ class CalendarContainer extends Component {
     for (let day = 1; day <= this.daysInMonth(); day++) {
       let clazz = day == this.currentDay() ? "day current-day" : "day";
       let dailyEvents = this.filterDailyEvents(day);
-      console.log("dailyEvents", dailyEvents);
+      // console.log("dailyEvents", dailyEvents);
       daysInMonth.push(
         <td key={day} className={clazz}>
           <span className="number">{day}</span>

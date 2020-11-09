@@ -21,7 +21,7 @@ export const stagesReducer = (state = initialState, action) => {
     case ADD_STAGE_SUCCESS:
       return {
         ...state,
-        stages: [...state.stages, action.payload],
+        stages: [action.payload, ...state.stages],
       };
     case REMOVE_STAGE_SUCCESS:
       return {

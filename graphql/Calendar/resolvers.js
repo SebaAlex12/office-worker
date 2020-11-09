@@ -4,7 +4,7 @@ const tools = require("../../utils/tools");
 module.exports = {
   fetchCalendars: async function ({ loggedUserId }) {
     let params = {};
-    params.userId = loggedUserId;
+    // params.userId = loggedUserId;
     let calendars = await Calendar.find(params, null, {
       sort: { selectedDate: 1 },
     });

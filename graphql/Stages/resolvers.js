@@ -1,6 +1,6 @@
 const Stage = require("../../models/Stage");
 const tools = require("../../utils/tools");
-const moment = require("moment");
+const moment = require("moment/min/moment-with-locales");
 
 module.exports = {
   fetchStages: async function ({ stageInput }) {
@@ -8,7 +8,7 @@ module.exports = {
       ...stageInput,
     };
     const stages = await Stage.find(data, null, {
-      sort: { termAt: "asc" },
+      sort: { createdAt: "desc" },
     });
     return stages;
   },
@@ -17,9 +17,14 @@ module.exports = {
       projectId: stageInput.projectId,
       description: stageInput.description,
       createdBy: stageInput.createdBy,
-      createdAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
+      createdAt: moment(new Date(), "YYYY-MM-DD HH:mm").format(),
       termAt: stageInput.termAt,
     };
+
+    // console.log(
+    //   "present date",
+    //   moment(new Date(), "YYYY-MM-DD HH:mm").locale("pl").format()
+    // );
 
     const stage = new Stage(data);
     try {

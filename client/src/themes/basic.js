@@ -105,6 +105,10 @@ export const Button = styled.button`
     background-color: ${backgroundColorHover};
     color: ${fontColorHover};
   }
+  &.active {
+    background-color: #ffff45;
+    color: #000;
+  }
   span {
     display: inline-block;
     padding: 0px 5px;

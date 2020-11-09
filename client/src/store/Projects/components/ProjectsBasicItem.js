@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
   faPencilAlt,
-  faPlusSquare,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -289,26 +288,30 @@ class ProjectsBasicItem extends Component {
             >
               <FontAwesomeIcon icon={faExpandArrowsAlt} />
             </Button> */}
+            <Button
+              title="Rozwiń rekord"
+              onClick={() => this.setState({ moreItem: !moreItem })}
+              disabled={true}
+            >
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
             {editItem ? (
-              <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
-                <FontAwesomeIcon icon={faPlusSquare} />
+              <Button
+                title="Zapisz rekord"
+                onClick={this.updateItemHandler}
+                className="active"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             ) : (
               <Button
-                title="Rozwiń rekord"
-                onClick={() => this.setState({ moreItem: !moreItem })}
+                onClick={() => this.setState({ editItem: !editItem })}
+                title="Edytuj rekord"
                 disabled={true}
               >
-                <FontAwesomeIcon icon={faEdit} />
+                <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             )}
-            <Button
-              onClick={() => this.setState({ editItem: !editItem })}
-              title="Edytuj rekord"
-              disabled={true}
-            >
-              <FontAwesomeIcon icon={faPencilAlt} />
-            </Button>
             <WarningButton
               title="Usuń rekord"
               onClick={() => removeItem(item._id)}

@@ -17,8 +17,8 @@ class TasksListContainer extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    console.log("component will resive props");
-    console.log("next props", nextProps);
+    // console.log("component will resive props");
+    // console.log("next props", nextProps);
     if (nextProps.tasks !== this.state.tasks) {
       this.setState({
         ...this.state,
