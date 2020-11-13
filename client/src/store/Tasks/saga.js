@@ -25,25 +25,25 @@ function* fetchTasksAsync(action) {
       query: `
         query {
           fetchTasks(taskInput:{
-            projectName: "${action.data.projectName}",
-            createdBy: "${action.data.createdBy}", 
-            responsiblePerson: "${action.data.responsiblePerson}",
             mailRemainderData: "${action.data.mailRemainderData}"}){
             _id
-            createdBy
             projectId
-            projectName
-            responsiblePerson
+            createdByUserId
+            responsiblePersonId
             title
-            description
-            priority
             status
-            responsiblePersonLastComment
-            createdAt
-            finishedAt
+            priority
             termAt
+            description
+            responsiblePersonLastComment
+            finishedAt
             mailRemainderData
+            createdAt
             files
+            errors{
+              path
+              message
+            }
           }
         }
     `,
@@ -74,25 +74,25 @@ function* fetchTasksByLoggedUserProjectsAsync(action) {
       query: `
         query {
           fetchTasksByLoggedUserProjects(taskInput:{
-            projectName: "${data.projectName}",
-            createdBy: "${data.createdBy}", 
-            responsiblePerson: "${data.responsiblePerson}",
-            mailRemainderData: "${data.mailRemainderData}"},projects: "${data.projects}"){
+            mailRemainderData: "${data.mailRemainderData}"}){
             _id
-            createdBy
             projectId
-            projectName
-            responsiblePerson
+            createdByUserId
+            responsiblePersonId
             title
-            description
-            priority
             status
+            priority
+            termAt
+            description
             responsiblePersonLastComment
-            createdAt
             finishedAt
             mailRemainderData
-            termAt
+            createdAt
             files
+            errors{
+              path
+              message
+            }
           }
         }
     `,
@@ -125,17 +125,16 @@ function* addTaskAsync(action) {
   const data = action.data;
 
   const taskInput = {
-    userId: data.userId,
-    createdBy: data.createdBy,
     projectId: data.projectId,
-    projectName: data.projectName,
-    responsiblePerson: data.responsiblePerson,
+    createdByUserId: data.createdByUserId,
+    responsiblePersonId: data.responsiblePersonId,
     title: data.title,
-    description: data.description,
-    priority: data.priority,
     status: data.status,
-    mailRemainderData: null,
+    priority: data.priority,
+    description: data.description,
     responsiblePersonLastComment: data.responsiblePersonLastComment,
+    finishedAt: data.finishedAt,
+    mailRemainderData: null,
     createdAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
     termAt: moment(data.termAt, "YYYY-MM-DD HH:mm:ss").format(),
     // finishedAt: data.finishedAt
@@ -143,34 +142,33 @@ function* addTaskAsync(action) {
   console.log(taskInput);
   const graph = {
     query: `mutation {
-      addTask(taskInput: {userId: "${taskInput.userId}",
-      createdBy: "${taskInput.createdBy}",
-      projectId: "${taskInput.projectId}",
-      projectName: "${taskInput.projectName}",
-      responsiblePerson: "${taskInput.responsiblePerson}",
-      title: "${taskInput.title}",
-      description: """${taskInput.description}""",
-      priority: "${taskInput.priority}",
-      status: "${taskInput.status}",
-      responsiblePersonLastComment: "${taskInput.responsiblePersonLastComment}",
-      createdAt: "${taskInput.createdAt}",
-      finishedAt: "",
-      termAt: "${taskInput.termAt}",
-      mailRemainderData: "${taskInput.mailRemainderData}"}){
+      addTask(taskInput: {
+        projectId: "${taskInput.projectId}",
+        createdByUserId: "${taskInput.createdByUserId}",
+        responsiblePersonId: "${taskInput.responsiblePersonId}",
+        title: "${taskInput.title}",
+        status: "${taskInput.status}",
+        priority: "${taskInput.priority}",
+        termAt: "${taskInput.termAt}",
+        description: "${taskInput.description}",
+        responsiblePersonLastComment: "${taskInput.responsiblePersonLastComment}",
+        finishedAt: "${taskInput.finishedAt}",
+        mailRemainderData: "${taskInput.mailRemainderData}",
+        createdAt: "${taskInput.createdAt}"        
+    }){
         _id
-        createdBy
         projectId
-        projectName
-        responsiblePerson
+        createdByUserId
+        responsiblePersonId
         title
-        description
-        priority
         status
-        responsiblePersonLastComment
-        createdAt
-        finishedAt
+        priority
         termAt
+        description
+        responsiblePersonLastComment
+        finishedAt
         mailRemainderData
+        createdAt
         files
         errors{
           path
@@ -213,26 +211,24 @@ function* updateTaskAsync(action) {
   // console.log("task saga data", data);
   const taskInput = {
     _id: data._id,
-    userId: 1,
-    createdBy: data.createdBy ? data.createdBy : "",
     projectId: data.projectId ? data.projectId : "",
-    projectName: data.projectName ? data.projectName : "",
-    responsiblePerson: data.responsiblePerson ? data.responsiblePerson : "",
+    createdByUserId: data.createdByUserId ? data.createdByUserId : "",
+    responsiblePersonId: data.responsiblePersonId
+      ? data.responsiblePersonId
+      : "",
     title: data.title ? data.title : "",
-    description: data.description ? data.description : "",
-    priority: data.priority ? data.priority : "",
     status: data.status ? data.status : "",
-    mailRemainderData: data.mailRemainderData ? data.mailRemainderData : null,
-    responsiblePersonLastComment:
-      data.responsiblePersonLastComment === true ||
-      data.responsiblePersonLastComment === false
-        ? data.responsiblePersonLastComment
-        : "",
-    termAt: data.termAt
-      ? moment(data.termAt, "YYYY-MM-DD HH:mm:ss").format()
+    priority: data.priority ? data.priority : "",
+    description: data.description ? data.description : "",
+    responsiblePersonLastComment: data.responsiblePersonLastComment
+      ? data.responsiblePersonLastComment
       : "",
     finishedAt: data.finishedAt
       ? moment(data.finishedAt, "YYYY-MM-DD HH:mm:ss").format()
+      : "",
+    mailRemainderData: data.mailRemainderData ? data.mailRemainderData : null,
+    termAt: data.termAt
+      ? moment(data.termAt, "YYYY-MM-DD HH:mm:ss").format()
       : "",
   };
   // console.log("task saga input", taskInput);
@@ -240,33 +236,31 @@ function* updateTaskAsync(action) {
     query: `mutation {
       updateTask(taskInput: {
       _id: "${taskInput._id}",  
-      userId: "${taskInput.userId}",
-      createdBy: "${taskInput.createdBy}",
       projectId: "${taskInput.projectId}",
-      projectName: "${taskInput.projectName}",
-      responsiblePerson: "${taskInput.responsiblePerson}",
+      createdByUserId: "${taskInput.createdByUserId}",
+      responsiblePersonId: "${taskInput.responsiblePersonId}",
       title: "${taskInput.title}",
-      description: """${taskInput.description}""",
-      priority: "${taskInput.priority}",
       status: "${taskInput.status}",
+      priority: "${taskInput.priority}",
+      termAt: "${taskInput.termAt}",
+      description: "${taskInput.description}",
       responsiblePersonLastComment: "${taskInput.responsiblePersonLastComment}",
       finishedAt: "${taskInput.finishedAt}",
-      termAt: "${taskInput.termAt}",
-      mailRemainderData: "${taskInput.mailRemainderData}"}){
+      mailRemainderData: "${taskInput.mailRemainderData}",
+      createdAt: "${taskInput.createdAt}"}){
         _id
-        createdBy
         projectId
-        projectName
-        responsiblePerson
+        createdByUserId
+        responsiblePersonId
         title
-        description
-        priority
         status
-        responsiblePersonLastComment
-        createdAt
-        finishedAt
+        priority
         termAt
+        description
+        responsiblePersonLastComment
+        finishedAt
         mailRemainderData
+        createdAt
         files
         errors{
           path

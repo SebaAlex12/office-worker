@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function SelectFieldGroup({
+export default function SelectFieldGroupById({
   defaultName,
   name,
   items,
@@ -13,8 +13,8 @@ export default function SelectFieldGroup({
     ? items.map((item) => (
         <option
           key={counter++}
-          value={item.name}
-          selected={item.name === selectedItemId ? "selected" : null}
+          value={item._id}
+          selected={item._id === selectedItemId ? "selected" : null}
         >
           {item.name}
         </option>

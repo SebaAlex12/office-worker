@@ -65,20 +65,18 @@ module.exports = buildSchema(`
 
     type Task {
         _id: ID
-        userId: String
-        createdBy: String
         projectId: String
-        projectName: String
-        responsiblePerson: String
+        createdByUserId: String
+        responsiblePersonId: String
         title: String
-        description: String
-        priority: String
         status: String
-        responsiblePersonLastComment: String
-        createdAt: String
-        finishedAt: String
+        priority: String
         termAt: String
+        description: String
+        responsiblePersonLastComment: String
+        finishedAt: String
         mailRemainderData: String
+        createdAt: String
         errors: [Error]
         files: [String]
     }
@@ -186,20 +184,19 @@ module.exports = buildSchema(`
 
     input TaskInputData {
         _id: String
-        userId: String
-        createdBy: String
         projectId: String
-        projectName: String
-        responsiblePerson: String
+        createdByUserId: String
+        responsiblePersonId: String
         title: String
-        description: String
-        priority: String
         status: String
-        responsiblePersonLastComment: String
-        createdAt: String
-        finishedAt: String
+        priority: String
         termAt: String
+        description: String
+        responsiblePersonLastComment: String
+        finishedAt: String
         mailRemainderData: String
+        createdAt: String
+        files: [String]
     }
     input CommentInputData {
         _id: String

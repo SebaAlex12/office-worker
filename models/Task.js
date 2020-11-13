@@ -2,21 +2,21 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const TaskSchema = new Schema({
-  userId: {
-    type: String,
-    required: true,
-  },
   projectId: {
     type: String,
     required: true,
   },
+  createdByUserId: {
+    type: String,
+    required: true,
+  },
+  responsiblePersonId: {
+    type: String,
+    required: [true, "Odpowiedzialna osoba jest wymagana"],
+  },
   title: {
     type: String,
     required: [true, "Tytuł jest wymagany"],
-  },
-  projectName: {
-    type: String,
-    // required: [true, "Nazwa projektu jest wymagana"],
   },
   status: {
     type: String,
@@ -26,18 +26,7 @@ const TaskSchema = new Schema({
     type: String,
     required: [true, "Priorytet jest wymagany"],
   },
-  createdBy: {
-    type: String,
-    required: true,
-  },
-  responsiblePerson: {
-    type: String,
-    required: [true, "Odpowiedzialna osoba jest wymagana"],
-  },
   termAt: {
-    type: String,
-  },
-  createdAt: {
     type: String,
   },
   description: {
@@ -50,6 +39,9 @@ const TaskSchema = new Schema({
     type: String,
   },
   mailRemainderData: {
+    type: String,
+  },
+  createdAt: {
     type: String,
   },
 });

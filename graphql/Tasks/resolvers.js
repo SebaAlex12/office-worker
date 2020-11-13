@@ -13,20 +13,20 @@ module.exports = {
     let params = {};
     // console.log("fetch tasks input", taskInput);
 
-    if (taskInput.projectName && taskInput.projectName !== "undefined")
-      params.projectName = taskInput.projectName;
+    // if (taskInput.projectName && taskInput.projectName !== "undefined")
+    //   params.projectName = taskInput.projectName;
 
-    if (taskInput.status && taskInput.status !== "undefined")
-      params.status = taskInput.status;
+    // if (taskInput.status && taskInput.status !== "undefined")
+    //   params.status = taskInput.status;
 
-    if (
-      taskInput.responsiblePerson &&
-      taskInput.responsiblePerson !== "undefined"
-    )
-      params.responsiblePerson = taskInput.responsiblePerson;
+    // if (
+    //   taskInput.responsiblePerson &&
+    //   taskInput.responsiblePerson !== "undefined"
+    // )
+    //   params.responsiblePerson = taskInput.responsiblePerson;
 
-    if (taskInput.createdBy && taskInput.createdBy !== "undefined")
-      params.createdBy = taskInput.createdBy;
+    // if (taskInput.createdBy && taskInput.createdBy !== "undefined")
+    //   params.createdBy = taskInput.createdBy;
 
     let tasks = await Task.find(params).sort({ createdAt: "desc" });
 
@@ -51,19 +51,17 @@ module.exports = {
     const list = projects.split(",");
     const pregmatch = list.map((item) => new RegExp(item));
 
-    if (taskInput.projectName && taskInput.projectName !== "undefined")
-      params.projectName = taskInput.projectName;
+    // if (taskInput.projectName && taskInput.projectName !== "undefined")
+    //   params.projectName = taskInput.projectName;
 
-    if (
-      taskInput.responsiblePerson &&
-      taskInput.responsiblePerson !== "undefined"
-    )
-      params.responsiblePerson = taskInput.responsiblePerson;
+    // if (
+    //   taskInput.responsiblePerson &&
+    //   taskInput.responsiblePerson !== "undefined"
+    // )
+    //   params.responsiblePerson = taskInput.responsiblePerson;
 
-    if (taskInput.createdBy && taskInput.createdBy !== "undefined")
-      params.createdBy = taskInput.createdBy;
-
-    // let tasks = await Task.find(params);
+    // if (taskInput.createdBy && taskInput.createdBy !== "undefined")
+    //   params.createdBy = taskInput.createdBy;
 
     let tasks = await Task.find(params)
       .sort({ createdAt: "desc" })
@@ -74,8 +72,6 @@ module.exports = {
           },
         },
       ]);
-
-    // console.log("tasks", tasks);
 
     const newTasks = tasks.map(async (task) => {
       let path = "./client/public/files/tasks/" + task._id;
@@ -95,24 +91,23 @@ module.exports = {
   },
   addTask: async function ({ taskInput }, req) {
     const task = new Task({
-      userId: taskInput.userId,
-      createdBy: taskInput.createdBy,
       projectId: taskInput.projectId,
-      projectName: taskInput.projectName,
-      responsiblePerson: taskInput.responsiblePerson,
+      createdByUserId: taskInput.createdByUserId,
+      responsiblePersonId: taskInput.responsiblePersonId,
       title: taskInput.title,
-      description: taskInput.description,
-      priority: taskInput.priority,
-      responsiblePersonLastComment: taskInput.responsiblePersonLastComment,
       status: taskInput.status,
-      createdAt: taskInput.createdAt,
+      priority: taskInput.priority,
       termAt: taskInput.termAt,
+      description: taskInput.description,
+      responsiblePersonLastComment: taskInput.responsiblePersonLastComment,
+      finishedAt: taskInput.finishedAt,
       mailRemainderData: null,
+      createdAt: taskInput.createdAt,
     });
 
     const taskExists = await Task.findOne({
       title: taskInput.title,
-      projectName: taskInput.projectName,
+      projectId: taskInput.projectId,
     });
 
     if (taskExists) {
@@ -135,31 +130,34 @@ module.exports = {
     const task = await Task.findOne({ _id });
     const data = {
       _id: taskInput._id,
-      userId: taskInput.userId !== "" ? taskInput.userId : task.userId,
-      createdBy:
-        taskInput.createdBy !== "" ? taskInput.createdBy : task.createdBy,
       projectId:
         taskInput.projectId !== "" ? taskInput.projectId : task.projectId,
-      projectName:
-        taskInput.projectName !== "" ? taskInput.projectName : task.projectName,
-      responsiblePerson:
-        taskInput.responsiblePerson !== ""
-          ? taskInput.responsiblePerson
-          : task.responsiblePerson,
+      createdByUserId:
+        taskInput.createdByUserId !== ""
+          ? taskInput.createdByUserId
+          : task.createdByUserId,
+      responsiblePersonId:
+        taskInput.responsiblePersonId !== ""
+          ? taskInput.responsiblePersonId
+          : task.responsiblePersonId,
       title: taskInput.title !== "" ? taskInput.title : task.title,
+      status: taskInput.status !== "" ? taskInput.status : task.status,
+      priority: taskInput.priority !== "" ? taskInput.priority : task.priority,
+      termAt: taskInput.termAt !== "" ? taskInput.termAt : task.termAt,
       description:
         taskInput.description !== "" ? taskInput.description : task.description,
-      priority: taskInput.priority !== "" ? taskInput.priority : task.priority,
-      status: taskInput.status !== "" ? taskInput.status : task.status,
       responsiblePersonLastComment:
         taskInput.responsiblePersonLastComment !== ""
-          ? tools.stringToBoolean(taskInput.responsiblePersonLastComment)
+          ? taskInput.responsiblePersonLastComment
           : task.responsiblePersonLastComment,
-      termAt: taskInput.termAt !== "" ? taskInput.termAt : task.termAt,
+      finishedAt:
+        taskInput.finishedAt !== "" ? taskInput.finishedAt : task.finishedAt,
       mailRemainderData:
         taskInput.mailRemainderData.length > 5
           ? taskInput.mailRemainderData
           : null,
+      createdAt:
+        taskInput.createdAt !== "" ? taskInput.createdAt : task.createdAt,
     };
     // console.log("resolver", data);
     data.createdAt = task.createdAt;

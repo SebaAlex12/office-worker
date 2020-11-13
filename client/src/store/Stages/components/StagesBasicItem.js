@@ -5,8 +5,10 @@ import {
   faMinusSquare,
   faPencilAlt,
   faPlusSquare,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
+import SelectFieldGroupById from "../../../common/Forms/components/SelectFieldGroupById";
 import DateTimeFormat from "../../../common/DateTimeFormat";
 import { addTask } from "../../Tasks/actions";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
@@ -19,7 +21,9 @@ class StagesBasicItem extends Component {
     const { item } = this.props;
     this.state = {
       editItem: false,
+      moreItem: false,
       item: item,
+      calendarUserId: "",
     };
   }
   onChangeHandler = (event) => {
@@ -30,6 +34,13 @@ class StagesBasicItem extends Component {
     };
     this.setState({
       item: newItem,
+    });
+  };
+  onChangeCalendarUserId = (event) => {
+    // console.log("event", event.target.name, event.target.value);
+    this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value,
     });
   };
   updateItemHandler = async () => {
@@ -43,28 +54,27 @@ class StagesBasicItem extends Component {
     // }
   };
   addTaskHandler = () => {
-    const { item } = this.state;
+    const { item, calendarUserId } = this.state;
     const { addTask, loggedUser } = this.props;
 
+    // console.log("state", this.state);
     const data = {
-      userId: loggedUser._id,
-      createdBy: loggedUser.name,
       projectId: item.projectId,
-      // projectName,
-      responsiblePerson: loggedUser.name,
+      createdByUserId: loggedUser._id,
+      responsiblePersonId: calendarUserId,
       title: item.description,
+      status: "Do wykonania",
+      priority: "Normalny",
       description: item.description,
       // responsiblePersonLastComment,
-      priority: "Normalny",
-      status: "Do wykonania",
       termAt: item.termAt,
     };
 
     const response = addTask(data);
   };
   render() {
-    const { item, editItem } = this.state;
-    const { removeItem, ordinalNumber } = this.props;
+    const { item, editItem, moreItem, calendarUserId } = this.state;
+    const { removeItem, ordinalNumber, users } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
@@ -128,8 +138,13 @@ class StagesBasicItem extends Component {
         <tr>
           {itemContent}
           <td className="actions">
-            <Button onClick={this.addTaskHandler} title="Dodaj etap do zadania">
-              <FontAwesomeIcon icon={faPlusSquare} />
+            <Button
+              onClick={() =>
+                this.setState({ ...this.state, moreItem: !moreItem })
+              }
+              title="Pokaż użytkownika do przypisania zadania"
+            >
+              <FontAwesomeIcon icon={faEdit} />
             </Button>
             {editItem ? (
               <Button
@@ -159,6 +174,34 @@ class StagesBasicItem extends Component {
             </WarningButton>
           </td>
         </tr>
+        {moreItem ? (
+          <tr>
+            <td colSpan="4"></td>
+            <td colSpan="2">
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "baseline",
+                }}
+              >
+                <SelectFieldGroupById
+                  defaultName="Wybierz dla kogo utworzyć zadanie"
+                  name="calendarUserId"
+                  items={users}
+                  selectedItemId={calendarUserId}
+                  onChange={(event) => this.onChangeCalendarUserId(event)}
+                />
+                <Button onClick={this.addTaskHandler}>
+                  <FontAwesomeIcon
+                    icon={faPlusSquare}
+                    title="Dodaj etap do zadania"
+                  />
+                </Button>
+              </div>
+            </td>
+          </tr>
+        ) : null}
       </Aux>
     );
   }
@@ -167,6 +210,7 @@ class StagesBasicItem extends Component {
 const mapStateToProps = (state) => {
   return {
     loggedUser: state.users.logged_user,
+    users: state.users.users,
   };
 };
 

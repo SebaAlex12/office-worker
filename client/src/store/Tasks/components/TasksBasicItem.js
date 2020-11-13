@@ -54,7 +54,29 @@ class TasksBasicItem extends Component {
   };
   render() {
     const { item, editItem, moreItem, showCalendar } = this.state;
-    const { removeItem, ordinalNumber, loggedUser } = this.props;
+    const {
+      removeItem,
+      ordinalNumber,
+      loggedUser,
+      projects,
+      users,
+    } = this.props;
+
+    // console.log("item", item);
+
+    const selectedProject = projects
+      ? projects.filter((project) => project._id === item.projectId).shift()
+      : { name: "is loading..." };
+
+    const createdByUser = users
+      ? users.filter((user) => user._id === item.createdByUserId).shift()
+      : { name: "is loading ..." };
+
+    const responsibleByUser = users
+      ? users.filter((user) => user._id === item.responsiblePersonId).shift()
+      : { name: "is loading ..." };
+
+    // console.log("createdByUser", createdByUser);
 
     const itemContent = editItem ? (
       <Aux>
@@ -90,14 +112,14 @@ class TasksBasicItem extends Component {
             />
           </div>
         </td>
-        <td className="projectName">
+        <td className="selectedProject">
           {" "}
           <TextFieldGroup
             type="text"
-            title={item.projectName}
+            title={selectedProject.name}
             onChange={this.onChangeHandler}
-            name="projectName"
-            value={item.projectName}
+            name="selectedProject"
+            value={selectedProject.name}
             disabled="true"
           />
         </td>
@@ -120,20 +142,20 @@ class TasksBasicItem extends Component {
         <td className="createdBy">
           <TextFieldGroup
             type="text"
-            title={item.createdBy}
+            title={createdByUser.name}
             onChange={this.onChangeHandler}
-            name="createdBy"
-            value={item.createdBy}
+            name="createdByUser"
+            value={createdByUser.name}
             disabled="true"
           />
         </td>
         <td className="responsiblePerson">
           <TextFieldGroup
             type="text"
-            title={item.responsiblePerson}
+            title={responsibleByUser.name}
             onChange={this.onChangeHandler}
             name="responsiblePerson"
-            value={item.responsiblePerson}
+            value={responsibleByUser.name}
             disabled="true"
           />
         </td>
@@ -184,11 +206,11 @@ class TasksBasicItem extends Component {
             />
           </div>
         </td>
-        <td className="projectName">{item.projectName}</td>
+        <td className="selectedProject">{selectedProject.name}</td>
         <td className="status">{item.status}</td>
         {/* <td className="priority">{item.priority}</td> */}
-        <td className="createdBy">{item.createdBy}</td>
-        <td className="responsiblePerson">{item.responsiblePerson}</td>
+        <td className="createdBy">{createdByUser.name}</td>
+        <td className="responsiblePerson">{responsibleByUser.name}</td>
         <td className="termAt">
           <DateTimeFormat date={item.termAt} short={true} />
         </td>
@@ -273,6 +295,8 @@ class TasksBasicItem extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    projects: state.projects.projects,
+    users: state.users.users,
     loggedUser: state.users.logged_user,
   };
 };
