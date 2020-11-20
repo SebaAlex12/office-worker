@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import logoImage from "../../../adwokaci-lodz.png";
 
 export const StyledMessagesList = styled.div`
   width: 99%;
@@ -30,12 +31,23 @@ export const StyledMessagesList = styled.div`
   }
   .messages-alert-box > i {
     width: 100%;
+    height: 70px;
   }
   .messages-alert-box .glyphicon {
     color: green;
   }
   .messages-alert-box > .glyphicon:before {
     font-size: 35px;
+    display: none;
+  }
+  .messages-alert-box > .glyphicon:after {
+    content: "";
+    background-image: url(${logoImage});
+    width: 140px;
+    height: 100%;
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
   }
   .messages-alert-box.active .glyphicon {
     color: red;

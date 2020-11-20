@@ -5,7 +5,7 @@ const moment = require("moment");
 module.exports = {
   fetchProjects: async function () {
     const projects = await Project.find({}, null, {
-      sort: { name: 1 },
+      sort: { createdAt: "desc" },
     });
     return projects;
   },
@@ -42,7 +42,7 @@ module.exports = {
       type: projectInput.type,
       organ: projectInput.organ,
       description: projectInput.description,
-      createdAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
+      createdAt: moment(new Date()).format("YYYY-MM-DDTHH:mm"),
       termAt: projectInput.termAt,
     };
 

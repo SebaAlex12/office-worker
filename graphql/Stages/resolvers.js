@@ -17,14 +17,9 @@ module.exports = {
       projectId: stageInput.projectId,
       description: stageInput.description,
       createdBy: stageInput.createdBy,
-      createdAt: moment(new Date(), "YYYY-MM-DD HH:mm").format(),
+      createdAt: moment(new Date()).format("YYYY-MM-DDTHH:mm"),
       termAt: stageInput.termAt,
     };
-
-    // console.log(
-    //   "present date",
-    //   moment(new Date(), "YYYY-MM-DD HH:mm").locale("pl").format()
-    // );
 
     const stage = new Stage(data);
     try {

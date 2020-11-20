@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
   faPencilAlt,
-  faPlusSquare,
   faEdit,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
@@ -45,12 +44,15 @@ class TasksBasicItem extends Component {
   updateItemHandler = async () => {
     const { updateItem } = this.props;
     const { item } = this.state;
-    // if (editItem) {
+    console.log("edit item false");
+
     const response = await updateItem(item);
-    if (response) {
-      this.setState({ editItem: false });
-    }
-    // }
+    // if (response) {
+    this.setState({
+      ...this.state,
+      editItem: false,
+    });
+    //  }
   };
   render() {
     const { item, editItem, moreItem, showCalendar } = this.state;
@@ -63,6 +65,7 @@ class TasksBasicItem extends Component {
     } = this.props;
 
     // console.log("item", item);
+    console.log("state", this.state);
 
     const selectedProject = projects
       ? projects.filter((project) => project._id === item.projectId).shift()
@@ -76,7 +79,7 @@ class TasksBasicItem extends Component {
       ? users.filter((user) => user._id === item.responsiblePersonId).shift()
       : { name: "is loading ..." };
 
-    console.log("selectedProject", selectedProject);
+    // console.log("selectedProject", selectedProject);
     // console.log("createdByUser", createdByUser);
 
     const itemContent = editItem ? (
@@ -89,7 +92,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="title"
             value={item.title}
-            disabled="true"
+            disabled={true}
           />
           <div className="quick-actions">
             <Button
@@ -121,7 +124,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="selectedProject"
             value={selectedProject && selectedProject.name}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="status">
@@ -147,7 +150,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdByUser"
             value={createdByUser && createdByUser.name}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="responsiblePerson">
@@ -157,7 +160,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="responsiblePerson"
             value={responsibleByUser && responsibleByUser.name}
-            disabled="true"
+            disabled={true}
           />
         </td>
         <td className="termAt">
@@ -176,7 +179,7 @@ class TasksBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
-            disabled="true"
+            disabled={true}
           />
         </td>
       </Aux>
@@ -234,28 +237,32 @@ class TasksBasicItem extends Component {
         <tr className={$clazz.length > 0 ? $clazz[0].classes_name : null}>
           {itemContent}
           <td className="actions">
+            <Button
+              title="Rozwiń rekord"
+              onClick={() => this.setState({ moreItem: !moreItem })}
+              disabled={true}
+            >
+              <FontAwesomeIcon icon={faEdit} />
+            </Button>
+
             {editItem ? (
-              <Button title="Zapisz rekord" onClick={this.updateItemHandler}>
-                <FontAwesomeIcon icon={faPlusSquare} />
+              <Button
+                title="Zapisz rekord"
+                onClick={this.updateItemHandler}
+                className="active"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             ) : (
               <Button
-                title="Rozwiń rekord"
-                onClick={() => this.setState({ moreItem: !moreItem })}
-                disabled={true}
+                title="edytuj rekord"
+                onClick={() => this.setState({ editItem: !editItem })}
+                title="edytuj rekord"
               >
-                <FontAwesomeIcon icon={faEdit} />
+                <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             )}
-            <Button
-              // className="edit"
-              title="edytuj rekord"
-              onClick={() => this.setState({ editItem: !editItem })}
-              title="edytuj rekord"
-              disabled={true}
-            >
-              <FontAwesomeIcon icon={faPencilAlt} />
-            </Button>
+
             <WarningButton
               title="Usuń rekord"
               onClick={() => removeItem(item._id)}

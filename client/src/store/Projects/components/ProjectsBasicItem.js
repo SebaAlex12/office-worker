@@ -176,7 +176,7 @@ class ProjectsBasicItem extends Component {
         </td>
         <td className="lastStageCreatedAt">
           <TextFieldGroup
-            type="text"
+            type="datetime-local"
             title={item.lastStageCreatedAt}
             onChange={this.onChangeHandler}
             name="lastStageCreatedAt"

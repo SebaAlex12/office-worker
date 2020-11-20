@@ -71,6 +71,12 @@ class StagesBasicItem extends Component {
     };
 
     const response = addTask(data);
+    if (response) {
+      this.setState({
+        ...this.state,
+        moreItem: false,
+      });
+    }
   };
   render() {
     const { item, editItem, moreItem, calendarUserId } = this.state;
@@ -158,7 +164,6 @@ class StagesBasicItem extends Component {
               <Button
                 onClick={() => this.setState({ editItem: !editItem })}
                 title="edytuj etap"
-                // disabled={true}
               >
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
