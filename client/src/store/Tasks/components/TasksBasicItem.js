@@ -76,6 +76,7 @@ class TasksBasicItem extends Component {
       ? users.filter((user) => user._id === item.responsiblePersonId).shift()
       : { name: "is loading ..." };
 
+    console.log("selectedProject", selectedProject);
     // console.log("createdByUser", createdByUser);
 
     const itemContent = editItem ? (
