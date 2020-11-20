@@ -143,20 +143,20 @@ class TasksBasicItem extends Component {
         <td className="createdBy">
           <TextFieldGroup
             type="text"
-            title={createdByUser.name}
+            title={createdByUser && createdByUser.name}
             onChange={this.onChangeHandler}
             name="createdByUser"
-            value={createdByUser.name}
+            value={createdByUser && createdByUser.name}
             disabled="true"
           />
         </td>
         <td className="responsiblePerson">
           <TextFieldGroup
             type="text"
-            title={responsibleByUser.name}
+            title={responsibleByUser && responsibleByUser.name}
             onChange={this.onChangeHandler}
             name="responsiblePerson"
-            value={responsibleByUser.name}
+            value={responsibleByUser && responsibleByUser.name}
             disabled="true"
           />
         </td>
@@ -212,8 +212,10 @@ class TasksBasicItem extends Component {
         </td>
         <td className="status">{item.status}</td>
         {/* <td className="priority">{item.priority}</td> */}
-        <td className="createdBy">{createdByUser.name}</td>
-        <td className="responsiblePerson">{responsibleByUser.name}</td>
+        <td className="createdBy">{createdByUser && createdByUser.name}</td>
+        <td className="responsiblePerson">
+          {responsibleByUser && responsibleByUser.name}
+        </td>
         <td className="termAt">
           <DateTimeFormat date={item.termAt} short={true} />
         </td>
