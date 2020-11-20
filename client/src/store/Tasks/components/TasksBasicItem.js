@@ -117,10 +117,10 @@ class TasksBasicItem extends Component {
           {" "}
           <TextFieldGroup
             type="text"
-            title={selectedProject.name}
+            title={selectedProject && selectedProject.name}
             onChange={this.onChangeHandler}
             name="selectedProject"
-            value={selectedProject.name}
+            value={selectedProject && selectedProject.name}
             disabled="true"
           />
         </td>
@@ -207,7 +207,9 @@ class TasksBasicItem extends Component {
             />
           </div>
         </td>
-        <td className="selectedProject">{selectedProject.name}</td>
+        <td className="selectedProject">
+          {selectedProject && selectedProject.name}
+        </td>
         <td className="status">{item.status}</td>
         {/* <td className="priority">{item.priority}</td> */}
         <td className="createdBy">{createdByUser.name}</td>
