@@ -31,7 +31,7 @@ module.exports = {
 
     const mailExists = await User.findOne({ email: userInput.email });
 
-    if (mailExists) {
+    if (mailExists && mailExists.length > 0) {
       return {
         errors: [
           {
