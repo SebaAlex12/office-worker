@@ -37,7 +37,13 @@ class TasksAddForm extends Component {
     });
   };
   addHandler = async (event) => {
-    const { addTask, loggedUser, updateMessages, addUserHistory } = this.props;
+    const {
+      addTask,
+      loggedUser,
+      updateMessages,
+      addUserHistory,
+      closeAddFormHandler,
+    } = this.props;
     const {
       projectName,
       responsiblePerson,
@@ -78,6 +84,7 @@ class TasksAddForm extends Component {
 
     if (response) {
       updateMessages({ alert: alertData });
+      closeAddFormHandler();
     }
 
     addUserHistory({

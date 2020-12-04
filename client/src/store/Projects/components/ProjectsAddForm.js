@@ -36,7 +36,7 @@ class ProjectsAddForm extends Component {
     });
   };
   addHandler = async (event) => {
-    const { addProject, updateUser, users } = this.props;
+    const { addProject, updateUser, users, closeAddFormHandler } = this.props;
     const {
       name,
       signature,
@@ -77,6 +77,11 @@ class ProjectsAddForm extends Component {
     event.preventDefault();
 
     const response = await addProject(projectData);
+
+    if (response) {
+      console.log("response", response);
+      // closeAddFormHandler();
+    }
 
     if (userName.length > 0 && response) {
       const userData = users.filter((user) => {

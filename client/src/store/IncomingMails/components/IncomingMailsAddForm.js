@@ -31,7 +31,7 @@ class IncomingMailsAddForm extends Component {
     });
   };
   addHandler = (event) => {
-    const { addIncomingMail, loggedUser } = this.props;
+    const { addIncomingMail, loggedUser, closeAddFormHandler } = this.props;
     const {
       number,
       deliveryDate,
@@ -52,6 +52,7 @@ class IncomingMailsAddForm extends Component {
 
     event.preventDefault();
     addIncomingMail(data);
+    closeAddFormHandler();
   };
   render() {
     const {

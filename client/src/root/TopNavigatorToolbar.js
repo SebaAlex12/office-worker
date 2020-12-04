@@ -21,10 +21,28 @@ class TopNavigatorToolbar extends Component {
       toggleComingMailsAddForm: false,
     };
   }
-  closeAddForm = (toggle) => {
+  closeProjectsAddForm = () => {
     this.setState({
       ...this.state,
-      toggle: false,
+      toggleProjectsAddForm: false,
+    });
+  };
+  closeTasksAddForm = () => {
+    this.setState({
+      ...this.state,
+      toggleTasksAddForm: false,
+    });
+  };
+  closeRegistryForm = () => {
+    this.setState({
+      ...this.state,
+      toggleRegistryForm: false,
+    });
+  };
+  closeComingMailsAddForm = () => {
+    this.setState({
+      ...this.state,
+      toggleComingMailsAddForm: false,
     });
   };
   render() {
@@ -56,7 +74,9 @@ class TopNavigatorToolbar extends Component {
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
           <span>Dodaj zadanie</span>
         </BiggerButton>
-        {toggleTasksAddForm ? <TasksAddForm /> : null}
+        {toggleTasksAddForm ? (
+          <TasksAddForm closeAddFormHandler={this.closeTasksAddForm} />
+        ) : null}
       </div>
     );
     const comingMailAddFormContent = (
@@ -73,7 +93,11 @@ class TopNavigatorToolbar extends Component {
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
           <span>Dodaj wpis</span>
         </BiggerButton>
-        {toggleComingMailsAddForm ? <IncomingMailsAddForm /> : null}
+        {toggleComingMailsAddForm ? (
+          <IncomingMailsAddForm
+            closeAddFormHandler={this.closeComingMailsAddForm}
+          />
+        ) : null}
       </div>
     );
     const projectAddFormContent = (
@@ -91,7 +115,7 @@ class TopNavigatorToolbar extends Component {
           <span>Dodaj sprawę</span>
         </BiggerButton>
         {toggleProjectsAddForm ? (
-          <ProjectsAddForm closeAddForm="toggleProjectsAddForm" />
+          <ProjectsAddForm closeAddFormHandler={this.closeProjectsAddForm} />
         ) : null}
       </div>
     );
@@ -109,7 +133,9 @@ class TopNavigatorToolbar extends Component {
           <FontAwesomeIcon icon={faArrowAltCircleDown} />
           <span>Dodaj użytkownika</span>
         </BiggerButton>
-        {toggleRegistryForm ? <RegistryForm /> : null}
+        {toggleRegistryForm ? (
+          <RegistryForm closeAddFormHandler={this.closeRegistryForm} />
+        ) : null}
       </div>
     );
     return (

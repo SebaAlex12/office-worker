@@ -81,6 +81,8 @@ module.exports = {
     }
   },
   loginUser: async function ({ email, password }) {
+    const db = require("../../config/keys").mongoURI;
+
     if (!email || !password) {
       throw new Error({
         errors: [

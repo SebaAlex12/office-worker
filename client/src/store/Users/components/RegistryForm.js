@@ -35,7 +35,12 @@ class RegistryForm extends Component {
   };
   registerHandler = (event) => {
     event.preventDefault();
-    const { registerUser, updateMessages, loggedUser } = this.props;
+    const {
+      registerUser,
+      updateMessages,
+      loggedUser,
+      closeAddFormHandler,
+    } = this.props;
 
     const {
       name,
@@ -62,6 +67,7 @@ class RegistryForm extends Component {
     const response = registerUser(data);
     if (response) {
       updateMessages([{ name: "Użytkownik" }, { value: "użytkownik dodany" }]);
+      closeAddFormHandler();
     }
   };
   onChangeUsersMultiCheckbox = (event) => {

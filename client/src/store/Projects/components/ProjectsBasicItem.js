@@ -345,7 +345,7 @@ class ProjectsBasicItem extends Component {
           <td>
             {showItemDetails ? (
               <ModalDialog
-                width="1400px"
+                width="1330px"
                 showModal={() => this.setState({ showItemDetails: false })}
               >
                 <ProjectsDetailsContainer item={item} />
@@ -355,7 +355,7 @@ class ProjectsBasicItem extends Component {
         </tr>
         {/* {showCalendar ? (
           <ModalDialog
-            width="1400px"
+            width="1330px"
             showModal={() => this.setState({ showCalendar: false })}
           >
             <CalendarContainer />
