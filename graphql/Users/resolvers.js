@@ -149,12 +149,12 @@ module.exports = {
   },
   updateUser: async function ({ userInput }, req) {
     // console.log("user input", userInput);
-    if (!userInput.name || !userInput.email) {
+    if (!userInput.name) {
       return {
         errors: [
           {
             path: "Aktualizacja danych użytkownika",
-            message: "Pozostawiłeś nazwę lub email pusty",
+            message: "Pozostawiłeś nazwę pustą",
           },
         ],
       };
@@ -162,9 +162,11 @@ module.exports = {
     const _id = userInput._id;
     const user = await User.findOne({ _id });
 
+    // console.log("userInput", userInput);
+
     const data = {
       name: userInput.name ? userInput.name : user.name,
-      email: userInput.email ? userInput.email : user.email,
+      email: userInput.email,
       address: userInput.address ? userInput.address : user.address,
       phone: userInput.phone ? userInput.phone : user.phone,
       password: userInput.password ? userInput.password : user.password,
