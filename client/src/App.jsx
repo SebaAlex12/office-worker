@@ -1,13 +1,13 @@
 import React from "react";
-import "./App.css";
 import moment from "moment";
+import jwt_decode from "jwt-decode";
 
+import "./App.css";
+import AxiosErrorHandler from "./root/AxiosErrorHandler";
 import store from "./store/store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-
-import jwt_decode from "jwt-decode";
 
 import logo from "./adwokaci-lodz.png";
 
@@ -92,6 +92,7 @@ function App() {
         <Router>
           <StyledResponsive>
             <div className="App">
+              <AxiosErrorHandler />
               <MessagesList />
               {!localStorage.jwtTokenAuthorization ||
               localStorage.jwtTokenAuthorization === undefined ? (

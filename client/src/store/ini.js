@@ -195,4 +195,16 @@ export const projectTypes = [
     _id: 3,
     name: "Sprawa administracyjna",
   },
+  {
+    _id: 4,
+    name: "Sprawa prawa pracy",
+  },
+  {
+    _id: 5,
+    name: "Sprawa dyscyplinarna",
+  },
+  {
+    _id: 6,
+    name: "Sprawa inna",
+  },
 ];

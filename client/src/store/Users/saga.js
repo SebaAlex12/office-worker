@@ -58,6 +58,7 @@ function* loginUserAsync(action) {
       payload: res.data.data.loginUser,
     });
   } catch (error) {
+    console.log("catch errors", error);
     yield put({ type: USER_ERROR, payload: error });
   }
 }

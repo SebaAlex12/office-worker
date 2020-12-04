@@ -82,40 +82,40 @@ module.exports = {
   },
   loginUser: async function ({ email, password }) {
     if (!email || !password) {
-      return {
+      throw new Error({
         errors: [
           {
             path: "Logowanie użytkownika",
             message: "Email lub hasło nie zostało wprowadzone",
           },
         ],
-      };
+      });
     }
 
     const userData = await User.findOne({ email: email });
 
     if (!userData) {
-      return {
+      throw new Error({
         errors: [
           {
             path: "Logowanie użytkownika",
             message: "Użytkownik nie istnieje",
           },
         ],
-      };
+      });
     }
 
     const pass = await bcrypt.compare(password, userData.password);
 
     if (!pass) {
-      return {
+      throw new Error({
         errors: [
           {
             path: "Logowanie użytkownika",
             message: "Podałeś niepoprawne hasło",
           },
         ],
-      };
+      });
     }
     // console.log("resolverlogin", userData);
     const token = await jwt.sign(
@@ -141,8 +141,11 @@ module.exports = {
     );
 
     // console.log("user doc", userData._doc);
-
-    return { ...userData._doc, _id: userData._id.toString(), token: token };
+    try {
+      return { ...userData._doc, _id: userData._id.toString(), token: token };
+    } catch (errors) {
+      return { errors: tools.formatErrors(errors) };
+    }
   },
   updateUser: async function ({ userInput }, req) {
     // console.log("user input", userInput);

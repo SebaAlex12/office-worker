@@ -11,7 +11,6 @@ export const StyledModalDialog = styled.div`
   .modal-dialog-box .content {
     position: relative;
     display: block;
-    min-height: 560px;
     margin-left: auto;
     margin-right: auto;
     color: #000;
@@ -19,7 +18,6 @@ export const StyledModalDialog = styled.div`
     margin-top: 60px;
     background-color: #fff;
     padding: 30px;
-    height: 85vh;
     overflow-y: auto;
   }
   .modal-dialog-box .content .title {

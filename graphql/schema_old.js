@@ -245,19 +245,19 @@ module.exports = buildSchema(`
     }
 
     type UserLoginData {
-        _id: ID!
-        name: String!
-        email: String!
+        _id: ID
+        name: String
+        email: String
         address: String
         phone: String
-        createdAt: String!
-        password: String!
-        status: String!
+        createdAt: String
+        password: String
+        status: String
         company: String
         projects: String
         users: String
         lastActive: String
-        token: String!
+        token: String
     }
 
     type RootMutation {
@@ -287,7 +287,7 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        loginUser(email: String!, password: String!): UserLoginData!
+        loginUser(email: String!, password: String!): UserLoginData
         fetchCalendars(loggedUserId: String): [Calendar]!
         fetchUsers(userInput: UserInputData): [User]!
         fetchUsersByLoggedUserProjects(projects: String): [User]!

@@ -65,7 +65,7 @@ class TasksBasicItem extends Component {
     } = this.props;
 
     // console.log("item", item);
-    console.log("state", this.state);
+    // console.log("state", this.state);
 
     const selectedProject = projects
       ? projects.filter((project) => project._id === item.projectId).shift()
