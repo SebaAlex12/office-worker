@@ -30,7 +30,7 @@ const ModalDialog = (props) => {
           className="content"
           style={{
             width: width ? width : "780px",
-            minHeight: minHeight ? minHeight : "560px",
+            minHeight: minHeight ? minHeight : "90vh",
             zIndex: "10011",
           }}
         >

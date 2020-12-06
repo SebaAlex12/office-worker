@@ -35,3 +35,8 @@
 .App button[disabled] {
   opacity: 0.3;
 }
+
+.form-errors-box {
+  color: red;
+  padding-bottom: 8px;
+}

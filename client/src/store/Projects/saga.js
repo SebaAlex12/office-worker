@@ -147,6 +147,7 @@ function* addProjectAsync(action) {
   );
 
   const response = projectData.data.data.addProject;
+
   if (response.errors) {
     yield put({ type: PROJECTS_ERROR, payload: response.errors });
     yield put({

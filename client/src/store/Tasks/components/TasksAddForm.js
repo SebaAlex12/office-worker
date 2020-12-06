@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
+import uuid from "react-uuid";
 
+import { formValidator } from "../../../common/tools";
 import { priorities, statuses } from "../../ini";
 import { addTask } from "../actions";
 import { updateMessages } from "../../Messages/actions";
@@ -13,15 +15,34 @@ class TasksAddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectId: 5,
-      projectName: "",
-      responsiblePerson: "",
+      projectId: "",
+      responsiblePersonId: "",
       title: "",
       description: "",
       responsiblePersonLastComment: false,
       priority: "Normalny",
       status: "Do wykonania",
       termAt: "",
+      validation: [
+        {
+          id: 1,
+          name: "responsiblePersonId",
+          required: [true, "Odpowiedzialna osoba jest wymagana"],
+        },
+        {
+          name: "title",
+          required: [true, "Tytuł jest wymagany"],
+        },
+        {
+          name: "status",
+          required: [true, "Status jest wymagany"],
+        },
+        {
+          name: "priority",
+          required: [true, "Priorytet jest wymagany"],
+        },
+      ],
+      errors: [],
     };
   }
   onChangeInput = (event) => {
@@ -45,36 +66,51 @@ class TasksAddForm extends Component {
       closeAddFormHandler,
     } = this.props;
     const {
-      projectName,
-      responsiblePerson,
+      projectId,
+      responsiblePersonId,
       title,
       description,
       responsiblePersonLastComment,
       priority,
       status,
       termAt,
+      validation,
     } = this.state;
 
+    let errors = [];
+
     const data = {
-      userId: loggedUser._id,
-      createdBy: loggedUser.name,
-      projectId: "1",
-      projectName,
-      responsiblePerson,
+      projectId,
+      createdByUserId: loggedUser._id,
+      responsiblePersonId,
       title,
       description,
-      responsiblePersonLastComment,
+      // responsiblePersonLastComment,
       priority,
       status,
       termAt,
     };
 
     event.preventDefault();
+
+    validation.forEach((val) => {
+      let result = formValidator(data[val.name], val);
+      if (result[0] === false) errors.push(result);
+    });
+
+    this.setState({
+      errors: errors,
+    });
+
     const response = await addTask(data);
+
+    if (errors.length === 0) {
+      closeAddFormHandler();
+    }
 
     const alertData = {
       from: loggedUser.name,
-      to: responsiblePerson,
+      to: responsiblePersonId,
       msg: title,
       priority: priority,
       topic: "masz nowe zadanie: " + title,
@@ -84,14 +120,12 @@ class TasksAddForm extends Component {
 
     if (response) {
       updateMessages({ alert: alertData });
-      closeAddFormHandler();
     }
 
     addUserHistory({
       userId: loggedUser._id,
       userName: loggedUser.name,
       taskCreatedBy: loggedUser.name,
-      taskProjectName: projectName,
       taskTitle: title,
       event: "dodane nowe zadanie",
       createdAt: moment(new Date(), "YYYY-MM-DD HH:mm:ss").format(),
@@ -99,8 +133,9 @@ class TasksAddForm extends Component {
   };
   render() {
     const { projects } = this.props;
-    const { priority, status, projectName } = this.state;
+    const { priority, status, errors } = this.state;
 
+    console.log("project state", this.state);
     // console.log(projects);
 
     // const loggedUserProjects = loggedUser.projects
@@ -117,21 +152,33 @@ class TasksAddForm extends Component {
     // if (this.state.projects) {
     users = this.props.users.filter((user) => {
       if (user.projects !== null) {
-        let userProjects = user.projects.split(",");
-        if (userProjects.includes(projectName)) {
-          return user;
-        }
+        // let userProjects = user.projects.split(",");
+        // if (userProjects.includes(projectName)) {
+        //   return user;
+        // }
       }
-      // if (user.status === "Administrator") {
-      //   return user;
-      // }
+      if (user.status === "Administrator") {
+        return user;
+      }
       return null;
     });
     // }
 
+    const errorsContent =
+      errors.length > 0
+        ? errors.map((error) => {
+            return (
+              <div key={uuid()} className="item">
+                {error[1]}
+              </div>
+            );
+          })
+        : null;
+
     return (
       <StyledTaskForm>
         <div className="task-add-form-box">
+          <div className="form-errors-box">{errorsContent}</div>
           <form action="">
             <div className="form-group">
               <input
@@ -194,7 +241,7 @@ class TasksAddForm extends Component {
               <select
                 className="form-control"
                 onChange={this.onChangeSelect}
-                name="projectName"
+                name="projectId"
                 required
               >
                 <option value="">Wybierz sprawę</option>
@@ -206,7 +253,7 @@ class TasksAddForm extends Component {
                       //   loggedUserProjects.includes(project.name)
                       // ) {
                       option = (
-                        <option key={project._id} value={project.name}>
+                        <option key={project._id} value={project._id}>
                           {project.name}
                         </option>
                       );
@@ -221,11 +268,11 @@ class TasksAddForm extends Component {
               <select
                 className="form-control"
                 onChange={this.onChangeSelect}
-                name="responsiblePerson"
+                name="responsiblePersonId"
                 required
               >
                 <option value="">Przypisz do</option>
-                {users && projectName.length > 0
+                {users
                   ? users.map((user) => {
                       let option = "";
                       // if (
@@ -233,7 +280,7 @@ class TasksAddForm extends Component {
                       //   loggedUserUsers.includes(user.name)
                       // ) {
                       option = (
-                        <option key={user._id} value={user.name}>
+                        <option key={user._id} value={user._id}>
                           {user.name}
                         </option>
                       );

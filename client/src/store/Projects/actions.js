@@ -13,10 +13,12 @@ export const fetchProjectsByLoggedUserProjects = (data) => ({
   type: FETCHING_PROJECTS_BY_LOGGED_USER_PROJECTS,
   data,
 });
-export const addProject = (data) => ({
-  type: ADDING_PROJECT,
-  data,
-});
+export const addProject = (data) => {
+  return {
+    type: ADDING_PROJECT,
+    data,
+  };
+};
 export const updateProject = (data) => ({
   type: UPDATING_PROJECT,
   data,

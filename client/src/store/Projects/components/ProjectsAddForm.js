@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import { formValidator } from "../../../common/tools";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
@@ -21,6 +22,18 @@ class ProjectsAddForm extends Component {
       createdAt: "",
       termAt: "",
       userName: "",
+      validation: [
+        {
+          name: "name",
+          required: [true, "Nazwa sprawy jest wymagana"],
+          // minLength: [8, "Minimalna wymagana liczba w nazwie"],
+        },
+        {
+          name: "type",
+          required: [true, "Rodzaj sprawy jest wymagany"],
+        },
+      ],
+      errors: [],
     };
   }
   onChangeInput = (event) => {
@@ -46,7 +59,10 @@ class ProjectsAddForm extends Component {
       createdAt,
       termAt,
       userName,
+      validation,
     } = this.state;
+
+    let errors = [];
 
     const projectData = {
       name,
@@ -76,11 +92,19 @@ class ProjectsAddForm extends Component {
 
     event.preventDefault();
 
+    validation.forEach((val) => {
+      let result = formValidator(projectData[val.name], val);
+      if (result[0] === false) errors.push(result);
+    });
+
+    this.setState({
+      errors: errors,
+    });
+
     const response = await addProject(projectData);
 
-    if (response) {
-      console.log("response", response);
-      // closeAddFormHandler();
+    if (errors.length === 0) {
+      closeAddFormHandler();
     }
 
     if (userName.length > 0 && response) {
@@ -96,12 +120,20 @@ class ProjectsAddForm extends Component {
     }
   };
   render() {
-    const { name, signature, organ, description } = this.state;
+    const { name, signature, organ, description, errors } = this.state;
     const { users } = this.props;
+
+    const errorsContent =
+      errors.length > 0
+        ? errors.map((error) => {
+            return <div class="item">{error[1]}</div>;
+          })
+        : null;
 
     return (
       <StyledProjectForm>
         <div className="project-add-form-box">
+          <div class="form-errors-box">{errorsContent}</div>
           <form action="">
             <TextFieldGroup
               title="nazwa"

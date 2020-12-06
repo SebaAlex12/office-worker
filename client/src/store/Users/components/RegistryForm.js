@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { registerUser } from "../actions";
 import { user_statuses } from "../../ini";
 
-import { updateMessages } from "../../Messages/actions";
+import { formValidator } from "../../../common/tools";
 import { StyledUserForm } from "../styles/StyledUserForm";
 
 class RegistryForm extends Component {
@@ -19,6 +19,17 @@ class RegistryForm extends Component {
       status: "",
       selectedProjects: [],
       selectedUsers: [],
+      validation: [
+        {
+          name: "name",
+          required: [true, "Nazwa jest wymagana"],
+        },
+        {
+          name: "status",
+          required: [true, "Status jest wymagany"],
+        },
+      ],
+      errors: [],
     };
   }
   onChangeInput = (event) => {
@@ -35,12 +46,7 @@ class RegistryForm extends Component {
   };
   registerHandler = (event) => {
     event.preventDefault();
-    const {
-      registerUser,
-      updateMessages,
-      loggedUser,
-      closeAddFormHandler,
-    } = this.props;
+    const { registerUser, loggedUser, closeAddFormHandler } = this.props;
 
     const {
       name,
@@ -51,6 +57,7 @@ class RegistryForm extends Component {
       status,
       selectedProjects,
       selectedUsers,
+      validation,
     } = this.state;
 
     const data = {
@@ -64,9 +71,20 @@ class RegistryForm extends Component {
       users: selectedUsers,
     };
 
-    const response = registerUser(data);
-    if (response) {
-      updateMessages([{ name: "Użytkownik" }, { value: "użytkownik dodany" }]);
+    let errors = [];
+
+    validation.forEach((val) => {
+      let result = formValidator(data[val.name], val);
+      if (result[0] === false) errors.push(result);
+    });
+
+    this.setState({
+      errors: errors,
+    });
+
+    registerUser(data);
+
+    if (errors.length === 0) {
       closeAddFormHandler();
     }
   };
@@ -107,11 +125,19 @@ class RegistryForm extends Component {
       password,
       selectedProjects,
       selectedUsers,
+      errors,
     } = this.state;
     const { users, loggedUser } = this.props;
     let { projects } = this.props;
     let projectContent = "";
     let userContent = "";
+
+    const errorsContent =
+      errors.length > 0
+        ? errors.map((error) => {
+            return <div class="item">{error[1]}</div>;
+          })
+        : null;
 
     // show only logged user projects if is not administrator
     if (projects && loggedUser) {
@@ -160,6 +186,7 @@ class RegistryForm extends Component {
     return (
       <StyledUserForm>
         <div className="registry-form-box">
+          <div class="form-errors-box">{errorsContent}</div>
           <form action="post">
             <div className="form-group form-row">
               <input
@@ -278,6 +305,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { registerUser, updateMessages })(
-  RegistryForm
-);
+export default connect(mapStateToProps, { registerUser })(RegistryForm);

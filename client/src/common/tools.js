@@ -19,3 +19,23 @@ export const sortArray = (array, property, direction) => {
   });
   return array;
 };
+export const formValidator = (value, params) => {
+  let logic = true;
+  let message = "";
+
+  if (params.minLength) {
+    if (value.length < params.minLength[0]) {
+      logic = false;
+      message = params.minLength[1];
+    }
+  }
+
+  if (params.required) {
+    if (value.length === 0) {
+      logic = false;
+      message = params.required[1];
+    }
+  }
+
+  return [logic, message];
+};
