@@ -6,6 +6,7 @@ import { StyledTaskListContainer } from "../styles/StyledTaskListContainer";
 import { sortArray } from "../../../common/tools";
 import { removeTask, updateTask } from "../actions";
 import TasksBasicList from "./TasksBasicList";
+import FiltersContainer from "../../Filters/components/FiltersContainer";
 
 class TasksListContainer extends Component {
   constructor(props) {
@@ -17,8 +18,6 @@ class TasksListContainer extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    // console.log("component will resive props");
-    // console.log("next props", nextProps);
     if (nextProps.tasks !== this.state.tasks) {
       this.setState({
         ...this.state,
@@ -36,25 +35,17 @@ class TasksListContainer extends Component {
     if (direction === "desc") {
       sortArray(tasks, column, -1);
     }
-    console.log("tasks", tasks);
     this.setState({
       tasks: tasks,
     });
   };
   removeTasksHandler = (id) => {
-    // const { tasks, filteredTasks } = this.state;
     const { removeTask } = this.props;
 
     const result = window.confirm("Czy na pewno chcesz usunąć zadanie!");
 
     if (result) {
       removeTask(id);
-      // if (response) {
-      //   this.setState({
-      //     tasks: tasks.filter((item) => item._id !== id),
-      //     filteredTasks: filteredTasks.filter((item) => item._id !== id),
-      //   });
-      // }
     }
   };
   updateTasksHandler = async (element) => {
@@ -70,12 +61,18 @@ class TasksListContainer extends Component {
   };
   onChangeTasksSearcherHandler = (event) => {
     const { tasks } = this.state;
-    if (event.target.name !== undefined) {
+    console.log("event.target.name", event.target.name);
+    if (event.target.name !== undefined && event.target.name.length > 0) {
       const filteredTasks = tasks.filter((item) => {
-        return (
-          item[event.target.name].toLowerCase().indexOf(event.target.value) !==
-          -1
-        );
+        console.log("item", item);
+        console.log("item[event.target.name]", item[event.target.name]);
+        if (item[event.target.name] !== undefined) {
+          return (
+            item[event.target.name]
+              .toLowerCase()
+              .indexOf(event.target.value.toLowerCase()) !== -1
+          );
+        }
       });
       this.setState({
         filteredTasks: filteredTasks,
@@ -86,8 +83,26 @@ class TasksListContainer extends Component {
       });
     }
   };
+  filterItem = (item) => {
+    const { filters } = this.props;
+    let result = false;
+
+    filters.statuses.forEach((status) => {
+      if (status.active === true) {
+        if (status.name === item.status) {
+          result = true;
+        }
+      }
+    });
+    return result;
+  };
   render() {
-    const { filteredTasks } = this.state;
+    let { filteredTasks } = this.state;
+
+    filteredTasks = filteredTasks.filter((task) =>
+      this.filterItem(task) ? task : null
+    );
+
     let n = 1;
     const taskListContent = filteredTasks ? (
       <Aux key={n++}>
@@ -100,11 +115,12 @@ class TasksListContainer extends Component {
         />
       </Aux>
     ) : (
-      <p>Trwa wczytywanie listy spraw...</p>
+      <p>Trwa wczytywanie listy zadań...</p>
     );
     return (
       <StyledTaskListContainer>
         <div className="task-list-container-box">
+          <FiltersContainer />
           <div className="title-box">
             <div className="list-counter">
               Liczba elementów: {filteredTasks.length}
@@ -121,6 +137,7 @@ class TasksListContainer extends Component {
 const mapStateToProps = (state) => {
   return {
     tasks: state.tasks.tasks,
+    filters: state.filters.filters,
   };
 };
 

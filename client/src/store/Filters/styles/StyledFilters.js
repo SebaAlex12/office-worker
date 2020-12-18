@@ -4,6 +4,7 @@ export const StyledFilters = styled.div`
   .filter-form-box {
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin: 5px 0px;
   }
   .filter-form-box .form-group {
     margin: 0px;

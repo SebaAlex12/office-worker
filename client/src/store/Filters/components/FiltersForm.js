@@ -11,27 +11,27 @@ class FiltersForm extends Component {
       statuses: [],
       priorities: [],
       projectName: "",
-      responsiblePerson: ""
+      responsiblePerson: "",
     };
   }
   componentDidMount() {
     const {
-      filters: { statuses, priorities, projectName, responsiblePerson }
+      filters: { statuses, priorities, projectName, responsiblePerson },
     } = this.props;
     this.setState({
       statuses,
       priorities,
       projectName,
-      responsiblePerson
+      responsiblePerson,
     });
   }
 
-  onChangeStatusHandler = event => {
+  onChangeStatusHandler = (event) => {
     // console.log("lll");
     const { updateFilter } = this.props;
     let { statuses, priorities, projectName, responsiblePerson } = this.state;
     // event.preventDefault();
-    statuses.map(status => {
+    statuses.map((status) => {
       if (status.name === event.target.name) {
         status.active = event.target.checked;
       }
@@ -39,16 +39,16 @@ class FiltersForm extends Component {
     });
     updateFilter({ statuses, priorities, projectName, responsiblePerson });
     this.setState({
-      statuses
+      statuses,
     });
     // console.log(event.target);
   };
 
-  onChangePriorityHandler = event => {
+  onChangePriorityHandler = (event) => {
     const { updateFilter } = this.props;
     let { statuses, priorities, projectName, responsiblePerson } = this.state;
     // event.preventDefault();
-    priorities.map(priority => {
+    priorities.map((priority) => {
       if (priority.name === event.target.name) {
         priority.active = event.target.checked;
       }
@@ -56,7 +56,7 @@ class FiltersForm extends Component {
     });
     updateFilter({ statuses, priorities, projectName, responsiblePerson });
     this.setState({
-      priorities
+      priorities,
     });
   };
 
@@ -69,7 +69,7 @@ class FiltersForm extends Component {
 
     if (statuses) {
       let counter = 1;
-      stateContent = statuses.map(status => {
+      stateContent = statuses.map((status) => {
         // console.log(status.active);
         // let checked = status.active ? checked=true : null;
         return (
@@ -92,7 +92,7 @@ class FiltersForm extends Component {
 
     if (priorities) {
       let counter = 1;
-      priorityContent = priorities.map(priority => {
+      priorityContent = priorities.map((priority) => {
         return (
           <div className="form-check" key={counter++}>
             <input
@@ -118,10 +118,10 @@ class FiltersForm extends Component {
               <label>[Stan]</label>
               {stateContent}
             </div>
-            <div className="form-group row">
+            {/* <div className="form-group row">
               <label>[Priorytet]</label>
               {priorityContent}
-            </div>
+            </div> */}
           </form>
         </div>
       </StyledFilters>
@@ -129,10 +129,10 @@ class FiltersForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     loggedUser: state.users.logged_user,
-    filters: state.filters.filters
+    filters: state.filters.filters,
   };
 };
 

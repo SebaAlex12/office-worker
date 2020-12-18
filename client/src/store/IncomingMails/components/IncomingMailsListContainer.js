@@ -73,11 +73,12 @@ class IncomingMailsListContainer extends Component {
   };
   onChangeIncomingMailsSearcherHandler = (event) => {
     const { incomingMails } = this.state;
-    if (event.target.name !== undefined) {
+    if (event.target.name !== undefined && event.target.name.length > 0) {
       const filteredIncomingMails = incomingMails.filter((item) => {
         return (
-          item[event.target.name].toLowerCase().indexOf(event.target.value) !==
-          -1
+          item[event.target.name]
+            .toLowerCase()
+            .indexOf(event.target.value.toLowerCase()) !== -1
         );
       });
       this.setState({

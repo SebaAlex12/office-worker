@@ -32,9 +32,6 @@ export const StyledTaskBasicList = styled.div`
   .tasks-basic-list-box table .title {
     width: 160px;
   }
-  .tasks-basic-list-box table tr.complete {
-    background-color: #d0efd0;
-  }
   .tasks-basic-list-box table tr > th.ordinalNumber {
     width: 30px;
   }
@@ -75,5 +72,19 @@ export const StyledTaskBasicList = styled.div`
     position: absolute;
     right: 0px;
     bottom: 0px;
+  }
+  //statuses
+  tr.complete {
+    background-color: #d0efd0;
+  }
+  //terms
+  table tr.term-expired {
+    background-color: #fb8c8c;
+  }
+  table tr.term-one-day-left {
+    background-color: #ffa8a8;
+  }
+  table tr.term-two-days-left {
+    background-color: #f3f3be;
   }
 `;

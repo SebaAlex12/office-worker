@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import moment from "moment/min/moment-with-locales";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
@@ -53,6 +54,19 @@ class TasksBasicItem extends Component {
       editItem: false,
     });
     //  }
+  };
+  leftDaysCounter = () => {
+    const {
+      item: { termAt },
+    } = this.state;
+
+    // const date = moment(new Date(termAt)).locale("pl").format("L");
+    // const presentDate = moment(new Date()).locale("pl").format("L");
+    const daysLeft = moment(new Date()).diff(termAt, "days") * -1;
+    // console.log("presentDate", presentDate);
+    // console.log("term date", date);
+    // console.log("difference", difference);
+    return daysLeft + 1;
   };
   render() {
     const { item, editItem, moreItem, showCalendar } = this.state;
@@ -232,9 +246,28 @@ class TasksBasicItem extends Component {
       (element) => element.status_name === item.status
     );
 
+    const daysLeft = this.leftDaysCounter();
+    let $clazz2 = "";
+
+    if (daysLeft < 1) {
+      $clazz2 = "term-expired";
+    }
+    if (daysLeft === 1) {
+      $clazz2 = "term-one-day-left";
+    }
+    if (daysLeft === 2) {
+      $clazz2 = "term-two-days-left";
+    }
+
     return (
       <Aux>
-        <tr className={$clazz.length > 0 ? $clazz[0].classes_name : null}>
+        <tr
+          className={
+            $clazz.length > 0
+              ? $clazz[0].classes_name + " " + $clazz2
+              : null + " " + $clazz2
+          }
+        >
           {itemContent}
           <td className="actions">
             <Button

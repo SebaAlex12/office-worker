@@ -74,11 +74,12 @@ class ProjectsListContainer extends Component {
   };
   onChangeProjectsSearcherHandler = (event) => {
     const { projects } = this.state;
-    if (event.target.name !== undefined) {
+    if (event.target.name !== undefined && event.target.name.length > 0) {
       const filteredProjects = projects.filter((item) => {
         return (
-          item[event.target.name].toLowerCase().indexOf(event.target.value) !==
-          -1
+          item[event.target.name]
+            .toLowerCase()
+            .indexOf(event.target.value.toLowerCase()) !== -1
         );
       });
       this.setState({
