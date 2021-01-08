@@ -17,6 +17,9 @@ class IncomingMails extends Component {
       case "Administrator":
         fetchIncomingMails();
         break;
+      case "Menedżer":
+        fetchIncomingMails();
+        break;
       default:
         break;
     }
