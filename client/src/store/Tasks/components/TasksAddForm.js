@@ -157,7 +157,7 @@ class TasksAddForm extends Component {
         //   return user;
         // }
       }
-      if (user.status === "Administrator") {
+      if (user.status === "Administrator" || user.status === "Menedżer") {
         return user;
       }
       return null;

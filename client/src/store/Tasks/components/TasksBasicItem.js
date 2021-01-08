@@ -273,7 +273,6 @@ class TasksBasicItem extends Component {
             <Button
               title="Rozwiń rekord"
               onClick={() => this.setState({ moreItem: !moreItem })}
-              disabled={true}
             >
               <FontAwesomeIcon icon={faEdit} />
             </Button>
@@ -307,7 +306,7 @@ class TasksBasicItem extends Component {
         </tr>
         {moreItem ? (
           <tr>
-            <td colSpan="2">
+            <td colSpan="8">
               <div className="catalog-item-desc-box">
                 <TextareaFieldGroup
                   onChange={this.onChangeHandler}
