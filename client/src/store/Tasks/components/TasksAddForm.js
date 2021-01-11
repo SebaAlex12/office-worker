@@ -149,20 +149,12 @@ class TasksAddForm extends Component {
     // filter users compare to selected projects
     let users;
 
-    // if (this.state.projects) {
     users = this.props.users.filter((user) => {
-      if (user.projects !== null) {
-        // let userProjects = user.projects.split(",");
-        // if (userProjects.includes(projectName)) {
-        //   return user;
-        // }
-      }
       if (user.status === "Administrator" || user.status === "Menedżer") {
         return user;
       }
       return null;
     });
-    // }
 
     const errorsContent =
       errors.length > 0
@@ -174,6 +166,8 @@ class TasksAddForm extends Component {
             );
           })
         : null;
+
+    console.log("users", users);
 
     return (
       <StyledTaskForm>
@@ -225,6 +219,14 @@ class TasksAddForm extends Component {
                     })
                   : null}
               </select>
+            </div>
+            <div className="form-group">
+              <input
+                onClick={this.addHandler}
+                className="btn btn-primary float-right"
+                type="submit"
+                value="dodaj"
+              />
             </div>
             <div className="form-group">
               <label htmlFor="">Termin wykonania</label>
@@ -314,14 +316,6 @@ class TasksAddForm extends Component {
                     })
                   : null}
               </select>
-            </div>
-            <div className="form-group">
-              <input
-                onClick={this.addHandler}
-                className="btn btn-primary float-right"
-                type="submit"
-                value="dodaj"
-              />
             </div>
           </form>
         </div>

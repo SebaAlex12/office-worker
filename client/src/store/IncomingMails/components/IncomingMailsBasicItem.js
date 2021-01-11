@@ -50,7 +50,7 @@ class IncomingMailsBasicItem extends Component {
 
     const itemContent = editItem ? (
       <Aux>
-        <td className="ordinalNumber">{ordinalNumber}</td>
+        {/* <td className="ordinalNumber">{ordinalNumber}</td> */}
         <td className="number">
           <TextFieldGroup
             type="text"
@@ -109,7 +109,7 @@ class IncomingMailsBasicItem extends Component {
       </Aux>
     ) : (
       <Aux>
-        <td className="ordinalNumber">{ordinalNumber}</td>
+        {/* <td className="ordinalNumber">{ordinalNumber}</td> */}
         <td className="number">{item.number}</td>
         <td className="deliveryDate">
           <DateTimeFormat date={item.deliveryDate} short={true} />

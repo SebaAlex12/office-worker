@@ -10,4 +10,7 @@ export const StyledTaskForm = styled.div`
     border: 1px solid lightgrey;
     width: 480px;
   }
+  .task-add-form-box textarea[name="description"] {
+    max-height: 100px;
+  }
 `;

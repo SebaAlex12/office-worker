@@ -80,7 +80,11 @@ class StagesBasicItem extends Component {
   };
   render() {
     const { item, editItem, moreItem, calendarUserId } = this.state;
-    const { removeItem, ordinalNumber, users } = this.props;
+    const { removeItem, ordinalNumber } = this.props;
+
+    const users = this.props.users.filter(
+      (user) => user.status === "Administrator" || user.status === "Menedżer"
+    );
 
     const itemContent = editItem ? (
       <Aux>

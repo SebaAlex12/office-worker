@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import { addIncomingMail } from "../actions";
@@ -9,8 +10,9 @@ import { StyledIncomingMailForm } from "../styles/StyledIncomingMailForm";
 class IncomingMailsAddForm extends Component {
   constructor(props) {
     super(props);
+    const { incomingMails } = this.props;
     this.state = {
-      number: "",
+      number: parseInt(incomingMails[incomingMails.length - 1].number) + 1,
       deliveryDate: "",
       sender: "",
       deliveryCase: "",
@@ -54,7 +56,13 @@ class IncomingMailsAddForm extends Component {
     addIncomingMail(data);
     closeAddFormHandler();
   };
+  projectOnChangeHandler = (event) => {
+    this.setState({
+      deliveryCase: event.currentTarget.value,
+    });
+  };
   render() {
+    const { projects } = this.props;
     const {
       number,
       deliveryDate,
@@ -64,24 +72,17 @@ class IncomingMailsAddForm extends Component {
       description,
     } = this.state;
 
-    // let types = [];
-    // projectTypes.forEach((item) => {
-    //   types.push(item.name);
-    // });
-
-    // console.log("types", types);
-
     return (
       <StyledIncomingMailForm>
         <div className="project-add-form-box">
           <form action="">
-            <TextFieldGroup
+            {/* <TextFieldGroup
               title="Numer wpisu"
               onChange={this.onChangeInput}
               name="number"
               value={number}
               placeholder="Wprowadź nr wpisu"
-            />
+            /> */}
             <TextFieldGroup
               label="Data doręczenia"
               type="datetime-local"
@@ -98,6 +99,12 @@ class IncomingMailsAddForm extends Component {
               value={sender}
               placeholder="Wprowadź nadawcę"
             />
+            <label>Wybierz z listy sprawę</label>
+            <SelectFieldGroup
+              items={projects}
+              onChange={(event) => this.projectOnChangeHandler(event)}
+            />
+            <label>lub wpisz ręcznie</label>
             <TextFieldGroup
               title="Sprawa"
               onChange={this.onChangeInput}
@@ -113,6 +120,14 @@ class IncomingMailsAddForm extends Component {
               value={signature}
               placeholder="Wprowadź sygnaturę"
             />
+            <div className="form-group">
+              <input
+                onClick={this.addHandler}
+                className="btn btn-primary float-right"
+                type="submit"
+                value="dodaj"
+              />
+            </div>
             <TextareaFieldGroup
               title="Opis"
               onChange={this.onChangeInput}
@@ -122,14 +137,6 @@ class IncomingMailsAddForm extends Component {
               rows="6"
               placeholder="Dodaj opis"
             />
-            <div className="form-group">
-              <input
-                onClick={this.addHandler}
-                className="btn btn-primary float-right"
-                type="submit"
-                value="dodaj"
-              />
-            </div>
           </form>
         </div>
       </StyledIncomingMailForm>
@@ -140,6 +147,8 @@ class IncomingMailsAddForm extends Component {
 const mapStateToProps = (state) => {
   return {
     loggedUser: state.users.logged_user,
+    projects: state.projects.projects,
+    incomingMails: state.incomingMails.incomingMails,
   };
 };
 

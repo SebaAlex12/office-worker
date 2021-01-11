@@ -10,7 +10,7 @@ export const StyledUserForm = styled.div`
     border: 1px solid lightgrey;
   }
   .registry-form-box .multi-checkboxes {
-    height: 250px;
+    height: 150px;
     overflow-y: scroll;
     text-align: left;
   }

@@ -85,10 +85,10 @@ const IncomingMailsBasicList = (props) => {
         <table className="table table-striped">
           <thead>
             <tr scope="col">
-              <th className="ordinalNumber">
+              {/* <th className="ordinalNumber">
                 Lp.
                 <div className="search-item"></div>
-              </th>
+              </th> */}
               <th className="number">
                 Nr wpisu{sortItemsContent("number")}
                 <div className="search-item">

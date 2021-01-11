@@ -207,4 +207,8 @@ export const projectTypes = [
     _id: 6,
     name: "Sprawa inna",
   },
+  {
+    _id: 7,
+    name: "Oddłużanie",
+  },
 ];

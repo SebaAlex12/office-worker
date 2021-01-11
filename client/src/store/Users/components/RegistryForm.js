@@ -272,6 +272,14 @@ class RegistryForm extends Component {
                   : null}
               </select>
             </div>
+            <div className="form-group">
+              <input
+                onClick={this.registerHandler}
+                className="btn btn-primary float-right"
+                type="submit"
+                value="dodaj"
+              />
+            </div>
             <div className="form-group form-row multi-checkboxes">
               <React.Fragment>
                 <label>[Przypisz sprawę]</label>
@@ -282,14 +290,6 @@ class RegistryForm extends Component {
               <label>[Przypisz użytkowników]</label>
               {userContent}
             </div> */}
-            <div className="form-group">
-              <input
-                onClick={this.registerHandler}
-                className="btn btn-primary float-right"
-                type="submit"
-                value="dodaj"
-              />
-            </div>
           </form>
         </div>
       </StyledUserForm>
