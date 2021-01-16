@@ -46,7 +46,7 @@ class IncomingMailsAddForm extends Component {
     } = this.state;
 
     const data = {
-      number: parseInt(incomingMails[0].number) + 1,
+      number: parseInt(incomingMails[incomingMails.length - 1].number) + 1,
       deliveryDate,
       sender,
       deliveryCase,

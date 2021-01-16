@@ -64,9 +64,11 @@ class Dashboard extends Component {
         {/* <Link className="btn btn-default" to="/mails">
           Poczta
         </Link> */}
-        <Link className="btn btn-default" to="/settings">
-          Ustawienia
-        </Link>
+        {loggedUser.status == "Administrator" && (
+          <Link className="btn btn-default" to="/settings">
+            Ustawienia
+          </Link>
+        )}
         <button className="btn btn-default" onClick={this.logoutUserHandler}>
           Logout
         </button>
@@ -74,7 +76,9 @@ class Dashboard extends Component {
           <Route exact path="/projects" component={Projects} />
           <Route exact path="/incoming-mails" component={IncomingMails} />
           <Route exact path="/tasks" component={Tasks} />
-          <Route exact path="/settings" component={SettingsContainer} />
+          {loggedUser.status == "Administrator" && (
+            <Route exact path="/settings" component={SettingsContainer} />
+          )}
           <Route exact path="/" component={Tasks} />
           <Route exact path="/mails" component={MailsListContainer} />
           <Route exact path="/calendar" component={Calendar} />
