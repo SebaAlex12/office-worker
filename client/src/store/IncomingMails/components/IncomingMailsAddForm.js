@@ -10,9 +10,7 @@ import { StyledIncomingMailForm } from "../styles/StyledIncomingMailForm";
 class IncomingMailsAddForm extends Component {
   constructor(props) {
     super(props);
-    const { incomingMails } = this.props;
     this.state = {
-      number: parseInt(incomingMails[incomingMails.length - 1].number) + 1,
       deliveryDate: "",
       sender: "",
       deliveryCase: "",
@@ -33,9 +31,13 @@ class IncomingMailsAddForm extends Component {
     });
   };
   addHandler = (event) => {
-    const { addIncomingMail, loggedUser, closeAddFormHandler } = this.props;
     const {
-      number,
+      addIncomingMail,
+      loggedUser,
+      closeAddFormHandler,
+      incomingMails,
+    } = this.props;
+    const {
       deliveryDate,
       sender,
       deliveryCase,
@@ -44,7 +46,7 @@ class IncomingMailsAddForm extends Component {
     } = this.state;
 
     const data = {
-      number,
+      number: parseInt(incomingMails[0].number) + 1,
       deliveryDate,
       sender,
       deliveryCase,

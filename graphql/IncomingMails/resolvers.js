@@ -4,21 +4,23 @@ const tools = require("../../utils/tools");
 module.exports = {
   fetchIncomingMails: async function () {
     const incomingMails = await IncomingMail.find({}, null, {
-      sort: { name: 1 },
+      sort: { number: "desc" },
     });
     return incomingMails;
   },
   addIncomingMail: async function ({ incomingMailInput }, req) {
+    console.log("incomingMailInput", incomingMailInput);
     const result = await IncomingMail.findOne({
       number: incomingMailInput.number,
     });
-    if (result) {
-      throw {
-        errors: [
-          { path: "name", message: "Istnieje już poczta o podanym numerze" },
-        ],
-      };
-    }
+    // todo
+    // if (result) {
+    //   throw {
+    //     errors: [
+    //       { path: "name", message: "Istnieje już poczta o podanym numerze" },
+    //     ],
+    //   };
+    // }
     const data = {
       number: incomingMailInput.number,
       deliveryDate: incomingMailInput.deliveryDate,
@@ -29,6 +31,7 @@ module.exports = {
     };
 
     const incomingMail = new IncomingMail(data);
+
     try {
       const storedIncomingMail = await incomingMail.save();
       return {
