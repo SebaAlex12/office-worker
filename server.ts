@@ -5,6 +5,8 @@ import path = require("path");
 
 import http = require("http");
 // import socketIo = require("socket.io");
+import { dbAutoBackUp } from "./backup";
+import { dbRestoreBackup } from "./restore";
 
 import graphqlHttp = require("express-graphql");
 import graphqlSchema = require("./graphql/schema_old");
@@ -13,6 +15,9 @@ import graphqlResolver = require("./graphql/resolvers");
 import { upload, resize } from "./utils/filesManager";
 
 import fs = require("fs");
+
+// do not use unless you really know what you are doing !!!!
+// dbRestoreBackup();
 
 const app: express.Application = express();
 
@@ -85,6 +90,22 @@ app.post("/delete-files/", bodyParserJson, (req: any, res) => {
       res.json(err);
     }
   });
+});
+
+app.get("/show", function (req, res) {
+  console.log("show ...");
+});
+
+app.post("/backup-database", async (req, res) => {
+  try {
+    const response: any = await dbAutoBackUp();
+    if (response) {
+      res.json("Utworzona kopia zapasowa bazy.");
+    }
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
 });
 
 app.use(

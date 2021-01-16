@@ -4,7 +4,7 @@ const tools = require("../../utils/tools");
 module.exports = {
   fetchIncomingMails: async function () {
     const incomingMails = await IncomingMail.find({}, null, {
-      sort: { number: "desc" },
+      // sort: { number: "desc" },
     });
     return incomingMails;
   },

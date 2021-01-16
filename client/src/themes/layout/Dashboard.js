@@ -5,6 +5,7 @@ import { Route, Link } from "react-router-dom";
 // import { socket } from "../../store/ini";
 
 import { logoutUser } from "../../store/Users/actions";
+import SettingsContainer from "../../store/Settings/components/SettingsContainer";
 import Calendar from "../../root/Calendar";
 import Projects from "../../root/Projects";
 import Tasks from "../../root/Tasks";
@@ -63,6 +64,9 @@ class Dashboard extends Component {
         {/* <Link className="btn btn-default" to="/mails">
           Poczta
         </Link> */}
+        <Link className="btn btn-default" to="/settings">
+          Ustawienia
+        </Link>
         <button className="btn btn-default" onClick={this.logoutUserHandler}>
           Logout
         </button>
@@ -70,6 +74,7 @@ class Dashboard extends Component {
           <Route exact path="/projects" component={Projects} />
           <Route exact path="/incoming-mails" component={IncomingMails} />
           <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/settings" component={SettingsContainer} />
           <Route exact path="/" component={Tasks} />
           <Route exact path="/mails" component={MailsListContainer} />
           <Route exact path="/calendar" component={Calendar} />
