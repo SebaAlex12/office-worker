@@ -6,7 +6,7 @@ import path = require("path");
 import http = require("http");
 // import socketIo = require("socket.io");
 import { dbAutoBackUp } from "./backup";
-import { dbRestoreBackup } from "./restore";
+// import { dbRestoreBackup } from "./restore";
 
 import graphqlHttp = require("express-graphql");
 import graphqlSchema = require("./graphql/schema_old");
@@ -90,10 +90,6 @@ app.post("/delete-files/", bodyParserJson, (req: any, res) => {
       res.json(err);
     }
   });
-});
-
-app.get("/show", function (req, res) {
-  console.log("show ...");
 });
 
 app.post("/backup-database", async (req, res) => {
