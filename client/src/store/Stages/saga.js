@@ -147,6 +147,7 @@ export function* addStageWatcher() {
 function* updateStageAsync(action) {
   // try {
   const data = action.data;
+  const lastStageDate = action.lastStageDate;
 
   const stageInput = {
     _id: data._id,
@@ -203,6 +204,17 @@ function* updateStageAsync(action) {
       payload: { success: [{ message: "Etap został zaktualizowany" }] },
     });
   }
+      /* update project set last stage */
+      if(lastStageDate){
+        yield put(
+          updateProject({
+            _id: response.projectId,
+            lastStageId: response._id,
+            lastStageDescription: response.description,
+            lastStageCreatedAt: response.createdAt,
+          })
+        );
+      }
 }
 
 export function* updateStageWatcher() {

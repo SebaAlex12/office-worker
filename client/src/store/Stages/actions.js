@@ -13,9 +13,10 @@ export const addStage = (data) => ({
   type: ADDING_STAGE,
   data,
 });
-export const updateStage = (data) => ({
+export const updateStage = (data,lastStageDate = false) => ({
   type: UPDATING_STAGE,
   data,
+  lastStageDate
 });
 export const removeStage = (stageId) => ({
   type: REMOVING_STAGE,

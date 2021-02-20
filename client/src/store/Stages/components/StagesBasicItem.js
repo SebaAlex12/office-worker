@@ -44,10 +44,19 @@ class StagesBasicItem extends Component {
     });
   };
   updateItemHandler = async () => {
-    const { updateItem } = this.props;
+    const { updateItem, stages } = this.props;
     const { item } = this.state;
+
+    let isLastCreateDate = true;
+
+    stages.forEach(element => {
+      if(element.createdAt > item.createdAt){
+        isLastCreateDate = false;
+      }
+    });
+
     // if (editItem) {
-    const response = await updateItem(item);
+    const response = await updateItem(item,isLastCreateDate);
     //   if (response) {
     this.setState({ editItem: false });
     //   }
@@ -219,6 +228,7 @@ const mapStateToProps = (state) => {
   return {
     loggedUser: state.users.logged_user,
     users: state.users.users,
+    stages: state.stages.stages
   };
 };
 

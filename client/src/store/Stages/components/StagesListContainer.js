@@ -53,11 +53,11 @@ class StagesListContainer extends Component {
       // }
     }
   };
-  updateStagesHandler = async (element) => {
+  updateStagesHandler = async (element,isLastCreateDate) => {
     const { stages } = this.state;
     const { updateStage } = this.props;
 
-    const response = await updateStage(element);
+    const response = await updateStage(element,isLastCreateDate);
     if (response) {
       this.setState({
         stages: stages.map((item) =>
