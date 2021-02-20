@@ -6,7 +6,6 @@ import {
   faPlusSquare,
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
-import moment from "moment/min/moment-with-locales";
 
 import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
@@ -44,6 +43,7 @@ class IncomingMailsBasicItem extends Component {
     //   }
     // }
   };
+
   render() {
     const { item, editItem, moreItem } = this.state;
     const { removeItem, ordinalNumber } = this.props;
@@ -139,14 +139,23 @@ class IncomingMailsBasicItem extends Component {
                 <FontAwesomeIcon icon={faEdit} />
               </Button>
             )}
-            <Button
-              // className="edit"
-              onClick={() => this.setState({ editItem: !editItem })}
-              title="Edytuj rekord"
-              disabled={true}
-            >
-              <FontAwesomeIcon icon={faPencilAlt} />
-            </Button>
+            {editItem ? (
+              <Button
+                title="Zapisz rekord"
+                onClick={this.updateItemHandler}
+                className="active"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+            ) : (
+              <Button
+                title="edytuj rekord"
+                onClick={() => this.setState({ editItem: !editItem })}
+                title="edytuj rekord"
+              >
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </Button>
+            )}
             <WarningButton
               title="Usuń rekord"
               onClick={() => removeItem(item._id)}

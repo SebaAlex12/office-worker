@@ -97,7 +97,6 @@ class StagesBasicItem extends Component {
             onChange={this.onChangeHandler}
             name="createdAt"
             value={item.createdAt}
-            disabled={true}
           />
         </td>
         <td className="description">

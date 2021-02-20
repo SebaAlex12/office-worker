@@ -312,13 +312,17 @@ class ProjectsBasicItem extends Component {
                 <FontAwesomeIcon icon={faPencilAlt} />
               </Button>
             )}
-            <WarningButton
-              title="Usuń rekord"
-              onClick={() => removeItem(item._id)}
-              className="remove"
-            >
-              <FontAwesomeIcon icon={faMinusSquare} />
-            </WarningButton>
+            { loggedUser.status === "Administrator" ? 
+               (
+                <WarningButton
+                title="Usuń rekord"
+                onClick={() => removeItem(item._id)}
+                className="remove"
+              >
+                <FontAwesomeIcon icon={faMinusSquare} />
+              </WarningButton>
+               ) : null
+             }           
           </td>
         </tr>
         {moreItem ? (

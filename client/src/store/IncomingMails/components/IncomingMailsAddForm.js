@@ -6,6 +6,7 @@ import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import { addIncomingMail } from "../actions";
 import { StyledIncomingMailForm } from "../styles/StyledIncomingMailForm";
+import { func } from "prop-types";
 
 class IncomingMailsAddForm extends Component {
   constructor(props) {
@@ -45,8 +46,21 @@ class IncomingMailsAddForm extends Component {
       description,
     } = this.state;
 
+    // find biggest number
+
+    // const biggestNumber = parseInt(incomingMails.reduce((biggestNumber,item) => item.number > biggestNumber ? biggestNumber = item.number : biggestNumber,0))
+
+    let biggestNumber = 0;
+
+    incomingMails.forEach(item => {
+      let itemNumber = parseInt(item.number);
+      if(itemNumber > biggestNumber){
+        biggestNumber = itemNumber;
+      }
+    })
+
     const data = {
-      number: parseInt(incomingMails[incomingMails.length - 1].number) + 1,
+      number: (biggestNumber + 1),
       deliveryDate,
       sender,
       deliveryCase,

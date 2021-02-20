@@ -21,7 +21,7 @@ export const incomingMailsReducer = (state = initialState, action) => {
     case ADD_INCOMING_MAIL_SUCCESS:
       return {
         ...state,
-        incomingMails: [action.payload, ...state.incomingMails],
+        incomingMails: [...state.incomingMails, action.payload],
       };
     case REMOVE_INCOMING_MAIL_SUCCESS:
       return {
