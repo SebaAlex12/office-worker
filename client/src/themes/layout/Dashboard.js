@@ -10,6 +10,7 @@ import Calendar from "../../root/Calendar";
 import Projects from "../../root/Projects";
 import Tasks from "../../root/Tasks";
 import IncomingMails from "../../root/IncomingMails";
+import OutgoingMails from "../../root/OutgoingMails";
 import MessagesAlertList from "../../store/Messages/components/MessagesAlertList";
 import MailsListContainer from "../../store/Mails/components/MailsListContainer";
 
@@ -61,6 +62,9 @@ class Dashboard extends Component {
         <Link className="btn btn-default" to="/incoming-mails">
           Poczta przychodząca
         </Link>
+        <Link className="btn btn-default" to="/outgoing-mails">
+          Poczta wychodząca
+        </Link>
         {/* <Link className="btn btn-default" to="/mails">
           Poczta
         </Link> */}
@@ -75,6 +79,7 @@ class Dashboard extends Component {
         <div className="container">
           <Route exact path="/projects" component={Projects} />
           <Route exact path="/incoming-mails" component={IncomingMails} />
+          <Route exact path="/outgoing-mails" component={OutgoingMails} />
           <Route exact path="/tasks" component={Tasks} />
           {loggedUser.status == "Administrator" && (
             <Route exact path="/settings" component={SettingsContainer} />

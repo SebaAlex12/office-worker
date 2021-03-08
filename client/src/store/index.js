@@ -10,6 +10,7 @@ import { usersHistoryReducer } from "./UsersHistory/reducers";
 import { projectsReducer } from "./Projects/reducers";
 import { stagesReducer } from "./Stages/reducers";
 import { incomingMailsReducer } from "./IncomingMails/reducers";
+import { outgoingMailsReducer } from "./OutgoingMails/reducers";
 import { filesReducer } from "./Files/reducers";
 import { filtersReducer } from "./Filters/reducers";
 import { messagesReducer } from "./Messages/reducers";
@@ -25,6 +26,7 @@ export const reducers = combineReducers({
   projects: projectsReducer,
   stages: stagesReducer,
   incomingMails: incomingMailsReducer,
+  outgoingMails: outgoingMailsReducer,
   files: filesReducer,
   filters: filtersReducer,
   messages: messagesReducer,

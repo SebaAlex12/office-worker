@@ -8,5 +8,6 @@ module.exports = {
   ...require("./Mails/resolvers"),
   ...require("./Projects/resolvers"),
   ...require("./IncomingMails/resolvers"),
+  ...require("./OutgoingMails/resolvers"),
   ...require("./Calendar/resolvers"),
 };

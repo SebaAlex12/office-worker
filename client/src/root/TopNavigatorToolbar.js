@@ -9,6 +9,7 @@ import ProjectsAddForm from "../store/Projects/components/ProjectsAddForm";
 import UsersList from "../store/Users/components/UsersList";
 import RegistryForm from "../store/Users/components/RegistryForm";
 import IncomingMailsAddForm from "../store/IncomingMails/components/IncomingMailsAddForm";
+import OutgoingMailsAddForm from "../store/OutgoingMails/components/OutgoingMailsAddForm";
 import { BiggerButton } from "../themes/basic";
 
 class TopNavigatorToolbar extends Component {
@@ -19,6 +20,7 @@ class TopNavigatorToolbar extends Component {
       toggleRegistryForm: false,
       toggleProjectsAddForm: false,
       toggleComingMailsAddForm: false,
+      toggleOutgoingMailsAddForm: false
     };
   }
   closeProjectsAddForm = () => {
@@ -45,12 +47,19 @@ class TopNavigatorToolbar extends Component {
       toggleComingMailsAddForm: false,
     });
   };
+  closeOutgoingMailsAddForm = () => {
+    this.setState({
+      ...this.state,
+      toggleOutgoingMailsAddForm: false,
+    });
+  };
   render() {
     const {
       toggleTasksAddForm,
       toggleProjectsAddForm,
       toggleRegistryForm,
       toggleComingMailsAddForm,
+      toggleOutgoingMailsAddForm
     } = this.state;
 
     const visibleButtons = this.props.visibleButtons
@@ -96,6 +105,27 @@ class TopNavigatorToolbar extends Component {
         {toggleComingMailsAddForm ? (
           <IncomingMailsAddForm
             closeAddFormHandler={this.closeComingMailsAddForm}
+          />
+        ) : null}
+      </div>
+    );
+    const outgoingMailAddFormContent = (
+      <div className="item">
+        <BiggerButton
+          variant="primary"
+          title="Rozwiń formularz"
+          onClick={() =>
+            this.setState({
+              toggleOutgoingMailsAddForm: !toggleOutgoingMailsAddForm,
+            })
+          }
+        >
+          <FontAwesomeIcon icon={faArrowAltCircleDown} />
+          <span>Dodaj wpis</span>
+        </BiggerButton>
+        {toggleOutgoingMailsAddForm ? (
+          <OutgoingMailsAddForm
+            closeAddFormHandler={this.closeOutgoingMailsAddForm}
           />
         ) : null}
       </div>
@@ -150,6 +180,9 @@ class TopNavigatorToolbar extends Component {
             {visibleButtons.ProjectAddFormButton ? projectAddFormContent : null}
             {visibleButtons.IncomingMailAddFormButton
               ? comingMailAddFormContent
+              : null}
+            {visibleButtons.OutgoingMailAddFormButton
+              ? outgoingMailAddFormContent
               : null}
             {visibleButtons.UserRegistryFormButton
               ? userRegistryFormContent

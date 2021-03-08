@@ -63,6 +63,12 @@ import {
   updateIncomingMailWatcher,
   removeIncomingMailWatcher,
 } from "./IncomingMails/saga";
+import {
+  fetchOutgoingMailsWatcher,
+  addOutgoingMailWatcher,
+  updateOutgoingMailWatcher,
+  removeOutgoingMailWatcher,
+} from "./OutgoingMails/saga";
 
 import {
   fetchFilesWatcher,
@@ -116,6 +122,10 @@ export default function* rootSaga() {
     fork(addIncomingMailWatcher),
     fork(updateIncomingMailWatcher),
     fork(removeIncomingMailWatcher),
+    fork(fetchOutgoingMailsWatcher),
+    fork(addOutgoingMailWatcher),
+    fork(updateOutgoingMailWatcher),
+    fork(removeOutgoingMailWatcher),
     fork(fetchFiltersWatcher),
     fork(updateFilterWatcher),
     fork(fetchFilesWatcher),

@@ -130,6 +130,28 @@ module.exports = buildSchema(`
         errors: [Error]
     }
 
+    type OutgoingMail {
+        _id: ID
+        date: String
+        number: String
+        recipient: String
+        city: String
+        zipcode: String
+        street: String
+        description: String
+        comment: String
+        collectionAmount: String
+        collectionAmountGr1: String
+        weight: String
+        g: String
+        transmittingNumber: String
+        declaredAmount: String
+        declaredAmountGr2: String
+        payment: String
+        paymentGr3: String
+        errors: [Error]
+    }
+
     input CalendarInputData {
         _id: ID
         eventId: String
@@ -244,6 +266,27 @@ module.exports = buildSchema(`
         description: String
     }
 
+    input OutgoingMailInputData {
+        _id: String
+        date: String
+        number: String
+        recipient: String
+        city: String
+        zipcode: String
+        street: String
+        description: String
+        comment: String
+        collectionAmount: String
+        collectionAmountGr1: String
+        weight: String
+        g: String
+        transmittingNumber: String
+        declaredAmount: String
+        declaredAmountGr2: String
+        payment: String
+        paymentGr3: String
+    }
+
     type UserLoginData {
         _id: ID
         name: String
@@ -284,6 +327,9 @@ module.exports = buildSchema(`
         addIncomingMail(incomingMailInput: IncomingMailInputData): IncomingMail!
         updateIncomingMail(incomingMailInput: IncomingMailInputData): IncomingMail!
         removeIncomingMail(incomingMailId: String!): IncomingMail!
+        addOutgoingMail(outgoingMailInput: OutgoingMailInputData): OutgoingMail!
+        updateOutgoingMail(outgoingMailInput: OutgoingMailInputData): OutgoingMail!
+        removeOutgoingMail(outgoingMailId: String!): OutgoingMail!
     }
 
     type RootQuery {
@@ -299,6 +345,7 @@ module.exports = buildSchema(`
         fetchProjects(projectInput: ProjectInputData): [Project]!
         fetchStages(stageInput: StageInputData): [Stage]!
         fetchIncomingMails(incomingMailInput: IncomingMailInputData): [IncomingMail]!
+        fetchOutgoingMails(outgoingMailInput: OutgoingMailInputData): [OutgoingMail]!
         fetchMails: [Mail]!
         fetchProjectsByLoggedUserProjects(projects: String): [Project]!
     }
