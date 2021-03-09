@@ -1,7 +1,7 @@
 # Office worker
 
 Kancelaria Prawnicza - aplikacja demonstracyjna.
-react, redux, redux-saga, node, graphql, typescript
+react, redux, redux-saga, node, graphql
 
 Demo: https://office-worker.herokuapp.com/
 login: franek@wp.pl 
