@@ -4,8 +4,10 @@ import { StyledIncomingMailBasicList } from "../styles/StyledIncomingMailBasicLi
 import IncomingMailsBasicItem from "./IncomingMailsBasicItem";
 import Aux from "../../../hoc/Auxiliary";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
+import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
+import IncomingMailsToPdf from "./IncomingMailsToPdf";
 
-import { SmallerButton } from "../../../themes/basic";
+import { Button, SmallerButton } from "../../../themes/basic";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -19,6 +21,10 @@ const IncomingMailsBasicList = (props) => {
     signature: "",
     description: "",
   });
+  const [pdfItems, setPdfItems] = useState([]);
+  const [showPdf, setShowPdf] = useState(false);
+  const [showAllPdf, setAllShowPdf] = useState(false);
+
   const handleInputChange = (event) => {
     const { searchItem } = props;
     searchItem(event);
@@ -31,11 +37,24 @@ const IncomingMailsBasicList = (props) => {
       description: "",
     };
     if (event.target.name !== undefined) {
-      console.log("event.target.name", event.target.name);
       newInput[event.target.name] = event.target.value;
     }
     setInput(newInput);
   };
+  const getPdfItemHandler = (isChecked, item) => {
+      let newPdfItems;
+
+      if(isChecked){
+        newPdfItems = [
+          ...pdfItems,
+          item
+        ];
+        
+      }else{
+        newPdfItems = pdfItems.filter(pdfItem => pdfItem != item);
+      }
+      setPdfItems(newPdfItems);
+  } 
   let ordinalNumber = 1;
   const list = items.map((item) => (
     <IncomingMailsBasicItem
@@ -44,8 +63,11 @@ const IncomingMailsBasicList = (props) => {
       item={item}
       removeItem={removeItem}
       updateItem={updateItem}
+      getPdfItemHandler={getPdfItemHandler}
     />
   ));
+  const pdfItemsContent = pdfItems.length ? <IncomingMailsToPdf items={pdfItems} /> : <div>Brak zaznaczonych rekordów</div>;
+  const pdfAllItemsContent = items.length ? <IncomingMailsToPdf items={items} /> : <div>Brak zaznaczonych rekordów</div>;
   const sortItemsContent = (column) => {
     return (
       <Aux>
@@ -79,9 +101,16 @@ const IncomingMailsBasicList = (props) => {
       </Aux>
     );
   };
+  const createPdfButton = <Button className="create-pdf-button" onClick={() => setShowPdf(true)}>
+        Utwórz PDF z zaznaczonych
+  </Button>;
+  const createAllPdfButton = <Button className="create-pdf-button" onClick={() => setAllShowPdf(true)}>
+        Utwórz PDF dla wszystkich
+  </Button>;
   return (
     <StyledIncomingMailBasicList>
       <div className="incoming-mails-basic-list-box">
+        { createPdfButton } { createAllPdfButton }
         <table className="table table-striped">
           <thead>
             <tr scope="col">
@@ -130,7 +159,24 @@ const IncomingMailsBasicList = (props) => {
           </thead>
           <tbody>{list}</tbody>
         </table>
+        { createPdfButton } { createAllPdfButton }
       </div>
+      { 
+      showPdf && <ModalDialog 
+          width="1330px"
+          showModal={() => setShowPdf(false)}
+      >
+          { pdfItemsContent }
+        </ModalDialog>
+      }
+      { 
+      showAllPdf && <ModalDialog 
+          width="1330px"
+          showModal={() => setAllShowPdf(false)}
+      >
+          { pdfAllItemsContent }
+        </ModalDialog>
+      }
     </StyledIncomingMailBasicList>
   );
 };

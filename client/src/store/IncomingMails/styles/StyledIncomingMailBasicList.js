@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const StyledIncomingMailBasicList = styled.div`
+  .incoming-mails-basic-list-box .create-pdf-button{
+    display: block;
+    float: left;
+  }
   .incoming-mails-basic-list-box table thead i {
     cursor: pointer;
     margin-left: 2px;

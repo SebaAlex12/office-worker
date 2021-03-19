@@ -37,6 +37,14 @@ const borderColor = theme.variants("mode", "variant", {
   warning: { light: "#dc3545", dark: "#9b2631" },
 });
 
+export const CheckboxStyle = styled.div`
+    margin:5px;
+    display:inline-block;
+    input{
+      cursor:pointer;
+    }
+`;
+
 export const ListBox = styled.div`
   position: fixed;
   top: 50px;

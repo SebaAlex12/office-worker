@@ -6,16 +6,15 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ModalDialog = (props) => {
-  const { title, width, minHeight } = props;
-  const [open, setOpen] = useState(true);
+  const { title, width, minHeight, showModal } = props;
 
-  const $modalContent = open ? (
-    <StyledModalDialog>
+  return <React.Fragment>
+        <StyledModalDialog>
       <div className="modal-dialog-box">
         <div
           className="button-close"
           title="Zamknij okno"
-          onClick={() => setOpen(false)}
+          onClick={showModal}
           style={{
             position: "absolute",
             left: "0px",
@@ -37,7 +36,7 @@ const ModalDialog = (props) => {
           <div className="title">{title}</div>
           <WarningButton
             className="close-button"
-            onClick={() => setOpen(false)}
+            onClick={showModal}
             title="Zamknij okno"
           >
             <FontAwesomeIcon icon={faTimes} />
@@ -46,8 +45,6 @@ const ModalDialog = (props) => {
         </div>
       </div>
     </StyledModalDialog>
-  ) : null;
-
-  return <React.Fragment>{$modalContent}</React.Fragment>;
+  </React.Fragment>;
 };
 export default ModalDialog;

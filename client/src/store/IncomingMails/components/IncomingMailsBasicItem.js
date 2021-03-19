@@ -11,7 +11,7 @@ import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
-import { Button, WarningButton } from "../../../themes/basic";
+import { Button, WarningButton, CheckboxStyle } from "../../../themes/basic";
 
 class IncomingMailsBasicItem extends Component {
   constructor(props) {
@@ -25,6 +25,7 @@ class IncomingMailsBasicItem extends Component {
   }
   onChangeHandler = (event) => {
     const { item } = this.state;
+    const { updatePdfItemsHandler } = this.props;
     const newItem = {
       ...item,
       [event.target.name]: event.target.value,
@@ -46,7 +47,7 @@ class IncomingMailsBasicItem extends Component {
 
   render() {
     const { item, editItem, moreItem } = this.state;
-    const { removeItem, ordinalNumber } = this.props;
+    const { removeItem, getPdfItemHandler, ordinalNumber } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
@@ -55,7 +56,7 @@ class IncomingMailsBasicItem extends Component {
           <TextFieldGroup
             type="text"
             title={item.number}
-            onChange={this.onChangeHandler}
+            // onChange={this.onChangeHandler}
             name="number"
             value={item.number}
           />
@@ -110,7 +111,18 @@ class IncomingMailsBasicItem extends Component {
     ) : (
       <Aux>
         {/* <td className="ordinalNumber">{ordinalNumber}</td> */}
-        <td className="number">{item.number}</td>
+        <td className="number">
+          <CheckboxStyle>
+            <input 
+              type="checkbox" 
+              name="pdf" 
+              value={item.pdf} 
+              onChange={(event) => getPdfItemHandler(event.target.checked, item)}
+              defaultChecked={false}
+            />
+          </CheckboxStyle>
+          {item.number}
+        </td>
         <td className="deliveryDate">
           <DateTimeFormat date={item.deliveryDate} short={true} />
         </td>
