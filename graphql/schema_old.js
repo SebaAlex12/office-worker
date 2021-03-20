@@ -110,6 +110,7 @@ module.exports = buildSchema(`
         name: String
         signature: String
         type: String
+        status: String
         organ: String
         description: String
         lastStageDescription: String
@@ -248,6 +249,7 @@ module.exports = buildSchema(`
         name: String
         signature: String
         type: String
+        status: String
         organ: String
         description: String
         createdAt: String

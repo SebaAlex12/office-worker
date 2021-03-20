@@ -105,6 +105,11 @@ export const years = [
     value: "2020",
     name: "2020",
   },
+  {
+    _id: 1,
+    value: "2021",
+    name: "2021",
+  },
 ];
 export const months = [
   {
@@ -181,6 +186,16 @@ export const calendarTypes = [
     _id: 3,
     name: "Projekt",
   },
+];
+export const projectStatuses = [
+  {
+    _id: 1,
+    name: "w realizacji"
+  },
+  {
+    _id: 2,
+    name: "archiwalny"
+  }
 ];
 export const projectTypes = [
   {

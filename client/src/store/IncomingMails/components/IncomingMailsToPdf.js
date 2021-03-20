@@ -8,7 +8,7 @@ const IncomingMailsToPdf = (props) => {
   return (
     <PDFViewer>
       <Document>
-        <Page size="A4" className="page">
+        <Page size="A4" className="page" orientation="landscape">
           <View style={styles.header}>
             <View style={styles.headerLeft}>
               <Image style={styles.logoImage} src="logo.png" />

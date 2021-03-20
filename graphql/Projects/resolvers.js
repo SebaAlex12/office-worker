@@ -40,6 +40,7 @@ module.exports = {
       name: projectInput.name,
       signature: projectInput.signature,
       type: projectInput.type,
+      status: projectInput.status,
       organ: projectInput.organ,
       description: projectInput.description,
       createdAt: moment(new Date()).format("YYYY-MM-DDTHH:mm"),
@@ -73,6 +74,7 @@ module.exports = {
           ? projectInput.signature
           : project.signature,
       type: projectInput.type !== "" ? projectInput.type : project.type,
+      status: projectInput.status !== "" ? projectInput.status : project.status,
       organ: projectInput.organ !== "" ? projectInput.organ : project.organ,
       description:
         projectInput.description !== ""

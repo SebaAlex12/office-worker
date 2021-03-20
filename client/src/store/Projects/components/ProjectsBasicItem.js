@@ -7,7 +7,7 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { projectTypes } from "../../ini";
+import { projectTypes, projectStatuses } from "../../ini";
 import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
@@ -291,7 +291,7 @@ class ProjectsBasicItem extends Component {
             <Button
               title="Rozwiń rekord"
               onClick={() => this.setState({ moreItem: !moreItem })}
-              disabled={true}
+              // disabled={true}
             >
               <FontAwesomeIcon icon={faEdit} />
             </Button>
@@ -328,7 +328,6 @@ class ProjectsBasicItem extends Component {
         {moreItem ? (
           <tr>
             <td colSpan="2">
-              <div className="catalog-item-desc-box">
                 <TextareaFieldGroup
                   onChange={this.onChangeHandler}
                   name="description"
@@ -337,12 +336,24 @@ class ProjectsBasicItem extends Component {
                   value={item.description}
                   placeholder="Dodaj notatkę"
                 />
-                <Button onClick={this.updateItemHandler}>
+            </td>
+            <td>              
+              <div className="catalog-item-desc-box">
+                <SelectFieldGroup
+                  label="Zmiana statusu:"
+                  defaultName="zmień status"
+                  name="status"
+                  items={projectStatuses}
+                  selectedItemName={item.status}
+                  onChange={this.onChangeHandler}
+              />
+              <Button onClick={this.updateItemHandler}>
                   <FontAwesomeIcon icon={faPencilAlt} />
-                </Button>
+              </Button>
               </div>
             </td>
-            <td colSpan="10"></td>
+            <td colSpan="10">
+            </td>
           </tr>
         ) : null}
         <tr>

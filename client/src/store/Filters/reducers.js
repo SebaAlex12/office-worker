@@ -4,15 +4,12 @@ import {
   FILTERS_ERROR
 } from "./types";
 
-import { priorities, statuses } from "../ini";
+import { statuses } from "../ini";
 
 const initialState = {
   filters: {
-    priorities,
     statuses,
     projectName: "",
-    responsiblePerson: "",
-    ownerToAcceptTasksOnly: true
   },
   errors: []
 };

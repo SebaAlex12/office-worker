@@ -4,13 +4,14 @@ import { StyledProjectBasicList } from "../styles/StyledProjectBasicList";
 import ProjectsBasicItem from "./ProjectsBasicItem";
 import Aux from "../../../hoc/Auxiliary";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
+import CheckFieldSwitcher from "../../../common/Forms/components/CheckFieldSwitcher";
 
 import { SmallerButton } from "../../../themes/basic";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProjectsBasicList = (props) => {
-  const { items, sortItems, removeItem, updateItem } = props;
+  const { items, sortItems, removeItem, updateItem, archiveCaseSwitcherHandler } = props;
   const [input, setInput] = useState({
     name: "",
     createdAt: "",
@@ -86,6 +87,12 @@ const ProjectsBasicList = (props) => {
   return (
     <StyledProjectBasicList>
       <div className="projects-basic-list-box">
+        <div className="switcher-box">
+          <CheckFieldSwitcher 
+            label="Sprawy archiwalne:"
+            switcherHandler={archiveCaseSwitcherHandler}
+          />
+        </div>
         <table className="table table-striped">
           <thead>
             <tr scope="col">

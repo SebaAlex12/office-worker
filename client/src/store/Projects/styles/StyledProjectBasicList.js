@@ -8,6 +8,9 @@ export const StyledProjectBasicList = styled.div`
     display: block;
     float: left;
   }
+  .projects-basic-list-box .switcher-box{
+    float:right;
+  }
   .projects-basic-list-box table input {
     text-align: center;
   }
@@ -67,8 +70,6 @@ export const StyledProjectBasicList = styled.div`
     position: relative;
   }
   .catalog-item-desc-box button {
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
+    float:right;
   }
 `;

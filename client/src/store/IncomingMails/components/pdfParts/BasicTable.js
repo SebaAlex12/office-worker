@@ -75,39 +75,33 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   tableHeaderLP: {
-    width: 20,
+    width: 30,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   tableHeaderDeliveryDate: {
     width: 80,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   tableHeaderSender: {
-    width: 100,
+    width: 240,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   tableHeaderDeliveryCase: {
+    width: 140,
+    borderRightColor: "grey",
+    borderRightWidth: 1,
+  },
+  tableHeaderSignature: {
     width: 120,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
-  },
-  tableHeaderSignature: {
-    width: 60,
-    borderRightColor: "grey",
-    borderRightWidth: 1,
-    display: "inline-flex"
   },
   tableHeaderDescription: {
-    width: 100,
+    width: 220,
     borderRightColor: "grey",
-    display: "inline-flex"
   },
   tableContent: {
     flexDirection: "row",
@@ -116,42 +110,47 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "center",
     fontStyle: "bold",
-    fontSize: 12
   },
   tableContentLP: {
-    width: 20,
+    width: 30,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
+    fontSize: 10,
+    marginVertical: 20
   },
   tableDeliveryDate: {
     width: 80,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
+    fontSize: 10,
+    marginVertical: 20
   },
   tableSender: {
-    width: 100,
+    width: 240,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
+    fontSize: 10,
+    marginVertical: 20
   },
   tableDeliveryCase: {
+    width: 140,
+    borderRightColor: "grey",
+    borderRightWidth: 1,
+    fontSize: 10,
+    marginVertical: 20
+  },
+  tableSignature: {
     width: 120,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
-  },
-  tableSignature: {
-    width: 60,
-    borderRightColor: "grey",
-    borderRightWidth: 1,
-    display: "inline-flex"
+    fontSize: 10,
+    marginVertical: 20
   },
   tableDescription: {
-    width: 100,
+    width: 220,
     borderRightColor: "grey",
-    display: "inline-flex"
+    fontSize: 10,
+    marginVertical: 20
   },
   //summary table
   summaryTable: {
@@ -174,18 +173,15 @@ const styles = StyleSheet.create({
     width: 100,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   summaryTableHeaderVat: {
     width: 100,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   summaryTableHeaderHightPrice: {
     width: 100,
     borderRightColor: "grey",
-    display: "inline-flex"
   },
   summaryTableContent: {
     flexDirection: "row",
@@ -200,17 +196,14 @@ const styles = StyleSheet.create({
     width: 100,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   summaryTableContentVat: {
     width: 100,
     borderRightColor: "grey",
     borderRightWidth: 1,
-    display: "inline-flex"
   },
   summaryTableContentHightPrice: {
     width: 100,
     borderRightColor: "grey",
-    display: "inline-flex"
   }
 });

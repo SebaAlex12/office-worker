@@ -8,7 +8,7 @@ import SelectFieldGroup from "../../../common/Forms/components/SelectFieldGroup"
 import { addProject } from "../actions";
 import { updateUser } from "../../Users/actions";
 import { StyledProjectForm } from "../styles/StyledProjectForm";
-import { projectTypes } from "../../ini";
+import { projectTypes, projectStatuses } from "../../ini";
 
 class ProjectsAddForm extends Component {
   constructor(props) {
@@ -17,6 +17,7 @@ class ProjectsAddForm extends Component {
       name: "",
       signature: [],
       type: "",
+      status: projectStatuses[0]["name"], 
       organ: [],
       description: "",
       createdAt: "",
@@ -54,6 +55,7 @@ class ProjectsAddForm extends Component {
       name,
       signature,
       type,
+      status,
       organ,
       description,
       createdAt,
@@ -85,6 +87,7 @@ class ProjectsAddForm extends Component {
             ]
           : [],
       type,
+      status,
       description,
       createdAt,
       termAt,
@@ -133,7 +136,7 @@ class ProjectsAddForm extends Component {
     return (
       <StyledProjectForm>
         <div className="project-add-form-box">
-          <div class="form-errors-box">{errorsContent}</div>
+          <div className="form-errors-box">{errorsContent}</div>
           <form action="">
             <TextFieldGroup
               title="nazwa"

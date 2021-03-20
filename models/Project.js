@@ -13,6 +13,10 @@ const ProjectSchema = new Schema({
     type: String,
     required: [true, "Rodzaj sprawy jest wymagany"],
   },
+  status: {
+    type: String,
+    required: [true, "Status jest wymagany"]
+  },
   signature: {
     type: String,
   },

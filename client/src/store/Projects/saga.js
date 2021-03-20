@@ -27,6 +27,7 @@ function* fetchProjectsAsync(action) {
             name
             signature
             type
+            status
             organ
             description
             lastStageDescription
@@ -67,6 +68,7 @@ function* fetchProjectsByLoggedUserProjectsAsync(action) {
             name
             signature
             type
+            status
             organ
             description
             lastStageDescription
@@ -107,6 +109,7 @@ function* addProjectAsync(action) {
     name: data.name,
     signature: JSON.stringify(data.signature),
     type: data.type,
+    status: data.status,
     organ: JSON.stringify(data.organ),
     description: data.description,
     createdAt: data.createdAt,
@@ -119,6 +122,7 @@ function* addProjectAsync(action) {
       name: "${projectInput.name}",
       signature: """${projectInput.signature}""",
       type: "${projectInput.type}",
+      status: "${projectInput.status}",
       organ: """${projectInput.organ}""",
       description: "${projectInput.description}",
       createdAt: "${projectInput.createdAt}",
@@ -127,6 +131,7 @@ function* addProjectAsync(action) {
         name
         signature
         type
+        status
         organ
         description
         createdAt
@@ -179,6 +184,7 @@ function* updateProjectAsync(action) {
     name: data.name ? data.name : "",
     signature: data.signature ? JSON.stringify(data.signature) : "",
     type: data.type ? data.type : "",
+    status: data.status ? data.status : "",
     organ: data.organ ? JSON.stringify(data.organ) : "",
     description: data.description ? data.description : "",
     lastStageDescription: data.lastStageDescription
@@ -197,6 +203,7 @@ function* updateProjectAsync(action) {
       name: "${projectInput.name}",
       signature: """${projectInput.signature}""",
       type: "${projectInput.type}",
+      status: "${projectInput.status}",
       organ: """${projectInput.organ}""",
       description: "${projectInput.description}",
       lastStageDescription: "${projectInput.lastStageDescription}",
@@ -208,6 +215,7 @@ function* updateProjectAsync(action) {
         name
         signature
         type
+        status
         organ
         description
         lastStageDescription

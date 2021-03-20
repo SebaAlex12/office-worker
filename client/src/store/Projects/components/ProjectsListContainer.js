@@ -12,23 +12,28 @@ class ProjectsListContainer extends Component {
     super(props);
     const { projects } = this.props;
     this.state = {
-      projects: projects,
-      filteredProjects: projects,
+      filteredProjects: projects.filter(project=>project.status != "archiwalny"),
+      showArchiveCases: false,
     };
   }
   componentWillReceiveProps(nextProps) {
-    // console.log("component will resive props");
-    // console.log("next props", nextProps);
     if (nextProps.projects !== this.state.projects) {
       this.setState({
         ...this.state,
         projects: nextProps.projects,
-        filteredProjects: nextProps.projects,
+        filteredProjects: this.archiveCaseSwitcherFilter(nextProps.projects,nextProps.showArchiveCases),
       });
     }
   }
+  componentDidUpdate(){
+    console.log("updated state",this.state);
+  }
   sortItems = (column, direction) => {
-    let { projects } = this.state;
+    const { showArchiveCases } = this.state;
+    let { projects } = this.props;
+    projects = this.archiveCaseSwitcherFilter(projects, showArchiveCases);
+
+    console.log("sort projects",projects);
 
     if (direction === "asc") {
       sortArray(projects, column);
@@ -36,13 +41,11 @@ class ProjectsListContainer extends Component {
     if (direction === "desc") {
       sortArray(projects, column, -1);
     }
-    console.log("projects", projects);
     this.setState({
       projects: projects,
     });
   };
   removeProjectsHandler = (id) => {
-    // const { projects, filteredProjects } = this.state;
     const { removeProject } = this.props;
 
     const result = window.confirm(
@@ -60,8 +63,10 @@ class ProjectsListContainer extends Component {
     }
   };
   updateProjectsHandler = async (element) => {
-    const { projects } = this.state;
+    const { showArchiveCases } = this.state;
     const { updateProject } = this.props;
+    let { projects } = this.props;
+    projects = this.archiveCaseSwitcherFilter(projects, showArchiveCases);
 
     const response = await updateProject(element);
     if (response) {
@@ -73,7 +78,10 @@ class ProjectsListContainer extends Component {
     }
   };
   onChangeProjectsSearcherHandler = (event) => {
-    const { projects } = this.state;
+    const { showArchiveCases } = this.state;
+    let { projects } = this.props;
+    projects = this.archiveCaseSwitcherFilter(projects, showArchiveCases);
+
     if (event.target.name !== undefined && event.target.name.length > 0) {
       const filteredProjects = projects.filter((item) => {
         return (
@@ -91,8 +99,29 @@ class ProjectsListContainer extends Component {
       });
     }
   };
+  archiveCaseSwitcherHandler = () => {
+    const { showArchiveCases } = this.state;
+    const { projects } = this.props;
+    this.setState({
+      ...this.state,
+      filteredProjects: this.archiveCaseSwitcherFilter(projects,!showArchiveCases),
+      showArchiveCases: !showArchiveCases
+    })
+  }
+  archiveCaseSwitcherFilter = (projects, showArchiveCases) => {
+    let filteredProjects = projects;
+    if(showArchiveCases !== null){
+      filteredProjects = showArchiveCases ? 
+      projects.filter(project=>project.status==="archiwalny") : 
+      projects.filter(project=>project.status!="archiwalny");
+    }
+    return filteredProjects;
+  }
   render() {
     const { filteredProjects } = this.state;
+
+console.log("render check", filteredProjects);
+
     let n = 1;
     const projectListContent = filteredProjects ? (
       <Aux key={n++}>
@@ -102,6 +131,7 @@ class ProjectsListContainer extends Component {
           removeItem={this.removeProjectsHandler}
           updateItem={this.updateProjectsHandler}
           searchItem={this.onChangeProjectsSearcherHandler}
+          archiveCaseSwitcherHandler={this.archiveCaseSwitcherHandler}
         />
       </Aux>
     ) : (
