@@ -8,8 +8,23 @@ import { removeTask, updateTask } from "../actions";
 import TasksBasicList from "./TasksBasicList";
 import FiltersContainer from "../../Filters/components/FiltersContainer";
 
-class TasksListContainer extends Component {
-  constructor(props) {
+import { ItaskElement } from "../interfaces/general";
+import { IfiltersElement } from "../../Filters/interfaces/general";
+
+interface Iprops{
+  tasks:Array<ItaskElement>,
+  filters:IfiltersElement,
+  removeTask(data:any):any,
+  updateTask(data:any):any
+}
+
+interface Istate{
+  tasks:Array<ItaskElement>,
+  filteredTasks:Array<ItaskElement>
+}
+
+class TasksListContainer extends Component<Iprops,Istate> {
+  constructor(props:Iprops) {
     super(props);
     const { tasks } = this.props;
     this.state = {
@@ -17,7 +32,7 @@ class TasksListContainer extends Component {
       filteredTasks: tasks,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps:any): void {
     if (nextProps.tasks !== this.state.tasks) {
       this.setState({
         ...this.state,
@@ -26,7 +41,7 @@ class TasksListContainer extends Component {
       });
     }
   }
-  sortItems = (column, direction) => {
+  sortItems = (column:string, direction:string): void => {
     let { tasks } = this.state;
 
     if (direction === "asc") {
@@ -39,7 +54,7 @@ class TasksListContainer extends Component {
       tasks: tasks,
     });
   };
-  removeTasksHandler = (id) => {
+  removeTasksHandler = (id:string): void => {
     const { removeTask } = this.props;
 
     const result = window.confirm("Czy na pewno chcesz usunąć zadanie!");
@@ -48,7 +63,7 @@ class TasksListContainer extends Component {
       removeTask(id);
     }
   };
-  updateTasksHandler = async (element) => {
+  updateTasksHandler = async (element:ItaskElement) => {
     const { tasks } = this.state;
     const { updateTask } = this.props;
 
@@ -59,20 +74,19 @@ class TasksListContainer extends Component {
       });
     }
   };
-  onChangeTasksSearcherHandler = (event) => {
+  onChangeTasksSearcherHandler = (event: { target: { name: string, value: string } }): void => {
     const { tasks } = this.state;
-    console.log("event.target.name", event.target.name);
-    if (event.target.name !== undefined && event.target.name.length > 0) {
+    const eventName = event.target.name;
+
+    if (eventName !== undefined && eventName.length > 0) {
       const filteredTasks = tasks.filter((item) => {
-        console.log("item", item);
-        console.log("item[event.target.name]", item[event.target.name]);
-        if (item[event.target.name] !== undefined) {
-          return (
-            item[event.target.name]
-              .toLowerCase()
-              .indexOf(event.target.value.toLowerCase()) !== -1
-          );
-        }
+        // if (item[eventName] !== undefined) {
+        //   return (
+        //     item[eventName]
+        //       .toLowerCase()
+        //       .indexOf(event.target.value.toLowerCase()) !== -1
+        //   );
+        // }
       });
       this.setState({
         filteredTasks: filteredTasks,
@@ -83,7 +97,7 @@ class TasksListContainer extends Component {
       });
     }
   };
-  filterItem = (item) => {
+  filterItem = (item: ItaskElement): boolean => {
     const { filters } = this.props;
     let result = false;
 
@@ -134,7 +148,7 @@ class TasksListContainer extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:any) => {
   return {
     tasks: state.tasks.tasks,
     filters: state.filters.filters,
