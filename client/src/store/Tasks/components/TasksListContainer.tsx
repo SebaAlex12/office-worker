@@ -148,13 +148,12 @@ class TasksListContainer extends Component<Iprops,Istate> {
   }
 }
 
-const mapStateToProps = (state:any) => {
+const mapStateToProps = (state: { tasks: { tasks: Array<ItaskElement> }, filters: { filters: IfiltersElement }}) => {
   return {
     tasks: state.tasks.tasks,
     filters: state.filters.filters,
   };
 };
-
 export default connect(mapStateToProps, { removeTask, updateTask })(
   TasksListContainer
 );

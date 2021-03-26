@@ -1,52 +1,68 @@
 import React from "react";
-import {  PDFViewer, Page, Text, View, Document, StyleSheet, Image } from "@react-pdf/renderer";
+import { Font, PDFViewer, Page, Text, View, Document, StyleSheet, Image } from "@react-pdf/renderer";
 import moment from "moment";
 
 import { BasicTable } from "./pdfParts/BasicTable";
 
+import font from "../../../../src/roboto-light-webfont.ttf";
+
+// Font.register({
+//   family: "Roboto",
+//   format: "truetype",
+//   fontWeight: "400",
+//   src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
+// })
+
+// Font.register({ family: 'Oswald', fonts: [
+//   { src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf' }, // font-style: normal, font-weight: normal
+//   { src: '<italics_oswald_source>', fontStyle: 'italic' },
+//   { src: '<bold_oswald_source>', fontWeight: 'bold' },
+//  ]});
+
 const IncomingMailsToPdf = (props) => {
   return (
-    <PDFViewer>
-      <Document>
-        <Page size="A4" className="page" orientation="landscape">
-          <View style={styles.header}>
-            <View style={styles.headerLeft}>
-              <Image style={styles.logoImage} src="logo.png" />
-              {/* <Text>Image</Text> */}
-            </View>
-            <View style={styles.headerRight}>
-              <View style={styles.dateOfIssueBox}>
-                <View style={styles.dateOfIssuePlace}>
-                  <Text>Miejsce: </Text>
-                  <Text>Lodz</Text>
-                </View>
-                <View style={styles.dateOfIssueDate}>
-                  <Text>Data: </Text>
-                  <Text>{moment(new Date).format("D/M/Y")}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-          <View style={styles.top}>
-            <View style={styles.invoiceTitle}>
-              <Text>Wydruk poczty przychodzacej</Text>
-            </View>
-          </View>
-          <BasicTable items={props.items} />
-          {/* <View style={styles.summary}>
-            <Text style={styles.summaryText}>Podsumowanie:</Text>
-            <BasicTableSummary item={props.item} />
-          </View>
-          <View style={styles.totalPrice}>
-            <View style={styles.totalPriceNumeric}></View>
-          </View> */}
-          <View style={styles.bottom}></View>
-          <View style={styles.footer}>
-            <Text>© 2021 MG Pay</Text>
-          </View>
-        </Page>
-      </Document>
-    </PDFViewer>
+        <PDFViewer>
+              <Document>
+                <Page size="A4" style={styles.page} orientation="landscape">
+                  <View style={styles.header}>
+                    <View style={styles.headerLeft}>
+                      <Image style={styles.logoImage} src="logo.png" />
+                      <Text >Some text čćđ</Text>
+                      {/* <Text>Image</Text> */}
+                    </View>
+                    <View style={styles.headerRight}>
+                      <View style={styles.dateOfIssueBox}>
+                        <View style={styles.dateOfIssuePlace}>
+                          <Text>Miejsce: </Text>
+                          <Text>Lodz</Text>
+                        </View>
+                        <View style={styles.dateOfIssueDate}>
+                          <Text>Data: </Text>
+                          <Text>{moment(new Date).format("D/M/Y")}</Text>
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+                  <View style={styles.top}>
+                    <View style={styles.invoiceTitle}>
+                      <Text>Wydruk poczty przychodzacej</Text>
+                    </View>
+                  </View>
+                  <BasicTable items={props.items} />
+                  {/* <View style={styles.summary}>
+                    <Text style={styles.summaryText}>Podsumowanie:</Text>
+                    <BasicTableSummary item={props.item} />
+                  </View>
+                  <View style={styles.totalPrice}>
+                    <View style={styles.totalPriceNumeric}></View>
+                  </View> */}
+                  <View style={styles.bottom}></View>
+                  <View style={styles.footer}>
+                    <Text>© 2021 GM Pay</Text>
+                  </View>
+                </Page>
+              </Document>
+      </PDFViewer>
   );
 }
 
@@ -54,7 +70,8 @@ export default IncomingMailsToPdf;
 
 const styles = StyleSheet.create({
   page: {
-    fontSize: 8
+    fontSize: 8,
+    // fontFamily: "Oswald"
   },
   //  header begin
   header: {
@@ -99,7 +116,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     fontSize: 20,
-    fontWeight: 700
+    // fontWeight: 700
   },
   // top end
   // content begin
