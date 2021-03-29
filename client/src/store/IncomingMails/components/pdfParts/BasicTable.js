@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginBottom: 15,
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   tableHeader: {
     color: "#fff",
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
     textAlign: "center",
-    fontStyle: "bold",
     fontSize: 12,
     marginTop: 15,
     marginBottom: 15,
@@ -109,7 +108,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: "center",
     textAlign: "center",
-    fontStyle: "bold",
+    fontFamily: "Roboto"
   },
   tableContentLP: {
     width: 30,
@@ -166,7 +165,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: "center",
     textAlign: "center",
-    fontStyle: "bold",
     fontSize: 12
   },
   summaryTableHeaderLowPrice: {
@@ -189,7 +187,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     alignItems: "center",
     textAlign: "center",
-    fontStyle: "bold",
     fontSize: 12
   },
   summaryTableContentLowPrice: {

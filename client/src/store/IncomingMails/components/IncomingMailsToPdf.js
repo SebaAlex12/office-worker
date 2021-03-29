@@ -6,17 +6,15 @@ import { BasicTable } from "./pdfParts/BasicTable";
 
 import font from "../../../../src/roboto-light-webfont.ttf";
 
-// Font.register({
-//   family: "Roboto",
-//   format: "truetype",
-//   fontWeight: "400",
-//   src: "https://cdnjs.cloudflare.com/ajax/libs/ink/3.1.10/fonts/Roboto/roboto-light-webfont.ttf",
-// })
+Font.register({
+  family: "Roboto",
+  format: "truetype",
+  src: font,
+})
 
 // Font.register({ family: 'Oswald', fonts: [
 //   { src: 'https://fonts.gstatic.com/s/oswald/v13/Y_TKV6o8WovbUd3m_X9aAA.ttf' }, // font-style: normal, font-weight: normal
 //   { src: '<italics_oswald_source>', fontStyle: 'italic' },
-//   { src: '<bold_oswald_source>', fontWeight: 'bold' },
 //  ]});
 
 const IncomingMailsToPdf = (props) => {
@@ -27,14 +25,13 @@ const IncomingMailsToPdf = (props) => {
                   <View style={styles.header}>
                     <View style={styles.headerLeft}>
                       <Image style={styles.logoImage} src="logo.png" />
-                      <Text >Some text čćđ</Text>
                       {/* <Text>Image</Text> */}
                     </View>
                     <View style={styles.headerRight}>
                       <View style={styles.dateOfIssueBox}>
                         <View style={styles.dateOfIssuePlace}>
                           <Text>Miejsce: </Text>
-                          <Text>Lodz</Text>
+                          <Text>Łódź</Text>
                         </View>
                         <View style={styles.dateOfIssueDate}>
                           <Text>Data: </Text>
@@ -71,7 +68,7 @@ export default IncomingMailsToPdf;
 const styles = StyleSheet.create({
   page: {
     fontSize: 8,
-    // fontFamily: "Oswald"
+    fontFamily: "Roboto"
   },
   //  header begin
   header: {
@@ -79,7 +76,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     fontSize: 14,
-    padding: 15
+    padding: 15,
+    fontFamily: "Roboto"
   },
   headerLeft: {
     display: "flex"
@@ -116,7 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     fontSize: 20,
-    // fontWeight: 700
   },
   // top end
   // content begin

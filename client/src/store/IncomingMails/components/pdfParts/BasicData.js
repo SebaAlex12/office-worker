@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
         margin:3,
         fontSize: 12,
         textDecoration: "underline",
-        fontStyle: "bold"
       },
       contentValue:{
         display:"flex",
