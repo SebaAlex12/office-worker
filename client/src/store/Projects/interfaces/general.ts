@@ -1,0 +1,15 @@
+export interface IProjectElement {
+  _id: number | undefined,
+    lastStageId: String,
+      name: String,
+      type: String,
+      status: String,
+      signature: String,
+      organ: String,
+      description: String,
+      lastStageDescription: String,
+      lastStageCreatedAt: String,
+      createdAt: String,
+    required: true,
+      termAt: String,
+}

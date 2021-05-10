@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import moment from "moment/min/moment-with-locales";
+// import moment from "moment/min/moment-with-locales";
+import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMinusSquare,
@@ -8,6 +9,10 @@ import {
   faEdit,
   faCalendarAlt,
 } from "@fortawesome/free-solid-svg-icons";
+
+import { ItaskElement } from "../interfaces/general";
+import { IuserElement } from "../../Users/interfaces/general";
+import { IProjectElement } from "../../Projects/interfaces/general";
 
 import { status_clasess } from "../../ini";
 import DateTimeFormat from "../../../common/DateTimeFormat";
@@ -21,8 +26,25 @@ import ModalDialog from "../../../common/ModalDialog/components/ModalDialog";
 import CalendarContainer from "../../Calendar/components/CalendarContainer";
 import CalendarQuickAddButton from "../../Calendar/components/CalendarQuickAddButton";
 
-class TasksBasicItem extends Component {
-  constructor(props) {
+interface Iprops{
+  ordinalNumber: number,
+  item: ItaskElement,
+  loggedUser: IuserElement,
+  projects: Array<IProjectElement>,
+  users: Array<IuserElement>,
+  updateItem(data:any):void,
+  removeItem(data:any):void
+}
+
+interface Istate{
+  editItem: boolean,
+  moreItem: boolean,
+  showCalendar: boolean,
+  item: ItaskElement
+}
+
+class TasksBasicItem extends Component<Iprops,Istate> {
+  constructor(props: Iprops) {
     super(props);
     const { item } = this.props;
     this.state = {
@@ -32,7 +54,7 @@ class TasksBasicItem extends Component {
       showCalendar: false,
     };
   }
-  onChangeHandler = (event) => {
+  onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { item } = this.state;
     const newItem = {
       ...item,
@@ -107,6 +129,9 @@ class TasksBasicItem extends Component {
             name="title"
             value={item.title}
             disabled={true}
+            label={undefined}
+            placeholder={undefined}
+            style={undefined}
           />
           <div className="quick-actions">
             <Button
@@ -134,7 +159,7 @@ class TasksBasicItem extends Component {
           {" "}
           <TextFieldGroup
             type="text"
-            title={selectedProject && selectedProject.name}
+            title="project"
             onChange={this.onChangeHandler}
             name="selectedProject"
             value={selectedProject && selectedProject.name}
@@ -145,7 +170,7 @@ class TasksBasicItem extends Component {
           <SelectFieldGroup
             name="status"
             items={statuses}
-            selectedItem={item.status}
+            selectedItemName={item.status}
             onChange={this.onChangeHandler}
           />
         </td>
@@ -287,7 +312,6 @@ class TasksBasicItem extends Component {
               </Button>
             ) : (
               <Button
-                title="edytuj rekord"
                 onClick={() => this.setState({ editItem: !editItem })}
                 title="edytuj rekord"
               >
@@ -306,7 +330,7 @@ class TasksBasicItem extends Component {
         </tr>
         {moreItem ? (
           <tr>
-            <td colSpan="8">
+            <td colSpan={8}>
               <div className="catalog-item-desc-box">
                 <TextareaFieldGroup
                   onChange={this.onChangeHandler}
@@ -321,7 +345,7 @@ class TasksBasicItem extends Component {
                 </Button>
               </div>
             </td>
-            <td colSpan="5"></td>
+            <td colSpan={5}></td>
           </tr>
         ) : null}
         {showCalendar ? (
@@ -337,7 +361,7 @@ class TasksBasicItem extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state:any) => {
   return {
     projects: state.projects.projects,
     users: state.users.users,

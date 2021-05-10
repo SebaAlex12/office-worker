@@ -1,15 +1,16 @@
 import React from "react";
 
-const TextareaFieldGroup = ({
-  title,
-  onChange,
-  name,
-  value,
-  cols,
-  rows,
-  disabled,
-  placeholder,
-}) => {
+const TextareaFieldGroup = (props:any) => {
+  const {
+    title,
+    onChange,
+    name,
+    value,
+    cols,
+    rows,
+    disabled,
+    placeholder,
+  } = props;
   return (
     <div className="form-group">
       <textarea

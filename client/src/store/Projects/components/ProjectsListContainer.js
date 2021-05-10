@@ -30,19 +30,20 @@ class ProjectsListContainer extends Component {
   }
   sortItems = (column, direction) => {
     const { showArchiveCases } = this.state;
-    let { projects } = this.props;
-    projects = this.archiveCaseSwitcherFilter(projects, showArchiveCases);
+    // let { projects } = this.props;
+    let { filteredProjects } = this.state;
+    filteredProjects = this.archiveCaseSwitcherFilter(filteredProjects, showArchiveCases);
 
-    console.log("sort projects",projects);
+    console.log("sort filteredProjects",filteredProjects);
 
     if (direction === "asc") {
-      sortArray(projects, column);
+      sortArray(filteredProjects, column);
     }
     if (direction === "desc") {
-      sortArray(projects, column, -1);
+      sortArray(filteredProjects, column, -1);
     }
     this.setState({
-      projects: projects,
+      filteredProjects: filteredProjects,
     });
   };
   removeProjectsHandler = (id) => {

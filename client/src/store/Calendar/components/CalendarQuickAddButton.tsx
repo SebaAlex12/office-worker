@@ -1,4 +1,5 @@
 import React from "react";
+import { Dispatch } from "redux";
 import { useDispatch } from "react-redux";
 import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,18 +7,31 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addCalendar } from "../actions";
 import { Button } from "../../../themes/basic";
 
-const CalendarQuickAddButton = ({
-  eventId,
-  userId,
-  eventType,
-  title,
-  description,
-  selectedDate,
-  status,
-  btnTitle,
-  disabled,
-}) => {
+interface Iprops{
+  eventId: number | undefined,
+  userId: number | undefined,
+  eventType: string,
+  title: string,
+  description: string | undefined,
+  selectedDate: string,
+  status: string,
+  btnTitle: string | undefined,
+  disabled: boolean | undefined
+}
+
+const CalendarQuickAddButton = (props:any) => {
   const dispatch = useDispatch();
+  const {
+    eventId,
+    userId,
+    eventType,
+    title,
+    description,
+    selectedDate,
+    status,
+    btnTitle,
+    disabled,
+  } = props;
   const data = {
     eventId: eventId ? eventId : "",
     userId: userId ? userId : "",
@@ -28,7 +42,7 @@ const CalendarQuickAddButton = ({
     status: status ? status : "",
   };
 
-  const addHandler = (dispatch, data) => {
+  const addHandler = (dispatch:Dispatch, data:any) => {
     dispatch(addCalendar(data));
   };
 

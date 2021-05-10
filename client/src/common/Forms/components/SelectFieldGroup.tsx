@@ -1,18 +1,19 @@
 import React from "react";
 import Styled from "styled-components";
 
-export default function SelectFieldGroup({
-  defaultName,
-  label,
-  name,
-  items,
-  selectedItemName,
-  onChange,
-  disabled,
-}) {
+export default function SelectFieldGroup(props:any) {
+  const {
+    defaultName,
+    label,
+    name,
+    items,
+    selectedItemName,
+    onChange,
+    disabled,
+  } = props;
   let counter = 1;
   const selectOptionsContent = items
-    ? items.map((item) => (
+    ? items.map((item:any) => (
         <option
           key={counter++}
           value={item.name}
@@ -33,7 +34,7 @@ export default function SelectFieldGroup({
             id=""
             className="form-control"
             onChange={onChange}
-            disabled={disabled ? "disabled" : null}
+            disabled={disabled ? true : undefined}
             defaultValue={selectedItemName}
           >
             {defaultName ? <option>{defaultName}</option> : null}

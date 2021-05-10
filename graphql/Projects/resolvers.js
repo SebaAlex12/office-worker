@@ -5,7 +5,8 @@ const moment = require("moment");
 module.exports = {
   fetchProjects: async function () {
     const projects = await Project.find({}, null, {
-      sort: { createdAt: "desc" },
+      // sort: { createdAt: "desc" },
+      sort: { lastStageCreatedAt: "desc" },
     });
     return projects;
   },

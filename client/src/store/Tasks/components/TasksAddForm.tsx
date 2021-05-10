@@ -1,9 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import uuid from "react-uuid";
+// import uuid from "react-uuid";
 
-import { formValidator } from "../../../common/tools";
+// interfaces
+import { ItaskElement } from "../interfaces/general";
+import { IProjectElement } from "../../Projects/interfaces/general";
+import { ImessageElement } from "../../Messages/interfaces/general";
+import { IuserElement } from "../../Users/interfaces/general";
+
+// import { formValidator } from "../../../common/tools";
 import { priorities, statuses } from "../../ini";
 import { addTask } from "../actions";
 import { updateMessages } from "../../Messages/actions";
@@ -11,12 +17,37 @@ import { addUserHistory } from "../../UsersHistory/actions";
 
 import { StyledTaskForm } from "../styles/StyledTaskForm";
 
-class TasksAddForm extends Component {
-  constructor(props) {
+interface Iprops {
+  loggedUser: IuserElement,
+  projects: Array<IProjectElement>,
+  users: Array<IuserElement>,
+  addTask(data:any):any,
+  updateMessages(data:any):any,
+  addUserHistory(data:any):void,
+  closeAddFormHandler():void,
+};
+
+interface Istate {
+  projectId: number,
+  createdByUserId: number,
+  responsiblePersonId: number,
+  title: string,
+  description: string,
+  responsiblePersonLastComment: any,
+  priority: string,
+  status: string,
+  termAt: string,
+  validation: any,
+  errors: []
+}
+
+class TasksAddForm extends Component<Iprops,Istate> {
+  constructor(props:Iprops) {
     super(props);
     this.state = {
-      projectId: "",
-      responsiblePersonId: "",
+      projectId: 0,
+      createdByUserId: 0,
+      responsiblePersonId: 0,
       title: "",
       description: "",
       responsiblePersonLastComment: false,
@@ -45,19 +76,19 @@ class TasksAddForm extends Component {
       errors: [],
     };
   }
-  onChangeInput = (event) => {
+  onChangeInput = (event: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     this.setState({
       ...this.state,
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  onChangeSelect = (event) => {
+  onChangeSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       ...this.state,
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
-  addHandler = async (event) => {
+  addHandler = async (event: any) => {
     const {
       addTask,
       loggedUser,
@@ -77,26 +108,26 @@ class TasksAddForm extends Component {
       validation,
     } = this.state;
 
-    let errors = [];
+    let errors:[] = [];
 
     const data = {
       projectId,
       createdByUserId: loggedUser._id,
-      responsiblePersonId,
+      responsiblePersonId: responsiblePersonId,
       title,
       description,
-      // responsiblePersonLastComment,
+      responsiblePersonLastComment,
       priority,
       status,
       termAt,
     };
 
     event.preventDefault();
-
-    validation.forEach((val) => {
-      let result = formValidator(data[val.name], val);
-      if (result[0] === false) errors.push(result);
-    });
+// todo typescript
+    // validation.forEach((val:any) => {
+    //   let result = formValidator(data[val.name:any], val);
+    //   if (result[0] === false) errors.push(result);
+    // });
 
     this.setState({
       errors: errors,
@@ -149,7 +180,7 @@ class TasksAddForm extends Component {
     // filter users compare to selected projects
     let users;
 
-    users = this.props.users.filter((user) => {
+    users = this.props.users.filter((user:IuserElement) => {
       if (user.status === "Administrator" || user.status === "Menedżer") {
         return user;
       }
@@ -158,16 +189,14 @@ class TasksAddForm extends Component {
 
     const errorsContent =
       errors.length > 0
-        ? errors.map((error) => {
+        ? errors.map((error, index) => {
             return (
-              <div key={uuid()} className="item">
+              <div key={index} className="item">
                 {error[1]}
               </div>
             );
           })
         : null;
-
-    console.log("users", users);
 
     return (
       <StyledTaskForm>
@@ -187,10 +216,9 @@ class TasksAddForm extends Component {
             <div className="form-group">
               <textarea
                 onChange={this.onChangeInput}
-                type="text"
                 name="description"
                 className="form-control"
-                rows="10"
+                rows={10}
                 placeholder="Opis"
                 required
               />
@@ -211,7 +239,7 @@ class TasksAddForm extends Component {
                         <option
                           key={prt._id}
                           value={prt.name}
-                          defaultValue={prt.name === status ? "selected" : null}
+                          defaultValue={prt.name === status ? "selected" : ""}
                         >
                           {prt.name}
                         </option>
@@ -249,7 +277,7 @@ class TasksAddForm extends Component {
                 <option value="">Wybierz sprawę</option>
                 {projects
                   ? projects.map((project) => {
-                      let option = "";
+                      let option:any;
                       // if (
                       //   loggedUser.status === "Administrator" ||
                       //   loggedUserProjects.includes(project.name)
@@ -276,7 +304,7 @@ class TasksAddForm extends Component {
                 <option value="">Przypisz do</option>
                 {users
                   ? users.map((user) => {
-                      let option = "";
+                      let option:any;
                       // if (
                       //   loggedUser.status === "Administrator" ||
                       //   loggedUserUsers.includes(user.name)
@@ -308,7 +336,7 @@ class TasksAddForm extends Component {
                       return (
                         <option
                           key={sts._id}
-                          defaultValue={sts.name === status ? "selected" : null}
+                          defaultValue={sts.name === status ? "selected" : ""}
                         >
                           {sts.name}
                         </option>
@@ -324,7 +352,12 @@ class TasksAddForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (
+    state:{
+      users:{ users:Array<IuserElement>, logged_user: IuserElement},
+      projects:{ projects:Array<IProjectElement>},  
+    }
+  ) => {
   return {
     users: state.users.users,
     projects: state.projects.projects,
