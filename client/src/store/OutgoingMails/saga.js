@@ -15,8 +15,6 @@ import {
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
 
 function* fetchOutgoingMailsAsync(action) {
-  // const data = action.data;
-  // console.log("saga", data);
   try {
     const graph = {
       query: `
@@ -140,7 +138,7 @@ function* addOutgoingMailAsync(action) {
   );
 
   const response = outgoingMailData.data.data.addOutgoingMail;
-  // console.log("saga resolver ", response);
+
   if (response.errors) {
     yield put({ type: OUTGOING_MAILS_ERROR, payload: response.errors });
     yield put({
@@ -236,7 +234,6 @@ function* updateOutgoingMailAsync(action) {
       }
     }`,
   };
-  // console.log(graph);
   const outgoingMailData = yield call(
     [axios, axios.post],
     "/graphql",
@@ -272,7 +269,6 @@ export function* updateOutgoingMailWatcher() {
 
 function* removeOutgoingMailAsync(action) {
   const { outgoingMailId } = action;
-  console.log("saga data", action);
   const graph = {
     query: `mutation {
       removeOutgoingMail(outgoingMailId: "${outgoingMailId}"){

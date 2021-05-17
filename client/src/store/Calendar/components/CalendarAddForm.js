@@ -69,7 +69,6 @@ class CalendarAddForm extends Component {
       taskEventBlocked,
     } = this.state;
 
-    // console.log("uder logged", loggedUser);
     const data = {
       eventId: eventType === "Zadanie" && !taskEventBlocked ? eventId : null,
       userId: loggedUser._id,
@@ -104,8 +103,6 @@ class CalendarAddForm extends Component {
   };
   onChangeTimeHandler = (event) => {
     const { selectedDate } = this.state;
-
-    console.log("selected date", selectedDate);
     const [year, month, day] = moment(selectedDate)
       .format("YYYY-MM-DD")
       .split("-");

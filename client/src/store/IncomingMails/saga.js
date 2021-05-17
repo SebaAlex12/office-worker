@@ -96,7 +96,7 @@ function* addIncomingMailAsync(action) {
   );
 
   const response = incomingMailData.data.data.addIncomingMail;
-  // console.log("saga resolver ", response);
+ 
   if (response.errors) {
     yield put({ type: INCOMING_MAILS_ERROR, payload: response.errors });
     yield put({
@@ -195,7 +195,6 @@ export function* updateIncomingMailWatcher() {
 
 function* removeIncomingMailAsync(action) {
   const { incomingMailId } = action;
-  console.log("saga data", action);
   const graph = {
     query: `mutation {
       removeIncomingMail(incomingMailId: "${incomingMailId}"){

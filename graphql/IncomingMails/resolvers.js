@@ -9,7 +9,6 @@ module.exports = {
     return incomingMails;
   },
   addIncomingMail: async function ({ incomingMailInput }, req) {
-    console.log("incomingMailInput", incomingMailInput);
     const result = await IncomingMail.findOne({
       number: incomingMailInput.number,
     });

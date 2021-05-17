@@ -32,7 +32,6 @@ class StagesListContainer extends Component {
     if (direction === "desc") {
       sortArray(stages, column, -1);
     }
-    console.log("stages", stages);
     this.setState({
       stages: stages,
     });
@@ -86,8 +85,6 @@ class StagesListContainer extends Component {
   };
   render() {
     const { filteredStages } = this.state;
-    // console.log("filteredStages", filteredStages);
-    // console.log("render");
     const stageListContent = (
       <StagesBasicList
         items={filteredStages}

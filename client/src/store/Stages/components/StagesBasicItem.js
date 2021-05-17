@@ -37,7 +37,6 @@ class StagesBasicItem extends Component {
     });
   };
   onChangeCalendarUserId = (event) => {
-    // console.log("event", event.target.name, event.target.value);
     this.setState({
       ...this.state,
       [event.target.name]: event.target.value,
@@ -65,8 +64,6 @@ class StagesBasicItem extends Component {
   addTaskHandler = () => {
     const { item, calendarUserId } = this.state;
     const { addTask, loggedUser } = this.props;
-
-    // console.log("state", this.state);
     const data = {
       projectId: item.projectId,
       createdByUserId: loggedUser._id,

@@ -70,7 +70,6 @@ export function* loginUserWatcher() {
 function* registerUserAsync(action) {
   // try {
   const presentDate = moment(new Date(), "YYYY-MM-DD HH:mm:ss").format();
-  // console.log("action", action);
   const graph = {
     query: `mutation {
       createUser(userInput: {
@@ -113,8 +112,6 @@ function* registerUserAsync(action) {
   );
 
   const response = res.data.data.createUser;
-
-  console.log("response users add", response);
 
   if (response.errors) {
     yield put({ type: USER_ERROR, payload: response.errors });
@@ -281,7 +278,6 @@ function* updateUserAsync(action) {
       }
     }`,
   };
-  // console.log(graph);
   const userData = yield call(
     [axios, axios.post],
     "/graphql",

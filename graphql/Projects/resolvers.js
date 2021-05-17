@@ -12,9 +12,7 @@ module.exports = {
   },
   fetchProjectsByLoggedUserProjects: async function ({ projects }) {
     const list = projects.split(",");
-    // console.log("resolver list", list);
     const pregmatch = list.map((item) => new RegExp(item));
-    // console.log("pregmatch", pregmatch);
     let prj = await Project.find().or([
       {
         name: {

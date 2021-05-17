@@ -22,7 +22,6 @@ class UsersEditFrom extends Component {
   }
   componentDidMount() {
     const { item } = this.props;
-    console.log(item);
     this.setState({
       _id: item._id ? item._id : "",
       name: item.name ? item.name : "",
@@ -100,7 +99,6 @@ class UsersEditFrom extends Component {
       projects: selectedProjects,
       users: selectedUsers,
     };
-    console.log("data user", data);
     const response = updateUser(data);
     if (response) {
       updateMessages([

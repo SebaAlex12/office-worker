@@ -219,6 +219,7 @@ module.exports = buildSchema(`
         finishedAt: String
         mailRemainderData: String
         createdAt: String
+        userStatus: String
         files: [String]
     }
     input CommentInputData {

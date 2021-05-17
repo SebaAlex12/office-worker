@@ -34,7 +34,6 @@ class OutgoingMailsListContainer extends Component {
     if (direction === "desc") {
       sortArray(outgoingMails, column, -1);
     }
-    console.log("outgoingMails", outgoingMails);
     this.setState({
       outgoingMails: outgoingMails,
     });

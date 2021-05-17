@@ -101,8 +101,6 @@ class CalendarDailyList extends Component {
         </Button>
       ) : null;
 
-    // console.log("projectDailyEvents", projectDailyEvents);
-
     return (
       <div>
         {projectEventContent}

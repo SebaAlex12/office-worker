@@ -16,8 +16,6 @@ import {
 import { UPDATE_MESSAGES_SUCCESS } from "../Messages/types";
 
 function* fetchProjectsAsync(action) {
-  // const data = action.data;
-  // console.log("saga", data);
   try {
     const graph = {
       query: `
@@ -229,7 +227,6 @@ function* updateProjectAsync(action) {
       }
     }`,
   };
-  console.log("graphql", graph);
   const projectData = yield call(
     [axios, axios.post],
     "/graphql",
@@ -261,7 +258,6 @@ export function* updateProjectWatcher() {
 
 function* removeProjectAsync(action) {
   const { projectId } = action;
-  console.log("saga data", action);
   const graph = {
     query: `mutation {
       removeProject(projectId: "${projectId}"){

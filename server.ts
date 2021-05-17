@@ -43,14 +43,11 @@ mongoose
 app.post("/upload-files/:dest", async (req: any, res) => {
   await upload(req, res, (err) => {
     if (err) {
-      console.log("error message:", err);
       res.json(err);
     } else {
       if (req.files == undefined) {
-        console.log("No file selected!");
         res.json("No file selected!");
       } else {
-        // console.log("req files", req.files);
         req.files.forEach((file) => {
           const readStream = resize(file.path, "jpg", 50, 50);
           readStream.toFile(
@@ -60,7 +57,6 @@ app.post("/upload-files/:dest", async (req: any, res) => {
             }
           );
         });
-        console.log("Files uploaded successfully!");
         res.json("Files uploaded successfully!!");
       }
     }
@@ -68,13 +64,11 @@ app.post("/upload-files/:dest", async (req: any, res) => {
 });
 
 app.post("/delete-files/", bodyParserJson, (req: any, res) => {
-  console.log(req.body.links);
   const links = req.body.links;
   links.forEach(async (link) => {
     // build link for mini folder
     const arr = link.split("/");
     const miniLink = [arr[1], arr[2], arr[3], "mini", arr[4]].join("/");
-    console.log("miniLink", miniLink);
     try {
       await fs.unlink("./client/public/" + link, function (err) {
         if (err) throw err;
@@ -86,7 +80,6 @@ app.post("/delete-files/", bodyParserJson, (req: any, res) => {
       });
       res.json("Selected files has been deleted");
     } catch (err) {
-      console.log(err);
       res.json(err);
     }
   });
@@ -99,7 +92,6 @@ app.post("/backup-database", async (req, res) => {
       res.json("Utworzona kopia zapasowa bazy.");
     }
   } catch (err) {
-    console.log(err);
     res.json(err);
   }
 });

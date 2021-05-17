@@ -25,16 +25,12 @@ class ProjectsListContainer extends Component {
       });
     }
   }
-  componentDidUpdate(){
-    console.log("updated state",this.state);
-  }
   sortItems = (column, direction) => {
     const { showArchiveCases } = this.state;
     // let { projects } = this.props;
     let { filteredProjects } = this.state;
     filteredProjects = this.archiveCaseSwitcherFilter(filteredProjects, showArchiveCases);
 
-    console.log("sort filteredProjects",filteredProjects);
 
     if (direction === "asc") {
       sortArray(filteredProjects, column);
@@ -120,8 +116,6 @@ class ProjectsListContainer extends Component {
   }
   render() {
     const { filteredProjects } = this.state;
-
-console.log("render check", filteredProjects);
 
     let n = 1;
     const projectListContent = filteredProjects ? (

@@ -166,16 +166,10 @@ class TasksAddForm extends Component<Iprops,Istate> {
     const { projects } = this.props;
     const { priority, status, errors } = this.state;
 
-    console.log("project state", this.state);
-    // console.log(projects);
-
     // const loggedUserProjects = loggedUser.projects
     //   ? loggedUser.projects.split(",")
     //   : [];
     // const loggedUserUsers = loggedUser.users ? loggedUser.users.split(",") : [];
-
-    // console.log("projects", loggedUserProjects);
-    // console.log("compon state", this.state);
 
     // filter users compare to selected projects
     let users;

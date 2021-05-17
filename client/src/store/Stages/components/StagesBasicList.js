@@ -27,7 +27,6 @@ const StagesBasicList = (props) => {
       termAt: "",
     };
     if (event.target.name !== undefined) {
-      console.log("event.target.name", event.target.name);
       newInput[event.target.name] = event.target.value;
     }
     setInput(newInput);

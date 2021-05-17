@@ -110,10 +110,6 @@ exports.dbAutoBackUp = async () => {
       }
     });
     return true;
-    // if (response == true) {
-    //   console.log("response", response);
-    //   return response;
-    // }
   } else {
     return false;
   }

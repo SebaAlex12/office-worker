@@ -41,7 +41,6 @@ if (localStorage.jwtTokenAuthorization) {
   const expiredMinutes = 560;
 
   const difference = moment(new Date()).diff(tokenCreatedAt, "minutes");
-  // console.log("difference", difference);
 
   if (difference < expiredMinutes) {
     store.dispatch(
@@ -79,7 +78,6 @@ function App() {
     try {
       const response = await store.dispatch(loginUser(data));
       if (response) {
-        console.log("response", response);
         setTimeout(() => (window.location.href = "/"), 5000);
       }
     } catch (error) {

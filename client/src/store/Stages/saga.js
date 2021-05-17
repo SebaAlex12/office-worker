@@ -20,7 +20,6 @@ const getLoggedUser = (state) => state.users.logged_user;
 
 function* fetchStagesAsync(action) {
   const stageInput = action.data;
-  // console.log("saga", data);
   try {
     const graph = {
       query: `
@@ -180,7 +179,6 @@ function* updateStageAsync(action) {
       }
     }`,
   };
-  // console.log(graph);
   const stageData = yield call(
     [axios, axios.post],
     "/graphql",

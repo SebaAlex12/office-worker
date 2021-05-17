@@ -161,8 +161,6 @@ class ProjectsDetailsInfo extends Component {
     const { name, signatures, organs, signatureValue, organValue } = this.state;
     const { item } = this.props;
 
-    // console.log("state", this.state);
-
     return (
       <div className="project-info-box">
         <div className="left-box">

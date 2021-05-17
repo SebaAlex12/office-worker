@@ -56,8 +56,6 @@ class TasksItem extends Component {
       mailRemainderData,
     } = this.props.item;
 
-    // console.log("_id", _id);
-
     this.setState({
       _id,
       title,
@@ -76,18 +74,11 @@ class TasksItem extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // const {
-    //   item: { files }
-    // } = nextProps;
-    // const { files } = this.state;
     if (nextProps.item.files !== this.props.item.files) {
-      // console.log("next props files", nextProps.item.files);
       this.setState({
         files: nextProps.item.files,
       });
     }
-    // console.log("next state", nextState);
-    // console.log("next props", files);
   }
 
   switch = () => {
@@ -235,15 +226,11 @@ class TasksItem extends Component {
       showModalCalendarTrigger,
     } = this.state;
     const { setActiveTaskHandler, active, loggedUser, users } = this.props;
-    // console.log("state item", this.state);
 
     const taskCreatorUser = users.filter((user) => user.name === createdBy);
     const taskResponsibleUser = users.filter(
       (user) => user.name === responsiblePerson
     );
-    // console.log("title", title);
-    // console.log("responsible user", taskResponsibleUser);
-    // console.log("responsible person", responsiblePerson);
 
     let filesContent;
 

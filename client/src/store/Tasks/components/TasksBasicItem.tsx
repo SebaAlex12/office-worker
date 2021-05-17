@@ -67,7 +67,6 @@ class TasksBasicItem extends Component<Iprops,Istate> {
   updateItemHandler = async () => {
     const { updateItem } = this.props;
     const { item } = this.state;
-    console.log("edit item false");
 
     const response = await updateItem(item);
     // if (response) {
@@ -85,9 +84,6 @@ class TasksBasicItem extends Component<Iprops,Istate> {
     // const date = moment(new Date(termAt)).locale("pl").format("L");
     // const presentDate = moment(new Date()).locale("pl").format("L");
     const daysLeft = moment(new Date()).diff(termAt, "days") * -1;
-    // console.log("presentDate", presentDate);
-    // console.log("term date", date);
-    // console.log("difference", difference);
     return daysLeft + 1;
   };
   render() {
@@ -100,9 +96,6 @@ class TasksBasicItem extends Component<Iprops,Istate> {
       users,
     } = this.props;
 
-    // console.log("item", item);
-    // console.log("state", this.state);
-
     const selectedProject = projects
       ? projects.filter((project) => project._id === item.projectId).shift()
       : { name: "is loading..." };
@@ -114,9 +107,6 @@ class TasksBasicItem extends Component<Iprops,Istate> {
     const responsibleByUser = users
       ? users.filter((user) => user._id === item.responsiblePersonId).shift()
       : { name: "is loading ..." };
-
-    // console.log("selectedProject", selectedProject);
-    // console.log("createdByUser", createdByUser);
 
     const itemContent = editItem ? (
       <Aux>

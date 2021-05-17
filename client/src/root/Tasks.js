@@ -11,15 +11,16 @@ class Tasks extends Component {
   constructor(props) {
     super(props);
     const {
-      loggedUser: { status },
+      loggedUser: { status, _id },
       fetchTasks,
     } = this.props;
     switch (status) {
       case "Administrator":
-        fetchTasks({});
-        break;
+        fetchTasks({userStatus: status});
+      break;
       default:
-        break;
+        fetchTasks({userStatus: status, responsiblePersonId: _id, createdByUserId: _id})
+      break;
     }
   }
   render() {

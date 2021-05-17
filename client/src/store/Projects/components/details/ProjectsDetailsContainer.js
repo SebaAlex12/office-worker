@@ -27,11 +27,6 @@ class ProjectsDetailsContainer extends Component {
     const projectUsers = users.filter((user) => {
       if (user.projects) {
         const projects = user.projects.split(",");
-        // console.log("start");
-        // console.log("user", user.name);
-        // console.log("projects", projects);
-        // console.log("item.name", item.name);
-        // console.log("end");
         if (projects.includes(item.name)) {
           return user;
         }

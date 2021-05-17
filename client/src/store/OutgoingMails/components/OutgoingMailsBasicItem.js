@@ -11,7 +11,7 @@ import DateTimeFormat from "../../../common/DateTimeFormat";
 import TextFieldGroup from "../../../common/Forms/components/TextFieldGroup";
 import TextareaFieldGroup from "../../../common/Forms/components/TextareaFieldGroup";
 import Aux from "../../../hoc/Auxiliary";
-import { Button, WarningButton } from "../../../themes/basic";
+import { Button, WarningButton, CheckboxStyle } from "../../../themes/basic";
 
 class OutgoingMailsBasicItem extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class OutgoingMailsBasicItem extends Component {
 
   render() {
     const { item, editItem, moreItem } = this.state;
-    const { removeItem } = this.props;
+    const { removeItem, getPdfItemHandler } = this.props;
 
     const itemContent = editItem ? (
       <Aux>
@@ -209,7 +209,18 @@ class OutgoingMailsBasicItem extends Component {
     ) : (
       <Aux>
         {/* <td className="ordinalNumber">{ordinalNumber}</td> */}
-        <td className="number">{item.number}</td>
+        <td className="number">
+          <CheckboxStyle>
+              <input 
+                type="checkbox" 
+                name="pdf" 
+                value={item.pdf} 
+                onChange={(event) => getPdfItemHandler(event.target.checked, item)}
+                defaultChecked={false}
+              />
+            </CheckboxStyle>
+            {item.number}
+        </td>
         <td className="date">
           <DateTimeFormat date={item.date} short={true} />
         </td>

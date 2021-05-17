@@ -19,7 +19,6 @@ module.exports = {
     //     ]
     //   };
     // }
-    // console.log("add calendar");
     const calendar = new Calendar({
       eventId: calendarInput.eventId,
       userId: calendarInput.userId,
@@ -41,7 +40,6 @@ module.exports = {
   updateCalendar: async function ({ calendarInput }, req) {
     const _id = calendarInput._id;
     const calendar = await Calendar.findOne({ _id });
-    // console.log("calendar input", calendarInput);
 
     const data = {
       _id: calendarInput._id,
