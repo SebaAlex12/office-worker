@@ -15,7 +15,6 @@ const ProjectSchema = new Schema({
   },
   status: {
     type: String,
-    required: [true, "Status jest wymagany"]
   },
   signature: {
     type: String,

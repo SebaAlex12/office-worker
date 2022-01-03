@@ -12,6 +12,7 @@ import TextFieldGroup from "../../../../common/Forms/components/TextFieldGroup";
 class ProjectsDetailsInfo extends Component {
   constructor(props) {
     super(props);
+    console.log('props',props);
     this.state = {
       name: this.props.item.name,
       signatures: this.props.item.signature ? this.props.item.signature : [],
@@ -76,7 +77,7 @@ class ProjectsDetailsInfo extends Component {
   addItemSignature = async () => {
     const { signatures, signatureValue } = this.state;
     const { updateProject, item } = this.props;
-
+console.log('state add item',this.state);
     let data = [...signatures];
 
     if (signatureValue.length > 0) {

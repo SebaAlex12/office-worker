@@ -5,7 +5,7 @@ const { empty } = require("./backup");
 
 const backupDirPath = path.join(
   __dirname,
-  "database-backup\\2021-2-20\\kancelaria-prawna"
+  "database-backup\\2021-12-28\\kancelaria-prawna"
 );
 const mongoDbAbsolutePath = "D:\\mongodb\\bin\\mongorestore.exe";
 

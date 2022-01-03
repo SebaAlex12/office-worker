@@ -34,7 +34,9 @@ class ProjectsDetailsContainer extends Component {
     });
     return projectUsers;
   };
+  
   render() {
+    console.log('state',this.state);
     const { toggleStageAddForm, projectUsers } = this.state;
     const { item } = this.props;
 

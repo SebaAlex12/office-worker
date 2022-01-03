@@ -94,13 +94,16 @@ module.exports = {
       termAt: projectInput.termAt !== "" ? projectInput.termAt : project.termAt,
     };
     try {
+      // console.log('data node',data);
       project.overwrite(data);
+      // console.log('data node project',project);
       const storedProject = await project.save();
       return {
         ...storedProject._doc,
         _id: storedProject._id.toString(),
       };
-    } catch (e) {
+    } catch (e) { 
+      // console.log('error',e);
       return { errors: tools.formatErrors(e) };
     }
   },
